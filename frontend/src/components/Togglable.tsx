@@ -1,9 +1,10 @@
 import { useState } from "react"
+
 interface TogglableProps {
-  children: React.ReactNode
+  children: React.ReactNode,
 }
 
-const Togglable: React.FC<TogglableProps> = ({ children }) => {
+const Togglable = (props: TogglableProps) => {
   const [showPanel, setShowPanel] = useState<boolean>(false)
 
   const handleShowPanel = () => {
@@ -17,7 +18,7 @@ const Togglable: React.FC<TogglableProps> = ({ children }) => {
         <button onClick={handleShowPanel}>click</button>
       </div>
       <div style={{ display: showPanel ? '' : 'none' }}>
-        {children}
+        {props.children}
         <button onClick={handleShowPanel}>cancel</button>
       </div>
     </div>
