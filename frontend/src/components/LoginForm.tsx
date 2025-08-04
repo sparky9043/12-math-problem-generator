@@ -5,7 +5,7 @@ interface LoginFormProps {
   login: (credentials: User) => void,
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ login }) => {
+const LoginForm = (props: LoginFormProps) => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
@@ -13,7 +13,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ login }) => {
     event.preventDefault()
     
     try {
-      login({ username, password })
+      props.login({ username, password })
     } catch (exception) {
       console.log(exception)
     }
