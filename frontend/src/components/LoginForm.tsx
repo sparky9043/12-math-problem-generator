@@ -40,6 +40,7 @@ const LoginForm = (props: LoginFormProps) => {
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (!username || !password) return;
     
     try {
       props.login({ username, password })
