@@ -1,6 +1,15 @@
+import styled from "styled-components"
+
+const StickyFooter = styled.footer`
+  padding: 1rem;
+  background-color: #a7e8ca;
+`
+
 const Footer = () => {
   return (
-    <footer></footer>
+    <StickyFooter>
+      &copy; 2025 sparky dev
+    </StickyFooter>
   )
 }
 
