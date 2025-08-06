@@ -10,6 +10,7 @@ interface CurrentUser {
 
 interface NavBarProps {
   user: CurrentUser | null,
+  logout: () => void,
 }
 
 const Navigation = styled.nav`
@@ -63,7 +64,7 @@ const NavBar = (props: NavBarProps) => {
           : <div>
             <div>
               current user: {props.user.name}
-              <StyledButton>Logout</StyledButton>
+              <StyledButton onClick={props.logout}>Logout</StyledButton>
             </div>
           </div>
         }
