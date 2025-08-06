@@ -16,7 +16,7 @@ interface NotificationObject {
 
 export interface CurrentUser {
   username: string,
-  password: string,
+  id: string,
   token: string,
   name: string,
 }
