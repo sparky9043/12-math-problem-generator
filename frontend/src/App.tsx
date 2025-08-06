@@ -84,7 +84,7 @@ const App = () => {
         </Route>
         <Route
           path="/login"
-          element={<LoginForm login={onLogin} />}
+          element={user ? <Navigate to="/" /> : <LoginForm login={onLogin} />}
         />
       </Routes>
     </div>
