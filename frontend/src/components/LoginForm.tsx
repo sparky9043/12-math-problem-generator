@@ -59,6 +59,7 @@ const LoginForm = (props: LoginFormProps) => {
             type="text"
             value={username}
             onChange={e => setUsername(e.target.value)}
+            required
           />
         </label>
       </div>
@@ -69,6 +70,7 @@ const LoginForm = (props: LoginFormProps) => {
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            required
           />
         </label>
       </div>
