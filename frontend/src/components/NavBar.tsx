@@ -2,14 +2,16 @@ import { NavLink } from "react-router-dom"
 import styled from "styled-components"
 
 const Navigation = styled.nav`
-  border: 2px solid green;
   display: flex;
+  padding: 1rem 2rem;
+  background-color: #b3f4dc;
   align-items: center;
   justify-content: space-between;
 `
 
 const UnorderedList = styled.ul`
   display: flex;
+  gap: 2rem;
 `
 
 const NavBar = () => {
