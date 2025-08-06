@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
-import Homepage from "./components/Homepage"
+import Homepage from "./components/ProblemsList"
 import LoginForm from "./components/LoginForm"
 import loginService, { type User } from './services/login'
 
