@@ -40,9 +40,13 @@ const NavBar = (props: NavBarProps) => {
       <h2>Logo</h2>
       <UnorderedList>
         <li>
-          <NavLink to='/'>  
+          {props.user === null
+          ? <NavLink to="/">
             Home
           </NavLink>
+          : <NavLink to='/dashboard'>  
+            Dashboard
+          </NavLink>}
         </li>
         {/* <li>
           <NavLink to='/login'>  
