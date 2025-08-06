@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom"
+import { NavLink, Outlet } from "react-router-dom"
 import styled from "styled-components"
 import Footer from "./Footer"
 
@@ -10,10 +10,19 @@ const Sticky = styled.div`
 
 const DashBoardDiv = styled.div`
   display: flex;
+  height: 100%;
 `
 
-const Menu = styled.div`
+const Menu = styled.ul`
   width: 20%;
+  display: flex;
+  flex-direction: column;
+  background-color: #d4e9ff;
+  height: 100%;
+`
+
+const MenuItem = styled.li`
+  padding: 1rem;
 `
 
 const DashBoard = () => {
@@ -22,7 +31,14 @@ const DashBoard = () => {
       <Sticky id="hello">
         <DashBoardDiv>
           <Menu>
-            <p>Menu</p>
+            <MenuItem>
+              <NavLink to='problems'>
+                Problems
+              </NavLink>
+            </MenuItem>
+            <MenuItem>
+              Create Problems
+            </MenuItem>
           </Menu>
           <Outlet />
         </DashBoardDiv>
