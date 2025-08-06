@@ -21,6 +21,12 @@ export interface CurrentUser {
   name: string,
 }
 
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`
+
 const Notification = styled.div`
   padding: 2rem;
 `
@@ -65,7 +71,7 @@ const App = () => {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', border: '2px solid cyan' }}>
+    <StyledDiv>
       <NavBar user={user} logout={onLogout} />
       {notification ? <Notification className={notification.type}>{notification.message}</Notification> : null}
       <Routes>
@@ -87,7 +93,7 @@ const App = () => {
           element={user ? <Navigate to="/" /> : <LoginForm login={onLogin} />}
         />
       </Routes>
-    </div>
+    </StyledDiv>
   )
 }
 
