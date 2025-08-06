@@ -12,10 +12,10 @@ interface HomepageProps {
   user: CurrentUser
 }
 
-const Homepage: React.FC<HomepageProps> = ({ user }) => {
+const ProblemsList = (props: HomepageProps) => {
   return (
     <div>
-      {user.name} logged in successfully!
+      {props.user.name} logged in successfully!
       <Togglable>
         <ProblemForm />
       </Togglable>
@@ -23,4 +23,4 @@ const Homepage: React.FC<HomepageProps> = ({ user }) => {
   )
 }
 
-export default Homepage
+export default ProblemsList
