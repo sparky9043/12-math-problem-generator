@@ -1,12 +1,6 @@
 import { NavLink } from "react-router-dom"
 import styled from "styled-components"
-
-interface CurrentUser {
-  username: string,
-  password: string,
-  token: string,
-  name: string,
-}
+import type { CurrentUser } from "../App"
 
 interface NavBarProps {
   user: CurrentUser | null,

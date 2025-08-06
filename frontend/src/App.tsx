@@ -13,12 +13,19 @@ interface NotificationObject {
   message: string,
 }
 
+export interface CurrentUser {
+  username: string,
+  password: string,
+  token: string,
+  name: string,
+}
+
 const Notification = styled.div`
   padding: 2rem;
 `
 
 const App = () => {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState<CurrentUser | null>(null)
   const [notification, setNotification] = useState<NotificationObject | null>(null)
   const navigate = useNavigate()
 
@@ -38,6 +45,12 @@ const App = () => {
   const onLogin = async (credential: User) => {
     const newUser = await loginService.login(credential)
     setUser(newUser)
+    if (user) {
+      setNotification({ type: 'success', message: `Welcome ${user.name}` })
+      setTimeout(() => {
+          setNotification(null)
+      }, 5000)
+    }
     localStorage.setItem('mathAppCurrentUserJSON', JSON.stringify(newUser))
     navigate('/')
   }
