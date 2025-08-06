@@ -48,6 +48,10 @@ const ProblemsList = (props: HomepageProps) => {
     }
   })
 
+  const convertToCharacter = (index: number) => {
+    return String.fromCharCode(65 + index)
+  }
+
   return (
     <Scrollable>
       <ul>
@@ -57,9 +61,9 @@ const ProblemsList = (props: HomepageProps) => {
             {problem.question}
           </h3>
           <ul>
-            {problem.choices.map(choice => <li key={choice}>
+            {problem.choices.map((choice, index) => <li key={choice}>
               <span>                
-                {choice}
+                {convertToCharacter(index)}. {choice}
               </span>
             </li>)}
           </ul>
