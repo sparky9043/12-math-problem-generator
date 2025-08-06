@@ -45,12 +45,10 @@ const App = () => {
   const onLogin = async (credential: User) => {
     const newUser = await loginService.login(credential)
     setUser(newUser)
-    if (user) {
-      setNotification({ type: 'success', message: `Welcome ${user.name}` })
-      setTimeout(() => {
-          setNotification(null)
-      }, 5000)
-    }
+    setNotification({ type: 'success', message: 'logged in successfully!' })
+    setTimeout(() => {
+        setNotification(null)
+    }, 5000)
     localStorage.setItem('mathAppCurrentUserJSON', JSON.stringify(newUser))
     navigate('/')
   }
@@ -58,13 +56,17 @@ const App = () => {
   const onLogout = () => {
     setUser(null)
     localStorage.removeItem('mathAppCurrentUserJSON')
+    setNotification({ type: 'success', message: 'logged out successfully' })
+    setTimeout(() => {
+        setNotification(null)
+    }, 5000)
     navigate('/')
   }
 
   return (
     <div>
       <NavBar user={user} logout={onLogout} />
-      {notification ? <Notification>{notification.message}</Notification> : null}
+      {notification ? <Notification className={notification.type}>{notification.message}</Notification> : null}
       <Routes>
         <Route
           path="/"
