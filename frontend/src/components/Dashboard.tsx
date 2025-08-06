@@ -4,11 +4,11 @@ import styled from "styled-components"
 const Sticky = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100vh;
 `
 
 const DashBoardDiv = styled.div`
   display: flex;
-  min-height: auto;
   border: 2px solid green;
 `
 
@@ -18,15 +18,17 @@ const Menu = styled.div`
 
 const DashBoard = () => {
   return (
-    <Sticky id="hello">
-      <DashBoardDiv>
-        <Menu>
-          <p>Menu</p>
-        </Menu>
-        <Outlet />
-      </DashBoardDiv>
+    <>
+      <Sticky id="hello">
+        <DashBoardDiv>
+          <Menu>
+            <p>Menu</p>
+          </Menu>
+          <Outlet />
+        </DashBoardDiv>
+      </Sticky>
       <p style={{ border: '2px solid blue' }}>Footer</p>
-    </Sticky>
+    </>
   )
 }
 
