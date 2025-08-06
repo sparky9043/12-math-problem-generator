@@ -37,7 +37,9 @@ const DashBoard = () => {
               </NavLink>
             </MenuItem>
             <MenuItem>
-              Create Problems
+              <NavLink to='create'>
+                Create Problems
+              </NavLink>
             </MenuItem>
           </Menu>
           <Outlet />

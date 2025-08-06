@@ -87,6 +87,10 @@ const App = () => {
             path="/dashboard/problems"
             element={<ProblemsList user={user} />}
           />
+          <Route
+            path="/dashboard/create"
+            element={<p>Problem Form</p>}
+          />
         </Route>
         <Route
           path="/login"
