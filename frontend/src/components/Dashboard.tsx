@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom"
 import styled from "styled-components"
+import Footer from "./Footer"
 
 const Sticky = styled.div`
   display: flex;
@@ -9,7 +10,6 @@ const Sticky = styled.div`
 
 const DashBoardDiv = styled.div`
   display: flex;
-  border: 2px solid green;
 `
 
 const Menu = styled.div`
@@ -27,7 +27,7 @@ const DashBoard = () => {
           <Outlet />
         </DashBoardDiv>
       </Sticky>
-      <p style={{ border: '2px solid blue' }}>Footer</p>
+      <Footer />
     </>
   )
 }
