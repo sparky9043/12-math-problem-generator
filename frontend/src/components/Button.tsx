@@ -1,6 +1,7 @@
 interface ButtonProps {
   children: string,
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void,
+  onClick: ((event: React.MouseEvent<HTMLButtonElement>) => void)
+    | (() => void),
 }
 
 const Button = (props: ButtonProps) => {
