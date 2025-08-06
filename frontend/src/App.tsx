@@ -2,13 +2,24 @@ import { useEffect, useState } from "react"
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
 import LoginForm from "./components/LoginForm"
 // import ProblemsList from "./components/ProblemsList"
+import styled from "styled-components"
 import DashBoard from "./components/Dashboard"
 import HomePage from "./components/HomePage"
 import NavBar from "./components/NavBar"
 import loginService, { type User } from './services/login'
 
+interface NotificationObject {
+  type: string,
+  message: string,
+}
+
+const Notification = styled.div`
+  padding: 2rem;
+`
+
 const App = () => {
   const [user, setUser] = useState(null)
+  const [notification, setNotification] = useState<NotificationObject | null>(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -16,8 +27,12 @@ const App = () => {
     if (currentUserJSON) {
       const currentUser = JSON.parse(currentUserJSON)
       setUser(currentUser)
+      setNotification({ type: 'success', message: 'saved user found!' })
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000)
     }
-    
+
   }, [])
 
   const onLogin = async (credential: User) => {
@@ -27,9 +42,16 @@ const App = () => {
     navigate('/')
   }
 
+  const onLogout = () => {
+    setUser(null)
+    localStorage.removeItem('mathAppCurrentUserJSON')
+    navigate('/')
+  }
+
   return (
     <div>
-      <NavBar user={user} />
+      <NavBar user={user} logout={onLogout} />
+      {notification ? <Notification>{notification.message}</Notification> : null}
       <Routes>
         <Route
           path="/"
