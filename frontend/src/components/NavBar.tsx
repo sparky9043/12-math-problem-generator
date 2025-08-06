@@ -1,5 +1,10 @@
 import { NavLink } from "react-router-dom"
 import styled from "styled-components"
+import type { User } from "../services/login"
+
+interface NavBarProps {
+  user: User | null,
+}
 
 const Navigation = styled.nav`
   display: flex;
@@ -14,7 +19,7 @@ const UnorderedList = styled.ul`
   gap: 2rem;
 `
 
-const NavBar = () => {
+const NavBar = (props: NavBarProps) => {
 
   return (
     <Navigation>
@@ -30,11 +35,16 @@ const NavBar = () => {
             About
           </NavLink>
         </li> */}
-        <li>
-          <NavLink to='/login'>  
-            Login
-          </NavLink>
-        </li>
+        {props.user === null
+          ? <li>
+              <NavLink to='/login'>  
+                Login
+              </NavLink>
+            </li>
+          : <div>
+            <p>Logged in as {props.user.username}</p>
+          </div>
+        }
       </UnorderedList>
     </Navigation>
   )

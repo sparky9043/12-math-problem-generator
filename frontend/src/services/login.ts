@@ -2,7 +2,9 @@ import axios from 'axios'
 
 export interface User {
   username: string,
+  name: string,
   password: string,
+  token: string,
 }
 
 const baseUrl = '/api/login'
