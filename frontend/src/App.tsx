@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
 import LoginForm from "./components/LoginForm"
 // import ProblemsList from "./components/ProblemsList"
@@ -10,10 +10,20 @@ import loginService, { type User } from './services/login'
 const App = () => {
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
-  
+
+  useEffect(() => {
+    const currentUserJSON = localStorage.getItem('mathAppCurrentUserJSON')
+    if (currentUserJSON) {
+      const currentUser = JSON.parse(currentUserJSON)
+      setUser(currentUser)
+    }
+
+  }, [])
+
   const onLogin = async (credential: User) => {
     const newUser = await loginService.login(credential)
     setUser(newUser)
+    localStorage.setItem('mathAppCurrentUserJSON', JSON.stringify(newUser))
     navigate('/')
   }
 
