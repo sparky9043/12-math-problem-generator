@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Route, Routes, useNavigate } from "react-router-dom"
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
 import LoginForm from "./components/LoginForm"
 // import ProblemsList from "./components/ProblemsList"
 import DashBoard from "./components/Dashboard"
@@ -21,7 +21,11 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={user ? <DashBoard /> : <HomePage />}
+            element={user ? <Navigate replace to="/dashboard" /> : <HomePage />}
+          />
+          <Route
+            path="/dashboard"
+            element={<DashBoard />}
           />
           <Route
             path="/login"
