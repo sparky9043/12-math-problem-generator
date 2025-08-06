@@ -6,6 +6,7 @@ import styled from "styled-components"
 import DashBoard from "./components/Dashboard"
 import HomePage from "./components/HomePage"
 import NavBar from "./components/NavBar"
+import ProblemsList from "./components/ProblemsList"
 import loginService, { type User } from './services/login'
 
 interface NotificationObject {
@@ -75,7 +76,12 @@ const App = () => {
         <Route
           path="/dashboard"
           element={<DashBoard />}
-        />
+        >
+          <Route
+            path="/dashboard/problems"
+            element={<ProblemsList />}
+          />
+        </Route>
         <Route
           path="/login"
           element={<LoginForm login={onLogin} />}

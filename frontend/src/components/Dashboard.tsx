@@ -1,6 +1,10 @@
+import { Outlet } from "react-router-dom"
+
 const DashBoard = () => {
   return (
-    <div>hello</div>
+    <div>
+      <Outlet />
+    </div>
   )
 }
 

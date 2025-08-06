@@ -13,9 +13,10 @@ interface HomepageProps {
 }
 
 const ProblemsList = (props: HomepageProps) => {
+  console.log(props)
   return (
     <div>
-      {props.user.name} logged in successfully!
+      {/* {props.user.name} logged in successfully! */}
       <Togglable>
         <ProblemForm />
       </Togglable>
