@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from "react-router-dom"
 import LoginForm from "./components/LoginForm"
 // import ProblemsList from "./components/ProblemsList"
 import DashBoard from "./components/Dashboard"
-import HomePage from "./components/Homepage"
+import HomePage from "./components/HomePage"
 import loginService, { type User } from './services/login'
 
 const App = () => {

@@ -1,10 +1,23 @@
 import { NavLink } from "react-router-dom"
+import styled from "styled-components"
+
+const Navigation = styled.nav`
+  border: 2px solid green;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const UnorderedList = styled.ul`
+  display: flex;
+`
 
 const NavBar = () => {
 
   return (
-    <nav>
-      <ul>
+    <Navigation>
+      <h2>Logo</h2>
+      <UnorderedList>
         <li>
           <NavLink to='/'>  
             Home
@@ -20,8 +33,8 @@ const NavBar = () => {
             Login
           </NavLink>
         </li>
-      </ul>
-    </nav>
+      </UnorderedList>
+    </Navigation>
   )
 }
 
