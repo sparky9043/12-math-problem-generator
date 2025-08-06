@@ -1,19 +1,13 @@
+import type { CurrentUser } from "../App"
 import ProblemForm from "./ProblemForm"
 import Togglable from "./Togglable"
 
-interface CurrentUser {
-  username: string,
-  name: string,
-  id: string,
-  token: string,
-}
-
 interface HomepageProps {
-  user: CurrentUser
+  user: CurrentUser | null
 }
 
 const ProblemsList = (props: HomepageProps) => {
-  console.log(props)
+  console.log(props.user)
   return (
     <div>
       {/* {props.user.name} logged in successfully! */}
