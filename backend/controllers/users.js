@@ -3,30 +3,42 @@ const User = require('../models/user')
 // const Problem = require('../models/problem')
 const bcrypt = require('bcrypt')
 
-usersRouter.get('/', async (request, response) => {
-  const users = await User.find({})
-  return response.json(users)
+usersRouter.get('/', async (request, response, next) => {
+  try {
+    const users = await User.find({})
+    return response.json(users)
+  } catch (error) {
+    next(error)
+  }
 })
 
-usersRouter.get('/:id', async (request, response) => {
-  const user = await User.findById(request.params.id)
-  return response.json(user)
+usersRouter.get('/:id', async (request, response, next) => {
+  try {
+    const user = await User.findById(request.params.id)
+    return response.json(user)
+  } catch (error) {
+    next(error)
+  }
 })
 
-usersRouter.post('/', async (request, response) => {
-  const { username, name, password } = request.body
-
-  const passwordHash = await bcrypt.hash(password, 10)
-
-  const user = new User({
-    username,
-    name,
-    passwordHash,
-  })
-
-  const savedUser = await user.save()
-
-  return response.status(201).json(savedUser)
+usersRouter.post('/', async (request, response, next) => {
+  try {
+    const { username, name, password } = request.body
+    
+    const passwordHash = await bcrypt.hash(password, 10)
+    
+    const user = new User({
+      username,
+      name,
+      passwordHash,
+    })
+    
+    const savedUser = await user.save()
+    
+    return response.status(201).json(savedUser)
+  } catch (error) {
+    next(error)
+  }
 })
 
 module.exports = usersRouter
