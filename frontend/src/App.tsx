@@ -65,7 +65,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div style={{ height: '100vh' }}>
       <NavBar user={user} logout={onLogout} />
       {notification ? <Notification className={notification.type}>{notification.message}</Notification> : null}
       <Routes>
