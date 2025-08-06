@@ -25,7 +25,7 @@ const Scrollable = styled.ul`
   scrollbar-width: thin;
   scrollbar-color: blue green;
   max-height: 100%;
-  padding: 0rem 2rem;
+  padding: 1rem 2rem;
 `
 
 const ProblemsList = (props: HomepageProps) => {
