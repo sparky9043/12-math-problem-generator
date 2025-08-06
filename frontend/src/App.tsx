@@ -1,7 +1,9 @@
 import { useState } from "react"
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
-import Homepage from "./components/ProblemsList"
+import { Route, Routes, useNavigate } from "react-router-dom"
 import LoginForm from "./components/LoginForm"
+// import ProblemsList from "./components/ProblemsList"
+import DashBoard from "./components/Dashboard"
+import HomePage from "./components/Homepage"
 import loginService, { type User } from './services/login'
 
 const App = () => {
@@ -19,7 +21,7 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={user ? <Homepage user={user} /> : <Navigate replace to="/login" />}
+            element={user ? <DashBoard /> : <HomePage />}
           />
           <Route
             path="/login"
