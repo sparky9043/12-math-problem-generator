@@ -1,6 +1,7 @@
 // require('express-async-errors')
 const express = require('express')
 const mongoose = require('mongoose')
+const morgan = require('morgan')
 const configs = require('./utils/configs')
 const logger = require('./utils/logger')
 const middleware = require('./utils/middleware')
@@ -20,7 +21,12 @@ mongoose
   })
 
 app.use(express.json())
-app.use(middleware.requestLogger)
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+} else {
+  app.use(middleware.requestLogger)
+}
 app.use(middleware.tokenExtractor)
 
 app.use('/api/login', loginRouter)
