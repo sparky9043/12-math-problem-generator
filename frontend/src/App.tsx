@@ -17,7 +17,7 @@ const App = () => {
       const currentUser = JSON.parse(currentUserJSON)
       setUser(currentUser)
     }
-
+    
   }, [])
 
   const onLogin = async (credential: User) => {

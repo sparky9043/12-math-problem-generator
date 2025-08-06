@@ -26,6 +26,18 @@ const UnorderedList = styled.ul`
   align-items: center;
 `
 
+const StyledButton = styled.button`
+  border: none;
+  background-color: lightgrey;
+  padding: .5rem 1rem;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: grey;
+    cursor: pointer;
+  }
+`
+
 const NavBar = (props: NavBarProps) => {
 
   return (
@@ -49,7 +61,10 @@ const NavBar = (props: NavBarProps) => {
               </NavLink>
             </li>
           : <div>
-            <p>Logged in as {props.user.name}</p>
+            <div>
+              current user: {props.user.name}
+              <StyledButton>Logout</StyledButton>
+            </div>
           </div>
         }
       </UnorderedList>
