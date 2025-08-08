@@ -22,7 +22,8 @@ interface Problem {
 const ProblemsList = (props: HomepageProps) => {
   const problemsListResult = useQuery({
     queryFn: problemService.getProblems,
-    queryKey: ['problems']
+    queryKey: ['problems'],
+    retry: 3,
   })
 
   if (problemsListResult.isLoading) {
