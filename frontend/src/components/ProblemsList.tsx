@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query"
-import styled from "styled-components"
 import type { CurrentUser } from "../App"
 import problemService from '../services/problems'
 
@@ -17,16 +16,6 @@ interface Problem {
   topic: string,
   user: string,
 }
-
-const Scrollable = styled.ul`
-  overflow: scroll;
-  max-width: 100%;
-  width: 100%;
-  scrollbar-width: thin;
-  scrollbar-color: blue green;
-  max-height: 100%;
-  padding: 1rem 2rem;
-`
 
 const ProblemsList = (props: HomepageProps) => {
   const problemsListResult = useQuery({
@@ -53,7 +42,7 @@ const ProblemsList = (props: HomepageProps) => {
   }
 
   return (
-    <Scrollable>
+    <div>
       <ul>
       {problemsByUser.length > 0
         && problemsByUser.map(problem => <li key={problem.id}>
@@ -73,7 +62,7 @@ const ProblemsList = (props: HomepageProps) => {
         </li>)
       }
       </ul>
-    </Scrollable>
+    </div>
   )
 }
 

@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom"
-import styled from "styled-components"
 import type { CurrentUser } from "../App"
 
 interface NavBarProps {
@@ -7,38 +6,12 @@ interface NavBarProps {
   logout: () => void,
 }
 
-const Navigation = styled.nav`
-  display: flex;
-  padding: 1rem 2rem;
-  background-color: #b3f4dc;
-  align-items: center;
-  justify-content: space-between;
-`
-
-const UnorderedList = styled.ul`
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-`
-
-const StyledButton = styled.button`
-  border: none;
-  background-color: lightgrey;
-  padding: .5rem 1rem;
-  border-radius: 5px;
-
-  &:hover {
-    background-color: grey;
-    cursor: pointer;
-  }
-`
-
 const NavBar = (props: NavBarProps) => {
 
   return (
-    <Navigation>
+    <nav>
       <h2>Logo</h2>
-      <UnorderedList>
+      <ul>
         <li>
           {props.user === null
           ? <NavLink to="/">
@@ -48,11 +21,6 @@ const NavBar = (props: NavBarProps) => {
             Dashboard
           </NavLink>}
         </li>
-        {/* <li>
-          <NavLink to='/login'>  
-            About
-          </NavLink>
-        </li> */}
         {props.user === null
           ? <li>
               <NavLink to='/login'>  
@@ -62,12 +30,12 @@ const NavBar = (props: NavBarProps) => {
           : <div>
             <div>
               current user: {props.user.name}
-              <StyledButton onClick={props.logout}>Logout</StyledButton>
+              <button onClick={props.logout}>Logout</button>
             </div>
           </div>
         }
-      </UnorderedList>
-    </Navigation>
+      </ul>
+    </nav>
   )
 }
 
