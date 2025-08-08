@@ -1,4 +1,4 @@
-import { useState } from "react"
+import useInput from "../hooks/useInput"
 import { type User } from "../services/login"
 
 interface LoginFormProps {
@@ -6,15 +6,16 @@ interface LoginFormProps {
 }
 
 const LoginForm = (props: LoginFormProps) => {
-  const [username, setUsername] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const username = useInput('text')
+  const password = useInput('password')
+  console.log(username, password)
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!username || !password) return;
+    if (!username.value || !password) return;
     
     try {
-      props.login({ username, password })
+      props.login({ username: username.value, password: password.value })
     } catch (exception) {
       console.log(exception)
     }
@@ -27,9 +28,7 @@ const LoginForm = (props: LoginFormProps) => {
         <label>
           username
           <input
-            type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
+            {...username}
             required
           />
         </label>
@@ -38,9 +37,7 @@ const LoginForm = (props: LoginFormProps) => {
         <label>
           password
           <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
+            {...password}
             required
           />
         </label>
