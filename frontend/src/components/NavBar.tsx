@@ -9,7 +9,7 @@ interface NavBarProps {
 const NavBar = (props: NavBarProps) => {
 
   return (
-    <nav className="flex justify-between p-8 bg-emerald-300">
+    <nav className="flex justify-between p-8 bg-emerald-300 h-1/8">
       <h2>Logo</h2>
       <ul className="flex gap-4">
         <li>

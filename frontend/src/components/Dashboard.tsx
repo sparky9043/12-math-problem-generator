@@ -1,28 +1,24 @@
 import { NavLink, Outlet } from "react-router-dom"
-import Footer from "./Footer"
 
 const DashBoard = () => {
   return (
-    <>
+    <div className="h-7/8" id='hello'>
       <div>
-        <div>
-          <ul>
-            <li>
-              <NavLink to='problems'>
-                Problems
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to='create'>
-                Create Problems
-              </NavLink>
-            </li>
-          </ul>
-          <Outlet />
-        </div>
+        <ul>
+          <li>
+            <NavLink to='problems'>
+              Problems
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to='create'>
+              Create Problems
+            </NavLink>
+          </li>
+        </ul>
+        <Outlet />
       </div>
-      <Footer />
-    </>
+    </div>
   )
 }
 

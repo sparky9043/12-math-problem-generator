@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
 import LoginForm from "./components/LoginForm"
 // import ProblemsList from "./components/ProblemsList"
 import DashBoard from "./components/Dashboard"
+import Footer from "./components/Footer"
 import HomePage from "./components/HomePage"
 import NavBar from "./components/NavBar"
 import ProblemsList from "./components/ProblemsList"
@@ -73,7 +74,7 @@ const App = () => {
   }
   
   return (
-    <div className="text-emerald-950">
+    <div className="text-emerald-950 h-dvh">
       <NavBar user={user} logout={onLogout} />
       {notification && notification.type
         ? <div
@@ -106,6 +107,7 @@ const App = () => {
           element={user ? <Navigate to="/" /> : <LoginForm login={onLogin} />}
         />
       </Routes>
+      <Footer />
     </div>
   )
 }
