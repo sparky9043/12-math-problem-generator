@@ -8,11 +8,10 @@ interface LoginFormProps {
 const LoginForm = (props: LoginFormProps) => {
   const username = useInput('text')
   const password = useInput('password')
-  console.log(username, password)
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!username.value || !password) return;
+    if (!username.value || !password.value) return;
     
     try {
       props.login({ username: username.value, password: password.value })
