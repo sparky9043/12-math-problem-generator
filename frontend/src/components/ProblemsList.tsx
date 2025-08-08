@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
+import { useNavigate } from "react-router-dom"
 import type { CurrentUser } from "../App"
 import problemService from '../services/problems'
 import Error from "./Error"
@@ -20,6 +21,7 @@ interface Problem {
 }
 
 const ProblemsList = (props: HomepageProps) => {
+  const navigate = useNavigate()
   const problemsListResult = useQuery({
     queryFn: problemService.getProblems,
     queryKey: ['problems'],
@@ -52,6 +54,17 @@ const ProblemsList = (props: HomepageProps) => {
 
   const convertToCharacter = (index: number) => {
     return String.fromCharCode(65 + index)
+  }
+
+  if (problemsByUser.length === 0) {
+    return (
+      <div>
+        <p>You have not created any problems yet!</p>
+        <button
+          onClick={() => navigate('/dashboard/create')}
+        >create problems</button>
+      </div>
+    )
   }
 
   return (
