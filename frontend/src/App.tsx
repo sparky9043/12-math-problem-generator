@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
 import LoginForm from "./components/LoginForm"
 // import ProblemsList from "./components/ProblemsList"
-import styled from "styled-components"
 import DashBoard from "./components/Dashboard"
 import HomePage from "./components/HomePage"
 import NavBar from "./components/NavBar"
@@ -20,16 +19,6 @@ export interface CurrentUser {
   token: string,
   name: string,
 }
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`
-
-const Notification = styled.div`
-  padding: 2rem;
-`
 
 const App = () => {
   const [user, setUser] = useState<CurrentUser | null>(null)
@@ -71,9 +60,9 @@ const App = () => {
   }
 
   return (
-    <StyledDiv>
+    <div>
       <NavBar user={user} logout={onLogout} />
-      {notification ? <Notification className={notification.type}>{notification.message}</Notification> : null}
+      {notification ? <div className={notification.type}>{notification.message}</div> : null}
       <Routes>
         <Route
           path="/"
@@ -97,7 +86,7 @@ const App = () => {
           element={user ? <Navigate to="/" /> : <LoginForm login={onLogin} />}
         />
       </Routes>
-    </StyledDiv>
+    </div>
   )
 }
 
