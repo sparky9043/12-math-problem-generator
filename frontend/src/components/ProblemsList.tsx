@@ -37,7 +37,7 @@ const ProblemsList = (props: HomepageProps) => {
 
     return (
       <div className="w-dvh">
-        <Error message={errorMessage} />
+        <Error message={errorMessage} onRetry={() => problemsListResult.refetch()} />
       </div>
     )
   }
