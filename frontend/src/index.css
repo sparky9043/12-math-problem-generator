@@ -31,7 +31,3 @@ select,
 textarea {
   appearance: none;
 }
-
-.success {
-  background: rgb(228, 243, 228);
-}

@@ -15,8 +15,10 @@ const LoginForm = (props: LoginFormProps) => {
     
     try {
       props.login({ username: username.value, password: password.value })
-    } catch (exception) {
-      console.log(exception)
+    } catch (exception: unknown) {
+      if (exception instanceof Error) {
+        console.log(exception.message)
+      }
     }
   }
 

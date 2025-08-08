@@ -35,14 +35,22 @@ const App = () => {
   }, [setNotification])
 
   const onLogin = async (credential: User) => {
-    const newUser = await loginService.login(credential)
-    setUser(newUser)
-    setNotification({ type: 'success', message: 'logged in successfully!' })
-    setTimeout(() => {
+
+    try {
+      const newUser = await loginService.login(credential)
+      setUser(newUser)
+      setNotification({ type: 'success', message: 'logged in successfully!' })
+      setTimeout(() => {
+          setNotification(null)
+      }, 5000)
+      localStorage.setItem('mathAppCurrentUserJSON', JSON.stringify(newUser))
+      navigate('/')
+    } catch (exception) {
+      setNotification({ type: 'error', message: 'invalid username or password' })
+      setTimeout(() => {
         setNotification(null)
-    }, 5000)
-    localStorage.setItem('mathAppCurrentUserJSON', JSON.stringify(newUser))
-    navigate('/')
+      }, 5000)
+    }
   }
 
   const onLogout = () => {
