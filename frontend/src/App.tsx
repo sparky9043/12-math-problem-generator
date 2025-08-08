@@ -37,7 +37,7 @@ const App = () => {
       }, 5000)
     }
 
-  }, [])
+  }, [setNotification])
 
   const onLogin = async (credential: User) => {
     const newUser = await loginService.login(credential)
