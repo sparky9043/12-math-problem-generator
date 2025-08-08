@@ -45,7 +45,10 @@ const LoginForm = (props: LoginFormProps) => {
           />
         </label>
       </div>
-      <button type="submit">login</button>
+      <button
+        className="px-2 py-1 rounded bg-emerald-700 text-emerald-100"
+        type="submit"
+      >login</button>
     </form>
   )
 }
