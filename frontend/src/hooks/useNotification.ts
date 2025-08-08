@@ -1,14 +1,21 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
 
-interface useNotificationProps {
+interface NotificationProps {
   type: string,
   message: string,
 }
 
-const useNotification = (input: useNotificationProps | null) => {
-  const [notification, setNotification] = useState(input)
+const useNotification = () => {
+  const [notification, setNotification] = useState<NotificationProps | null>(null)
 
-  return { notification, setNotification }
+  const handleNotification = useCallback((input: NotificationProps | null, timeInSeconds: number) => {
+    setNotification(input)
+    setTimeout(() => {
+      setNotification(null)
+    }, timeInSeconds * 1000)
+  }, [])
+
+  return { notification, handleNotification }
 }
 
 export default useNotification

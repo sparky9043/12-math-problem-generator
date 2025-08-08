@@ -18,7 +18,7 @@ export interface CurrentUser {
 
 const App = () => {
   const [user, setUser] = useState<CurrentUser | null>(null)
-  const { notification, setNotification } = useNotification(null)
+  const { notification, handleNotification } = useNotification()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -26,40 +26,28 @@ const App = () => {
     if (currentUserJSON) {
       const currentUser = JSON.parse(currentUserJSON)
       setUser(currentUser)
-      setNotification({ type: 'success', message: 'saved user found!' })
-      setTimeout(() => {
-        setNotification(null)
-      }, 5000)
+      handleNotification({ type: 'success', message: 'saved user found!' }, 5)
     }
-
-  }, [setNotification])
+  }, [handleNotification])
 
   const onLogin = async (credential: User) => {
 
     try {
       const newUser = await loginService.login(credential)
       setUser(newUser)
-      setNotification({ type: 'success', message: 'logged in successfully!' })
-      setTimeout(() => {
-          setNotification(null)
-      }, 5000)
+      handleNotification({ type: 'success', message: 'logged in successfully!' }, 5)
       localStorage.setItem('mathAppCurrentUserJSON', JSON.stringify(newUser))
       navigate('/')
     } catch (exception) {
-      setNotification({ type: 'error', message: 'invalid username or password' })
-      setTimeout(() => {
-        setNotification(null)
-      }, 5000)
+      handleNotification({ type: 'error', message: 'invalid username or password' }, 5)
     }
   }
 
   const onLogout = () => {
     setUser(null)
     localStorage.removeItem('mathAppCurrentUserJSON')
-    setNotification({ type: 'success', message: 'logged out successfully' })
-    setTimeout(() => {
-        setNotification(null)
-    }, 5000)
+    handleNotification({ type: 'success', message: 'logged out successfully' }, 5)
+
     navigate('/')
   }
 
