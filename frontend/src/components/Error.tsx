@@ -1,8 +1,12 @@
 interface ErrorProps {
-  message: string,
+  message: string | undefined,
 }
 
 const Error = (props: ErrorProps) => {
+  if (!props.message) {
+    return null
+  }
+
   return (
     <div>
       There was an Error: {props.message}

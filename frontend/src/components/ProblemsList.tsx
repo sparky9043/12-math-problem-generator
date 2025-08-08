@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import type { CurrentUser } from "../App"
 import problemService from '../services/problems'
+import Error from "./Error"
 import LoadingSpinner from "./LoadingSpinner"
 
 interface HomepageProps {
@@ -28,6 +29,14 @@ const ProblemsList = (props: HomepageProps) => {
     return (
       <div className="w-dvh">
         <LoadingSpinner />
+      </div>
+    )
+  } else if (problemsListResult.isError)  {
+    const errorMessage = problemsListResult.failureReason?.message
+
+    return (
+      <div className="w-dvh">
+        <Error message={errorMessage} />
       </div>
     )
   }
