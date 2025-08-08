@@ -20,6 +20,8 @@ const LoginForm = (props: LoginFormProps) => {
     }
   }
 
+  const inputStyles = "border-2 rounded border-emerald-100 hover:border-emerald-500 px-0.5 py-1 focus:outline-emerald-800"
+
   return (
     <form onSubmit={handleLogin}>
       <h2>log in</h2>
@@ -27,6 +29,7 @@ const LoginForm = (props: LoginFormProps) => {
         <label>
           username
           <input
+            className={inputStyles}
             {...username}
             required
           />
@@ -36,6 +39,7 @@ const LoginForm = (props: LoginFormProps) => {
         <label>
           password
           <input
+            className={inputStyles}
             {...password}
             required
           />
