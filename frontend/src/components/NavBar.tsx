@@ -14,14 +14,14 @@ const NavBar = (props: NavBarProps) => {
       <ul className="flex gap-4 items-center">
         <li>
           
-          {props.user && <div>user: {props.user.name}</div>}
+          {props.user && <div className="font-semibold">logged in as: {props.user.name}</div>}
         </li>
         <li>
           {props.user === null
           ? <NavLink to="/" className="hover:text-emerald-900">
             Home
           </NavLink>
-          : <NavLink to='/dashboard'>  
+          : <NavLink to='/dashboard' className="hover:bg-emerald-200 active:bg-emerald-100 px-3 py-2 rounded cursor-pointer">  
             Dashboard
           </NavLink>}
         </li>
@@ -34,7 +34,7 @@ const NavBar = (props: NavBarProps) => {
           : <div>
             <div>
               <button
-                className="bg-emerald-600 px-1 py-2 rounded cursor-pointer"
+                className="hover:bg-emerald-200 active:bg-emerald-100 px-3 py-2 rounded cursor-pointer"
                 onClick={props.logout}
               >Logout</button>
             </div>
