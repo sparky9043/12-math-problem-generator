@@ -9,11 +9,6 @@ import ProblemsList from "./components/ProblemsList"
 import useNotification from "./hooks/useNotification"
 import loginService, { type User } from './services/login'
 
-interface NotificationObject {
-  type: string,
-  message: string,
-}
-
 export interface CurrentUser {
   username: string,
   id: string,
