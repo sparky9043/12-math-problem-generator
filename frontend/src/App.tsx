@@ -6,6 +6,7 @@ import DashBoard from "./components/Dashboard"
 import HomePage from "./components/HomePage"
 import NavBar from "./components/NavBar"
 import ProblemsList from "./components/ProblemsList"
+import useNotification from "./hooks/useNotification"
 import loginService, { type User } from './services/login'
 
 interface NotificationObject {
@@ -22,7 +23,7 @@ export interface CurrentUser {
 
 const App = () => {
   const [user, setUser] = useState<CurrentUser | null>(null)
-  const [notification, setNotification] = useState<NotificationObject | null>(null)
+  const { notification, setNotification } = useNotification(null)
   const navigate = useNavigate()
 
   useEffect(() => {
