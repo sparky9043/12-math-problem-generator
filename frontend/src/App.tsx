@@ -29,6 +29,8 @@ const App = () => {
     }
   }
 
+  // const compare = isBefore(new Date(), new Date())
+
   useEffect(() => {
     const currentUserJSON = localStorage.getItem('mathAppCurrentUserJSON')
     if (currentUserJSON) {
