@@ -72,7 +72,7 @@ const App = () => {
     
     return messageStyles[property as keyof NotificationStyles]
   }
-  
+
   return (
     <div className="text-emerald-950 h-dvh">
       <NavBar user={user} logout={onLogout} />
