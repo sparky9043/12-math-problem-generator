@@ -15,6 +15,7 @@ export interface CurrentUser {
   id: string,
   token: string,
   name: string,
+  expiresIn: number,
 }
 
 const App = () => {
