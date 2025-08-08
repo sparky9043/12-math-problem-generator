@@ -1,3 +1,4 @@
+import { useState } from "react"
 import useInput from "../hooks/useInput"
 import { type User } from "../services/login"
 
@@ -8,17 +9,21 @@ interface LoginFormProps {
 const LoginForm = (props: LoginFormProps) => {
   const username = useInput('text')
   const password = useInput('password')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!username.value || !password.value) return;
     
     try {
+      setIsLoading(true)
       props.login({ username: username.value, password: password.value })
     } catch (exception: unknown) {
       if (exception instanceof Error) {
         console.log(exception.message)
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -51,8 +56,9 @@ const LoginForm = (props: LoginFormProps) => {
         </label>
       </div>
       <button
-        className="px-2 py-1 rounded bg-emerald-700 text-emerald-100"
+        className="px-2 py-1 rounded bg-emerald-700 text-emerald-100 hover:cursor-pointer disabled:opacity-20"
         type="submit"
+        disabled={isLoading}
       >login</button>
     </form>
   )
