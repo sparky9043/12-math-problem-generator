@@ -5,7 +5,7 @@ const ProblemForm = () => {
   }
 
   return (
-    <form onSubmit={handleCreateProblem}>
+    <form onSubmit={handleCreateProblem} className="w-full">
       <h2>enter the necessary information to create problem</h2>
     </form>
   )
