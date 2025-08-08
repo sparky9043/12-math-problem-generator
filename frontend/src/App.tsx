@@ -6,6 +6,7 @@ import DashBoard from "./components/Dashboard"
 import Footer from "./components/Footer"
 import HomePage from "./components/HomePage"
 import NavBar from "./components/NavBar"
+import ProblemForm from "./components/ProblemForm"
 import ProblemsList from "./components/ProblemsList"
 import useNotification from "./hooks/useNotification"
 import loginService, { type User } from './services/login'
@@ -99,7 +100,7 @@ const App = () => {
           />
           <Route
             path="/dashboard/create"
-            element={<p>Problem Form</p>}
+            element={<ProblemForm />}
           />
         </Route>
         <Route

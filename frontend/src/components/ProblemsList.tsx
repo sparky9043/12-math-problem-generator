@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import type { CurrentUser } from "../App"
 import problemService from '../services/problems'
+import LoadingSpinner from "./LoadingSpinner"
 
 interface HomepageProps {
   user: CurrentUser | null
@@ -25,7 +26,9 @@ const ProblemsList = (props: HomepageProps) => {
 
   if (problemsListResult.isLoading) {
     return (
-      <p>Waiting for problems to load...</p>
+      <div className="w-dvh">
+        <LoadingSpinner />
+      </div>
     )
   }
 

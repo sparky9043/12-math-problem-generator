@@ -1,3 +1,4 @@
+
 const ProblemForm = () => {
 
   const handleCreateProblem = (event: React.FormEvent<HTMLFormElement>) => {
@@ -6,7 +7,7 @@ const ProblemForm = () => {
 
   return (
     <form onSubmit={handleCreateProblem} className="w-full">
-      <h2>enter the necessary information to create problem</h2>
+      {/* <LoadingSpinner /> */}
     </form>
   )
 }
