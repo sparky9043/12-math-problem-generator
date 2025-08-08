@@ -60,7 +60,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className="text-emerald-950">
       <NavBar user={user} logout={onLogout} />
       {notification ? <div className={notification.type}>{notification.message}</div> : null}
       <Routes>

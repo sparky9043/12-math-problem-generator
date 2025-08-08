@@ -25,14 +25,6 @@ a {
   text-decoration: none;
 }
 
-a:visited {
-  color: transparent;
-}
-
-a:hover {
-  color: blue;
-}
-
 input,
 button,
 select,

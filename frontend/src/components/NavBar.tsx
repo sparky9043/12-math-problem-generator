@@ -9,12 +9,12 @@ interface NavBarProps {
 const NavBar = (props: NavBarProps) => {
 
   return (
-    <nav>
+    <nav className="flex justify-between p-8 bg-emerald-300">
       <h2>Logo</h2>
-      <ul>
+      <ul className="flex gap-4">
         <li>
           {props.user === null
-          ? <NavLink to="/">
+          ? <NavLink to="/" className="hover:text-emerald-900">
             Home
           </NavLink>
           : <NavLink to='/dashboard'>  
@@ -23,7 +23,7 @@ const NavBar = (props: NavBarProps) => {
         </li>
         {props.user === null
           ? <li>
-              <NavLink to='/login'>  
+              <NavLink to='/login' className="hover:text-emerald-900">  
                 Login
               </NavLink>
             </li>
