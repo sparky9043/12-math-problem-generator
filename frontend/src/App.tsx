@@ -20,13 +20,19 @@ const App = () => {
   const [user, setUser] = useState<CurrentUser | null>(null)
   const { notification, handleNotification } = useNotification()
   const navigate = useNavigate()
+  const getNotificationMessage = (type: 'success' | 'error', message: string) => {
+    return {
+      type,
+      message
+    }
+  }
 
   useEffect(() => {
     const currentUserJSON = localStorage.getItem('mathAppCurrentUserJSON')
     if (currentUserJSON) {
       const currentUser = JSON.parse(currentUserJSON)
       setUser(currentUser)
-      handleNotification({ type: 'success', message: 'saved user found!' }, 5)
+      handleNotification(getNotificationMessage('success', 'saved user found!'), 5)
     }
   }, [handleNotification])
 
@@ -35,26 +41,48 @@ const App = () => {
     try {
       const newUser = await loginService.login(credential)
       setUser(newUser)
-      handleNotification({ type: 'success', message: 'logged in successfully!' }, 5)
+      handleNotification(getNotificationMessage('success', 'logged in successfully!'), 5)
       localStorage.setItem('mathAppCurrentUserJSON', JSON.stringify(newUser))
       navigate('/')
     } catch (exception) {
-      handleNotification({ type: 'error', message: 'invalid username or password' }, 5)
+      handleNotification(getNotificationMessage('error', 'invalid username or password'), 5)
     }
   }
 
   const onLogout = () => {
     setUser(null)
     localStorage.removeItem('mathAppCurrentUserJSON')
-    handleNotification({ type: 'success', message: 'logged out successfully' }, 5)
+    handleNotification(getNotificationMessage('success', 'logged out successfully'), 5)
 
     navigate('/')
   }
 
+  interface NotificationStyles {
+    success: string,
+    error: string,
+  }
+
+  const messageStyles = {
+    success: 'bg-emerald-200 p-2',
+    error: 'bg-red-200 p-2',
+  }
+
+  const getNotificationStyles = (stylesObject: NotificationStyles, property: string) => {
+    
+    return stylesObject[property as keyof NotificationStyles]
+  }
+  
   return (
     <div className="text-emerald-950">
       <NavBar user={user} logout={onLogout} />
-      {notification ? <div className={notification.type}>{notification.message}</div> : null}
+      {notification && notification.type
+        ? <div
+            className={getNotificationStyles(messageStyles, notification.type)}
+            >
+            {notification.message}
+          </div>
+        : null
+      }
       <Routes>
         <Route
           path="/"
