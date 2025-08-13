@@ -1,5 +1,6 @@
 const loginRouter = require('express').Router()
 const User = require('../models/user')
+const userServices = require('../services/userServices')
 const configs = require('../utils/configs')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -7,7 +8,7 @@ const jwt = require('jsonwebtoken')
 loginRouter.post('/', async (request, response) => {
   const { username, password } = request.body
 
-  const user = await User.findOne({ username })
+  const user = await userServices.getUserByUsername(username)
 
   const passwordCorrect = user === null
     ? false

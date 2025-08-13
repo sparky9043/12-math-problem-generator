@@ -12,6 +12,11 @@ const getUserById = async (id) => {
   return user
 }
 
+const getUserByUsername = async (username) => {
+  const user = await User.findOne({ username })
+  return user
+}
+
 const createNewUser = async (body) => {
   const { username, name, password } = body
 
@@ -27,4 +32,4 @@ const createNewUser = async (body) => {
   return savedUser
 }
 
-module.exports = { getUsers, getUserById, createNewUser }
+module.exports = { getUsers, getUserById, getUserByUsername, createNewUser }
