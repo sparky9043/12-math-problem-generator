@@ -2,10 +2,11 @@ const problemsRouter = require('express').Router()
 const Problem = require('../models/problem')
 const User = require('../models/user')
 const configs = require('../utils/configs')
+const problemServices = require('../services/problemServices')
 const jwt = require('jsonwebtoken')
 
 problemsRouter.get('/', async (request, response) => {
-  const problems = await Problem.find({})
+  const problems = await problemServices.getAll()
   return response.json(problems)
 })
 
