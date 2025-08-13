@@ -1,7 +1,7 @@
 const usersRouter = require('express').Router()
 const userServices = require('../services/userServices')
 
-usersRouter.get('/', async (request, response, next) => {
+usersRouter.get('/', async (_request, response, next) => {
   try {
     const users = await userServices.getUsers()
 
