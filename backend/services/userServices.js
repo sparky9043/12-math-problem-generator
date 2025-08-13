@@ -9,10 +9,6 @@ const getUsers = async () => {
 const getUserById = async (id) => {
   const user = await User.findById(id)
 
-  if (!user) {
-    return response.status(404).json({ error: 'user not found' })
-  }
-
   return user
 }
 
