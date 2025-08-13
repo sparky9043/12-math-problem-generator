@@ -14,39 +14,41 @@ const ProblemForm = () => {
   }
 
   return (
-    <form onSubmit={handleCreateProblem} className="w-full">
-      {/* <LoadingSpinner /> */}
-      <div>
-        <label>
-          subject
-        </label>
-        <input className={inputStyles} {...subject} />
-      </div>
-      <div>
-        <label>
-          branch
-        </label>
-        <input className={inputStyles} {...branch} />
-      </div>
-      <div>
-        <label>
-          topic
-        </label>
-        <input className={inputStyles} {...topic} />
-      </div>
-      <div>
-        <label>
-          question
-        </label>
-        <input className={inputStyles} {...question} />
-      </div>
-      <div>
-        <label>
-          answer
-        </label>
-        <input className={inputStyles} {...answer} />
-      </div>
-    </form>
+    <div className="px-2 py-4">
+      <form onSubmit={handleCreateProblem} className="w-full">
+        {/* <LoadingSpinner /> */}
+        <div>
+          <label>
+            subject
+          </label>
+          <input className={inputStyles} {...subject} />
+        </div>
+        <div>
+          <label>
+            branch
+          </label>
+          <input className={inputStyles} {...branch} />
+        </div>
+        <div>
+          <label>
+            topic
+          </label>
+          <input className={inputStyles} {...topic} />
+        </div>
+        <div>
+          <label>
+            question
+          </label>
+          <input className={inputStyles} {...question} />
+        </div>
+        <div>
+          <label>
+            answer
+          </label>
+          <input className={inputStyles} {...answer} />
+        </div>
+      </form>
+    </div>
   )
 }
 
