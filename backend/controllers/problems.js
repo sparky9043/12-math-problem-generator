@@ -12,29 +12,7 @@ problemsRouter.get('/', async (request, response) => {
 })
 
 problemsRouter.post('/', async (request, response) => {
-  const body = request.body
-
-  const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
-
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: 'token invalid' })
-  }
-
-  const user = await userServices.getUserById(decodedToken.id)
-
-  const problem = new Problem({
-    subject: body.subject,
-    branch: body.branch,
-    topic: body.topic,
-    question: body.question,
-    choices: body.choices,
-    answer: body.answer,
-    user: user._id
-  })
-
-  const savedProblem = await problem.save()
-  user.problems = user.problems.concat(savedProblem._id)
-  await user.save()
+  const savedProblem = await problemServices.createNewProblem(request.body, request.token)
 
   response.status(201).json(savedProblem)
 })
