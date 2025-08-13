@@ -5,7 +5,12 @@ const userServices = require('./userServices')
 
 const getAll = async () => {
   const problems = await Problem.find({})
-  return problems;
+  return problems
+}
+
+const getProblem = async (id) => {
+  const problem = await Problem.findById(id)
+  return problem
 }
 
 const createNewProblem = async (request) => {
@@ -36,4 +41,4 @@ const createNewProblem = async (request) => {
   return savedProblem
 }
 
-module.exports = { getAll, createNewProblem }
+module.exports = { getAll, createNewProblem, getProblem }

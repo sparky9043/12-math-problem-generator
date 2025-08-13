@@ -11,6 +11,15 @@ problemsRouter.get('/', async (_request, response, next) => {
   }
 })
 
+problemsRouter.get('/:id', async (request, response, next) => {
+  try {
+    const problem = await problemServices.getProblem(request.params.id)
+    return response.status(201).json(problem)
+  } catch (error) {
+    next(error)
+  }
+})
+
 problemsRouter.post('/', async (request, response, next) => {
   try {
     const savedProblem = await problemServices.createNewProblem(request)
