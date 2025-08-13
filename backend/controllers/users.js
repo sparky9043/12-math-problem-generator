@@ -1,11 +1,11 @@
 const usersRouter = require('express').Router()
 const User = require('../models/user')
-// const Problem = require('../models/problem')
+const userServices = require('../services/userServices')
 const bcrypt = require('bcrypt')
 
 usersRouter.get('/', async (request, response, next) => {
   try {
-    const users = await User.find({})
+    const users = await userServices.getUsers()
     return response.json(users)
   } catch (error) {
     next(error)
@@ -14,7 +14,7 @@ usersRouter.get('/', async (request, response, next) => {
 
 usersRouter.get('/:id', async (request, response, next) => {
   try {
-    const user = await User.findById(request.params.id)
+    const user = await userServices.getUserById(request.params.id)
     return response.json(user)
   } catch (error) {
     next(error)
