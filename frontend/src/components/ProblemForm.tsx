@@ -16,7 +16,6 @@ const ProblemForm = () => {
   return (
     <div className="px-2 py-4">
       <form onSubmit={handleCreateProblem} className="w-full">
-        {/* <LoadingSpinner /> */}
         <div>
           <label>
             subject
