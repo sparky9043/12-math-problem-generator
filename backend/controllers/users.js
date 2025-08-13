@@ -23,17 +23,7 @@ usersRouter.get('/:id', async (request, response, next) => {
 
 usersRouter.post('/', async (request, response, next) => {
   try {
-    const { username, name, password } = request.body
-    
-    const passwordHash = await bcrypt.hash(password, 10)
-    
-    const user = new User({
-      username,
-      name,
-      passwordHash,
-    })
-    
-    const savedUser = await user.save()
+    const savedUser = await userServices.createNewUser(request.body)
     
     return response.status(201).json(savedUser)
   } catch (error) {

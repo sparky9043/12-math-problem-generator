@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const bcrypt = require('bcrypt')
 
 const getUsers = async () => {
   const users = await User.find({})
@@ -15,4 +16,19 @@ const getUserById = async (id) => {
   return user
 }
 
-module.exports = { getUsers, getUserById }
+const createNewUser = async (body) => {
+  const { username, name, password } = body
+
+  const passwordHash = await bcrypt.hash(password, 10)
+
+  const user = new User({
+    username,
+    name,
+    passwordHash,
+  })
+
+  const savedUser = await user.save()
+  return savedUser
+}
+
+module.exports = { getUsers, getUserById, createNewUser }
