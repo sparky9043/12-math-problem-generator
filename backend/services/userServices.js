@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const Problem = require('../models/problem')
 const bcrypt = require('bcrypt')
 
 const getUsers = async () => {
@@ -32,4 +33,20 @@ const createNewUser = async (body) => {
   return savedUser
 }
 
-module.exports = { getUsers, getUserById, getUserByUsername, createNewUser }
+const deleteUser = async (id) => {
+  const user = await getUserById(id)
+
+  for (const id of user.problems) {
+    await Problem.findByIdAndDelete(id)
+  }
+
+  await User.findByIdAndDelete(id)
+}
+
+module.exports = {
+  getUsers,
+  getUserById,
+  getUserByUsername,
+  createNewUser,
+  deleteUser
+}
