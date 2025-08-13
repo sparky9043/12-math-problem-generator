@@ -30,4 +30,14 @@ problemsRouter.post('/', async (request, response, next) => {
   }
 })
 
+problemsRouter.delete('/:id', async (request, response, next) => {
+  try {
+    await problemServices.deleteProblem(request)
+
+    return response.status(204).end()
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = problemsRouter

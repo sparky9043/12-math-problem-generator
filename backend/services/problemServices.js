@@ -18,10 +18,6 @@ const createNewProblem = async (request) => {
 
   const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
   
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: 'token invalid' })
-  }
-
   const user = await userServices.getUserById(decodedToken.id)
 
   const problem = new Problem({
@@ -41,4 +37,15 @@ const createNewProblem = async (request) => {
   return savedProblem
 }
 
-module.exports = { getAll, createNewProblem, getProblem }
+const deleteProblem = async (request) => {
+  const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
+
+  const user = await userServices.getUserById(decodedToken.id)
+
+  await Problem.findByIdAndDelete(request.params.id)
+  user.problems = user.problems.filter(problemId => problemId.toString() !== request.params.id)
+  
+  await user.save()
+}
+
+module.exports = { getAll, createNewProblem, getProblem, deleteProblem }
