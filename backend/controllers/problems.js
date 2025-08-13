@@ -3,6 +3,7 @@ const Problem = require('../models/problem')
 const User = require('../models/user')
 const configs = require('../utils/configs')
 const problemServices = require('../services/problemServices')
+const userServices = require('../services/userServices')
 const jwt = require('jsonwebtoken')
 
 problemsRouter.get('/', async (request, response) => {
@@ -19,11 +20,7 @@ problemsRouter.post('/', async (request, response) => {
     return response.status(401).json({ error: 'token invalid' })
   }
 
-  const user = await User.findById(decodedToken.id)
-
-  if (!user) {
-    return response.status(404).json({ error: 'user not found' })
-  }
+  const user = await userServices.getUserById(decodedToken.id)
 
   const problem = new Problem({
     subject: body.subject,

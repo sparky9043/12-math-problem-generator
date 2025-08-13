@@ -5,4 +5,14 @@ const getUsers = async () => {
   return users
 }
 
-module.exports = { getUsers }
+const getUserById = async (id) => {
+  const user = await User.findById(id)
+
+  if (!user) {
+    return response.status(404).json({ error: 'user not found' })
+  }
+
+  return user
+}
+
+module.exports = { getUsers, getUserById }
