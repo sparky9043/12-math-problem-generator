@@ -8,8 +8,10 @@ const getAll = async () => {
   return problems;
 }
 
-const createNewProblem = async (body, token) => {
-  const decodedToken = jwt.verify(token, configs.SECRET_KEY)
+const createNewProblem = async (request) => {
+  const body = request.body
+
+  const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
   
   if (!decodedToken.id) {
     return response.status(401).json({ error: 'token invalid' })
@@ -30,7 +32,7 @@ const createNewProblem = async (body, token) => {
   const savedProblem = await problem.save()
   user.problems = user.problems.concat(savedProblem._id)
   await user.save()
-  
+
   return savedProblem
 }
 
