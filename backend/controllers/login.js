@@ -1,9 +1,5 @@
 const loginRouter = require('express').Router()
-const userServices = require('../services/userServices')
 const loginServices = require('../services/loginServices')
-const configs = require('../utils/configs')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 
 loginRouter.post('/', async (request, response) => {
   const validUser = await loginServices.isCredentialValid(request)
