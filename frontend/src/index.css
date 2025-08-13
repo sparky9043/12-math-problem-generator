@@ -31,3 +31,10 @@ select,
 textarea {
   appearance: none;
 }
+
+label {
+  display: inline-block;
+  width: 8ch;
+  text-align: right;
+  margin-right: .5rem;
+}
