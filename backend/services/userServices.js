@@ -33,9 +33,7 @@ const createNewUser = async (body) => {
   return savedUser
 }
 
-const deleteUser = async (id) => {
-  const user = await getUserById(id)
-
+const deleteUser = async (user) => {
   for (const id of user.problems) {
     await Problem.findByIdAndDelete(id)
   }

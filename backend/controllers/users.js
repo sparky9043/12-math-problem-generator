@@ -39,7 +39,13 @@ usersRouter.post('/', async (request, response, next) => {
 
 usersRouter.delete('/:id', async (request, response, next) => {
   try {
-    await userServices.deleteUser(request.params.id)
+    const user = await userServices.getUserById(request.params.id)
+
+    if (!user) {
+      return response.status(404).json({ error: 'user not found' })
+    }
+
+    await userServices.deleteUser(user)
 
     return response.status(204).end()
   } catch (error) {
