@@ -3,11 +3,9 @@ const userServices = require('../services/userServices')
 
 usersRouter.get('/', async (_request, response, next) => {
   try {
-
     const users = await userServices.getUsers()
 
     return response.json(users)
-
   } catch (error) {
     next(error)
   }
@@ -15,7 +13,6 @@ usersRouter.get('/', async (_request, response, next) => {
 
 usersRouter.get('/:id', async (request, response, next) => {
   try {
-
     const user = await userServices.getUserById(request.params.id)
   
     if (!user) {
@@ -23,7 +20,6 @@ usersRouter.get('/:id', async (request, response, next) => {
     }
 
     return response.json(user)
-
   } catch (error) {
     next(error)
   }
@@ -35,7 +31,7 @@ usersRouter.post('/', async (request, response, next) => {
     const savedUser = await userServices.createNewUser(request.body)
     
     return response.status(201).json(savedUser)
-    
+
   } catch (error) {
     next(error)
   }
