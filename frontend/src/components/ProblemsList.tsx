@@ -9,7 +9,7 @@ interface HomepageProps {
   user: CurrentUser | null
 }
 
-interface Problem {
+export interface Problem {
   answer: string,
   branch: string,
   choices: string[],
