@@ -1,6 +1,12 @@
 import { NavLink, Outlet } from "react-router-dom"
+import type { CurrentUser } from "../App"
 
-const DashBoard = () => {
+interface DashboardProps {
+  user: CurrentUser | null
+}
+
+const DashBoard = (props: DashboardProps) => {
+
   return (
     <div className="h-full" id='hello'>
       <div className="flex h-full">
@@ -16,6 +22,11 @@ const DashBoard = () => {
             </NavLink>
           </li>
         </ul>
+        <h1
+          className="p-4 text-2xl font-semibold"
+        >
+          Welcome {props.user?.name}!!
+        </h1>
         <Outlet />
       </div>
     </div>
