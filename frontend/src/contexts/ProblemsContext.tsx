@@ -10,7 +10,7 @@ const ProblemsContextProvider = (props: ProblemsContextProviderProps) => {
   const [problems, setProblems] = useState<Problem[]>([])
 
   return (
-    <ProblemsContext.Provider value={{problems, setProblems}}>
+    <ProblemsContext.Provider value={{ problems, setProblems }}>
       {props.children}
     </ProblemsContext.Provider>
   )
