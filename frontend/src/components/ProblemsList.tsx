@@ -67,6 +67,10 @@ const ProblemsList = (props: HomepageProps) => {
     )
   }
 
+  const handleSeeDetails = (id: string) => {
+    navigate(`${id}`)
+  }
+
   return (
     <div className="overflow-auto w-full p-4 flex gap-2">
       <ul className="flex flex-col gap-4">
@@ -74,6 +78,7 @@ const ProblemsList = (props: HomepageProps) => {
           <h3>
             <button
               className="mr-2 font-semibold px-2 py-1 rounded border border-emerald-700 text-emerald-500 hover:bg-emerald-200 hover:cursor-pointer hover:text-emerald-300"
+              onClick={() => handleSeeDetails(problem.id)}
             >
               see details
             </button>
