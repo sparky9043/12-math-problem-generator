@@ -73,24 +73,26 @@ const ProblemsList = (props: HomepageProps) => {
 
   return (
     <div className="overflow-auto w-full p-4 flex flex-col gap-2">
-      <h2 className="font-semibold text-2xl">Problems</h2>
-      <ul className="flex flex-col gap-4">
-      {problemsByUser.map((problem, index) => <li key={problem.id}>
-          <h3>
-            <button
-              className="mr-2 font-semibold px-2 py-1 rounded border border-emerald-700 text-emerald-500 hover:bg-emerald-200 hover:cursor-pointer hover:text-emerald-300"
-              onClick={() => handleSeeDetails(problem.id)}
-            >
-              see details
-            </button>
-            <span>
-              {convertToNumberString(index).concat('.')} {problem.question}
-            </span>
-          </h3>
-        </li>)
-      }
-      </ul>
-      <Outlet />
+      <h2 className="font-semibold text-xl">Problems</h2>
+      <div className="flex">
+        <ul className="flex flex-col gap-4">
+          {problemsByUser.map((problem, index) => <li key={problem.id}>
+            <h3>
+              <button
+                className="mr-2 font-semibold px-2 py-1 rounded border border-emerald-700 text-emerald-500 hover:bg-emerald-200 hover:cursor-pointer hover:text-emerald-300"
+                onClick={() => handleSeeDetails(problem.id)}
+              >
+                see details
+              </button>
+              <span>
+                {convertToNumberString(index).concat('.')} {problem.question}
+              </span>
+            </h3>
+          </li>)
+          }
+        </ul>
+        <Outlet />
+      </div>
     </div>
   )
 }
