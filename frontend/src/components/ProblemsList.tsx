@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { useNavigate } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import type { CurrentUser } from "../App"
 import problemService from '../services/problems'
 import Error from "./Error"
@@ -88,6 +88,7 @@ const ProblemsList = (props: HomepageProps) => {
         </li>)
       }
       </ul>
+      <Outlet />
     </div>
   )
 }

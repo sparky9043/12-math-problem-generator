@@ -9,6 +9,7 @@ import ProblemForm from "./components/ProblemForm"
 import ProblemsList from "./components/ProblemsList"
 import useNotification from "./hooks/useNotification"
 import loginService, { type User } from './services/login'
+import ProblemDetails from "./components/ProblemDetails"
 
 export interface CurrentUser {
   username: string,
@@ -100,7 +101,7 @@ const App = () => {
           >
             <Route
               path="/dashboard/problems/:id"
-              element={<p>Problem Details</p>}
+              element={<ProblemDetails />}
             />
           </Route>
           <Route
