@@ -22,7 +22,10 @@ const ProblemForm = () => {
       for (let i = 0; i < choiceNumbers; i++) {
         const value: string = target[`choice${String(i)}`].value
 
-        if (!value) return
+        if (!value) {
+          throw new Error('Make sure all the choices are filled!')
+        }
+
         choices.push(value)
       }
       
@@ -36,10 +39,9 @@ const ProblemForm = () => {
       })
 
       navigate(`/dashboard/problems/${newProblem.id}`)
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new Error('Error: ', error)
-      }
+    } catch (error) {
+      console.log(error)
+      throw error
     }
   }
 
