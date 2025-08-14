@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import useInput from "../hooks/useInput"
 import problemServices from '../services/problems'
+import { useState } from "react"
 
 const ProblemForm = () => {
   const subject = useInput('')
@@ -10,6 +11,7 @@ const ProblemForm = () => {
   const answer = useInput('')
   const inputStyles = "border-2 rounded border-emerald-700 hover:border-emerald-500 px-0.5 py-1 focus:outline-emerald-800"
   const navigate = useNavigate()
+  const [choiceNumbers, setChoiceNumbers] = useState<number>(4)
 
   const handleCreateProblem = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
@@ -28,6 +30,10 @@ const ProblemForm = () => {
         throw new Error('Error: ', error)
       }
     }
+  }
+
+  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setChoiceNumbers(Number(event.target.value))
   }
 
   return (
@@ -75,6 +81,8 @@ const ProblemForm = () => {
           <div className="relative">
             <select
               className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
+              value={String(choiceNumbers)}
+              onChange={handleOptionChange}
             >
               <option value="1">1</option>
               <option value="2">2</option>
