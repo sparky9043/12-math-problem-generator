@@ -1,13 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
 import { Outlet, useNavigate } from "react-router-dom"
-import type { CurrentUser } from "../App"
 import problemService from '../services/problems'
 import Error from "./Error"
 import LoadingSpinner from "./LoadingSpinner"
-
-interface HomepageProps {
-  user: CurrentUser | null
-}
+import useCurrentUser from "../hooks/useCurrentUser"
 
 export interface Problem {
   answer: string,
@@ -20,7 +16,8 @@ export interface Problem {
   user: string,
 }
 
-const ProblemsList = (props: HomepageProps) => {
+const ProblemsList = () => {
+  const { currentUser: user, dispatch } = useCurrentUser()
   const navigate = useNavigate()
   const problemsListResult = useQuery({
     queryFn: problemService.getProblems,
@@ -47,8 +44,8 @@ const ProblemsList = (props: HomepageProps) => {
   const problems: Problem[] = problemsListResult.data
 
   const problemsByUser = problems.filter(problem => {
-    if (problem !== null && props.user !== null) {
-      return problem.user === props.user.id
+    if (problem !== null && user !== null) {
+      return problem.user === user.id
     }
   })
 
