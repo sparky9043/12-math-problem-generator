@@ -32,7 +32,8 @@ const ProblemDetails = () => {
   }
   
   return  (
-    <div>
+    <div className="basis-1/2 p-4">
+      <h2 className="font-semibold text-lg">Problem Details</h2>
       <h2>Topic: {targetProblem.topic}</h2>
       <h3>Branch: {targetProblem.branch}</h3>
       <h3>{targetProblem.question}</h3>

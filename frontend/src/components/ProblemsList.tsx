@@ -68,7 +68,7 @@ const ProblemsList = (props: HomepageProps) => {
   }
 
   return (
-    <div className="overflow-auto w-full p-4">
+    <div className="overflow-auto w-full p-4 flex gap-2">
       <ul className="flex flex-col gap-4">
       {problemsByUser.map((problem, index) => <li key={problem.id}>
           <h3>
