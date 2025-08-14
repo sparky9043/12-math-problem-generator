@@ -1,8 +1,18 @@
 import axios from 'axios'
 
+interface Problem {
+  answer: string,
+  branch: string,
+  choices: string[],
+  question: string,
+  subject: string,
+  topic: string,
+  user: string,
+}
+
 const baseUrl = '/api/problems'
 
-let token
+let token:string
 
 export const setToken = (inputToken: string) => {
   token = `Bearer ${inputToken}`
@@ -13,4 +23,15 @@ const getProblems = async () => {
   return response.data
 }
 
-export default { getProblems }
+const createProblem = async (problem: Problem) => {
+  const config = {
+    headers: {
+      authorization: token
+    }
+  }
+
+  const response = await axios.post(baseUrl, problem, config)
+  return response.data
+}
+
+export default { getProblems, createProblem }
