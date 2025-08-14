@@ -52,8 +52,12 @@ const ProblemsList = (props: HomepageProps) => {
     }
   })
 
-  const convertToCharacter = (index: number) => {
-    return String.fromCharCode(65 + index)
+  // const convertToCharacter = (index: number) => {
+  //   return String.fromCharCode(65 + index)
+  // }
+
+  const convertToNumberString = (index: number): string => {
+    return String(index + 1)
   }
 
   if (problemsByUser.length === 0) {
@@ -72,9 +76,9 @@ const ProblemsList = (props: HomepageProps) => {
       <ul className="flex flex-col gap-4">
       {problemsByUser.map((problem, index) => <li key={problem.id}>
           <h3>
-            {String(index + 1).concat('.')} {problem.question}
+            {convertToNumberString(index).concat('.')} {problem.question}
           </h3>
-          <ul>
+          {/* <ul>
             {problem.choices.map((choice, index) => <li key={choice}>
               <span>                
                 {convertToCharacter(index)}. {choice}
@@ -83,7 +87,7 @@ const ProblemsList = (props: HomepageProps) => {
           </ul>
           <p>
             Answer: {problem.answer}
-          </p>
+          </p> */}
         </li>)
       }
       </ul>
