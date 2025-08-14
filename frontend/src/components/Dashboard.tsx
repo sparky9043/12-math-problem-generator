@@ -22,11 +22,6 @@ const DashBoard = (props: DashboardProps) => {
             </NavLink>
           </li>
         </ul>
-        <h1
-          className="p-4 text-2xl font-semibold"
-        >
-          Welcome {props.user?.name}!!
-        </h1>
         <Outlet />
       </div>
     </div>

@@ -72,7 +72,8 @@ const ProblemsList = (props: HomepageProps) => {
   }
 
   return (
-    <div className="overflow-auto w-full p-4 flex gap-2">
+    <div className="overflow-auto w-full p-4 flex flex-col gap-2">
+      <h2 className="font-semibold text-2xl">Problems</h2>
       <ul className="flex flex-col gap-4">
       {problemsByUser.map((problem, index) => <li key={problem.id}>
           <h3>
