@@ -10,12 +10,13 @@ const ProblemForm = () => {
   const inputStyles = "border-2 rounded border-emerald-700 hover:border-emerald-500 px-0.5 py-1 focus:outline-emerald-800"
 
   const handleCreateProblem = (event: React.FormEvent<HTMLFormElement>) => {
+    console.log(event)
     event.preventDefault()
   }
 
   return (
     <div className="px-2 py-4">
-      <form onSubmit={handleCreateProblem} className="w-full flex flex-col gap-2">
+      <form onSubmit={handleCreateProblem} className="w-full flex flex-col gap-2 items-center">
         <div>
           <label>
             subject
@@ -46,6 +47,12 @@ const ProblemForm = () => {
           </label>
           <input className={inputStyles} {...answer} />
         </div>
+        <button
+          className="bg-emerald-100 px-2 py-1 rounded hover:bg-emerald-200 hover:cursor-pointer"
+          type="submit"
+        >
+          create problem
+        </button>
       </form>
     </div>
   )
