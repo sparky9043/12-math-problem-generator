@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
 import DashBoard from "./components/Dashboard"
 import Footer from "./components/Footer"
@@ -21,7 +21,6 @@ export interface CurrentUser {
 }
 
 const App = () => {
-  // const [user, setUser] = useState<CurrentUser | null>(null)
   const { currentUser: user, dispatch } = useCurrentUser()
   const { notification, handleNotification } = useNotification()
   const navigate = useNavigate()
@@ -31,8 +30,6 @@ const App = () => {
       message
     }
   }
-
-  // console.log(currentUser, dispatch)
   
   useEffect(() => {
     const currentUserJSON = localStorage.getItem('mathAppCurrentUserJSON')
