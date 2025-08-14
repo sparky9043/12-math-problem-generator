@@ -86,7 +86,9 @@ const ProblemForm = () => {
           </label>
           <input className={inputStyles} {...answer} />
         </div>
-
+        <div>
+          <p>How many choices do you want your question to have?</p>
+        </div>
         {/* design from https://www.material-tailwind.com/docs/html/select */}
         <div className="w-full max-w-sm min-w-[200px]">      
           <div className="relative">
