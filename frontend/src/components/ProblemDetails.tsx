@@ -17,8 +17,6 @@ const ProblemDetails = () => {
   }
   const targetProblem = problems.find(problem => problem.id === id)
 
-  console.log(targetProblem)
-
   if (!targetProblem) {
     return (
       <div>
@@ -30,9 +28,18 @@ const ProblemDetails = () => {
   const convertToChar = (index: number) => {
     return String.fromCharCode(index + 65)
   }
+
+  const handleBack = () => {
+    navigate('/dashboard/problems')
+  }
   
   return  (
     <div className="basis-1/2 p-4">
+      <button className="hover:bg-emerald-100 px-1 py-2 rounded"
+        onClick={handleBack}
+      >
+        &larr; back
+      </button>
       <h2 className="font-semibold text-lg">Problem Details</h2>
       <h2>Topic: {targetProblem.topic}</h2>
       <h3>Branch: {targetProblem.branch}</h3>
