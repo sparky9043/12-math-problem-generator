@@ -16,14 +16,25 @@ const ProblemForm = () => {
   const handleCreateProblem = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault()
+      const target = event.currentTarget
+      const choices: string[] = []
+
+      for (let i = 0; i < choiceNumbers; i++) {
+        const value: string = target[`choice${String(i)}`].value
+
+        if (!value) return
+        choices.push(value)
+      }
+      
       const newProblem = await problemServices.createProblem({
         subject: subject.value,
         branch: branch.value,
         topic: topic.value,
         question: question.value,
         answer: answer.value,
-        choices: [],
+        choices: choices,
       })
+
       navigate(`/dashboard/problems/${newProblem.id}`)
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -32,9 +43,9 @@ const ProblemForm = () => {
     }
   }
 
-  const choicesArray = Array.from({ length: choiceNumbers }, () => {
+  const choicesArray = Array.from({ length: choiceNumbers }, (_, i) => {
     return (<div>
-      <input className="border-2 p-1" />
+      <input name={`choice${i}`} className="border-2 p-1 border-emerald-700 rounded" />
     </div>)
   })
 
