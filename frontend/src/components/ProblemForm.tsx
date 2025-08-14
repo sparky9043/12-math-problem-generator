@@ -32,6 +32,12 @@ const ProblemForm = () => {
     }
   }
 
+  const choicesArray = Array.from({ length: choiceNumbers }, () => {
+    return (<div>
+      <input className="border-2 p-1" />
+    </div>)
+  })
+
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setChoiceNumbers(Number(event.target.value))
   }
@@ -70,13 +76,7 @@ const ProblemForm = () => {
           <input className={inputStyles} {...answer} />
         </div>
 
-        {
-          /*
-            Got the design for select from
-            https://www.material-tailwind.com/docs/html/select
-          */
-        }
-
+        {/* design from https://www.material-tailwind.com/docs/html/select */}
         <div className="w-full max-w-sm min-w-[200px]">      
           <div className="relative">
             <select
@@ -94,7 +94,9 @@ const ProblemForm = () => {
             </svg>
           </div>
         </div>
-
+        {choicesArray.map((choice, i) => <div key={i}>
+          choice: {i + 1} {choice}
+        </div>)}
         <button
           className="bg-emerald-100 px-2 py-1 rounded hover:bg-emerald-200 hover:cursor-pointer"
           type="submit"
