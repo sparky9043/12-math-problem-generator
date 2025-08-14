@@ -4,7 +4,7 @@ import { CurrentUserContext } from "../hooks/useCurrentUser";
 
 export interface Action {
   type: string,
-  payload: CurrentUser
+  payload: CurrentUser | null
 }
 
 interface CurrentUserContextProviderProps {
@@ -16,7 +16,7 @@ const currentUserReducer = (state: CurrentUser | null, action: Action) => {
     case "addUser":
       return action.payload
     case "removeUser":
-      return null
+      return action.payload
     default:
       return state
   }

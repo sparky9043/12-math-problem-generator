@@ -10,6 +10,7 @@ import ProblemsList from "./components/ProblemsList"
 import useNotification from "./hooks/useNotification"
 import loginService, { type User } from './services/login'
 import ProblemDetails from "./components/ProblemDetails"
+import useCurrentUser from "./hooks/useCurrentUser"
 
 export interface CurrentUser {
   username: string,
@@ -20,7 +21,8 @@ export interface CurrentUser {
 }
 
 const App = () => {
-  const [user, setUser] = useState<CurrentUser | null>(null)
+  // const [user, setUser] = useState<CurrentUser | null>(null)
+  const { currentUser: user, dispatch } = useCurrentUser()
   const { notification, handleNotification } = useNotification()
   const navigate = useNavigate()
   const getNotificationMessage = (type: 'success' | 'error', message: string) => {
@@ -29,21 +31,23 @@ const App = () => {
       message
     }
   }
+
+  // console.log(currentUser, dispatch)
   
   useEffect(() => {
     const currentUserJSON = localStorage.getItem('mathAppCurrentUserJSON')
     if (currentUserJSON) {
       const currentUser = JSON.parse(currentUserJSON)
-      setUser(currentUser)
+      dispatch({ type: 'addUser', payload: currentUser})
       handleNotification(getNotificationMessage('success', 'saved user found!'), 5)
     }
-  }, [handleNotification])
+  }, [dispatch, handleNotification])
 
   const onLogin = async (credential: User) => {
 
     try {
       const newUser = await loginService.login(credential)
-      setUser(newUser)
+      dispatch({ type: 'addUser', payload: newUser})
       handleNotification(getNotificationMessage('success', 'logged in successfully!'), 5)
       localStorage.setItem('mathAppCurrentUserJSON', JSON.stringify(newUser))
       navigate('/')
@@ -53,7 +57,7 @@ const App = () => {
   }
 
   const onLogout = () => {
-    setUser(null)
+    dispatch({ type: 'removeUser', payload: null })
     localStorage.removeItem('mathAppCurrentUserJSON')
     handleNotification(getNotificationMessage('success', 'logged out successfully'), 5)
 
