@@ -76,18 +76,15 @@ const ProblemsList = (props: HomepageProps) => {
       <ul className="flex flex-col gap-4">
       {problemsByUser.map((problem, index) => <li key={problem.id}>
           <h3>
-            {convertToNumberString(index).concat('.')} {problem.question}
+            <button
+              className="mr-2 font-semibold px-2 py-1 rounded border border-emerald-700 text-emerald-500 hover:bg-emerald-200 hover:cursor-pointer hover:text-emerald-300"
+            >
+              see details
+            </button>
+            <span>
+              {convertToNumberString(index).concat('.')} {problem.question}
+            </span>
           </h3>
-          {/* <ul>
-            {problem.choices.map((choice, index) => <li key={choice}>
-              <span>                
-                {convertToCharacter(index)}. {choice}
-              </span>
-            </li>)}
-          </ul>
-          <p>
-            Answer: {problem.answer}
-          </p> */}
         </li>)
       }
       </ul>
