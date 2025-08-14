@@ -17,7 +17,7 @@ export interface Problem {
 }
 
 const ProblemsList = () => {
-  const { currentUser: user, dispatch } = useCurrentUser()
+  const { currentUser: user } = useCurrentUser()
   const navigate = useNavigate()
   const problemsListResult = useQuery({
     queryFn: problemService.getProblems,

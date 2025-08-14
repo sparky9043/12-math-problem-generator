@@ -1,23 +1,23 @@
 import { NavLink } from "react-router-dom"
-import type { CurrentUser } from "../App"
+import useCurrentUser from "../hooks/useCurrentUser"
 
 interface NavBarProps {
-  user: CurrentUser | null,
   logout: () => void,
 }
 
 const NavBar = (props: NavBarProps) => {
-
+  const { currentUser: user } = useCurrentUser()
+  
   return (
     <nav className="flex justify-between p-8 bg-emerald-300 h-1/8 items-center">
       <h2>Logo</h2>
       <ul className="flex gap-4 items-center">
         <li>
           
-          {props.user && <div className="font-semibold">logged in as: {props.user.name}</div>}
+          {user && <div className="font-semibold">logged in as: {user.name}</div>}
         </li>
         <li>
-          {props.user === null
+          {user === null
           ? <NavLink to="/" className="hover:text-emerald-900">
             Home
           </NavLink>
@@ -25,7 +25,7 @@ const NavBar = (props: NavBarProps) => {
             Dashboard
           </NavLink>}
         </li>
-        {props.user === null
+        {user === null
           ? <li>
               <NavLink to='/login' className="hover:text-emerald-900">  
                 Login

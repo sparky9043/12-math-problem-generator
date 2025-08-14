@@ -72,13 +72,12 @@ const App = () => {
   }
 
   const getNotificationStyles = (property: string) => {
-    
     return messageStyles[property as keyof NotificationStyles]
   }
 
   return (
     <div className="text-emerald-950 h-dvh">
-      <NavBar user={user} logout={onLogout} />
+      <NavBar logout={onLogout} />
       {notification && notification.type
         ? <div
             className={getNotificationStyles(notification.type)}
