@@ -1,11 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom"
-import type { CurrentUser } from "../App"
 
-interface DashboardProps {
-  user: CurrentUser | null
-}
-
-const DashBoard = (props: DashboardProps) => {
+const DashBoard = () => {
 
   return (
     <div className="h-full" id='hello'>

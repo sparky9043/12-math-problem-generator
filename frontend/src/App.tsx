@@ -93,7 +93,7 @@ const App = () => {
         />
         <Route
           path="/dashboard"
-          element={<DashBoard user={user} />}
+          element={<DashBoard />}
         >
           <Route
             path="/dashboard/problems"
