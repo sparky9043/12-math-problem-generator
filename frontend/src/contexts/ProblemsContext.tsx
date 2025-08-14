@@ -1,12 +1,6 @@
-import React, { createContext, useState, type SetStateAction } from "react"
+import React, { useState } from "react"
 import type { Problem } from "../components/ProblemsList"
-
-interface ProblemsContextType {
-  problems: Problem[],
-  setProblems: React.Dispatch<SetStateAction<Problem[]>>
-}
-
-const ProblemsContext = createContext<ProblemsContextType | undefined>(undefined)
+import { ProblemsContext } from "../hooks/useProblems"
 
 interface ProblemsContextProviderProps {
   children: React.ReactNode

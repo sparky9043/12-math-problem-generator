@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import App from './App.tsx'
 import './index.css'
 // import CurrentUserContext from './contexts/CurrentUser.ts'
+import ProblemsContextProvider from './contexts/ProblemsContext.tsx'
 
 const queryClient = new QueryClient()
 
@@ -12,9 +13,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Router>
       <QueryClientProvider client={queryClient}>
-        {/* <CurrentUserContext.Provider value={}> */}
+        <ProblemsContextProvider>
           <App />
-        {/* </CurrentUserContext.Provider> */}
+        </ProblemsContextProvider>
       </QueryClientProvider>
     </Router>
   </StrictMode>,
