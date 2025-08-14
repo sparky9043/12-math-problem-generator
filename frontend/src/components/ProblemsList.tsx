@@ -52,10 +52,6 @@ const ProblemsList = (props: HomepageProps) => {
     }
   })
 
-  // const convertToCharacter = (index: number) => {
-  //   return String.fromCharCode(65 + index)
-  // }
-
   const convertToNumberString = (index: number): string => {
     return String(index + 1)
   }
