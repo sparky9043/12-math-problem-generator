@@ -7,7 +7,6 @@ interface Problem {
   question: string,
   subject: string,
   topic: string,
-  user: string,
 }
 
 const baseUrl = '/api/problems'

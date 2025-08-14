@@ -21,7 +21,6 @@ const ProblemForm = () => {
         question: question.value,
         answer: answer.value,
         choices: [],
-        user: 'hello',
       })
       navigate(`/dashboard/problems/${newProblem.id}`)
     } catch (error: unknown) {
