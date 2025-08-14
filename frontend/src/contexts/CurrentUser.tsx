@@ -1,20 +1,14 @@
-import { createContext, useReducer } from "react";
+import { useReducer } from "react";
 import type { CurrentUser } from "../App";
+import { CurrentUserContext } from "../hooks/useCurrentUser";
 
-interface CurrentUserContextValues {
-  currentUser: CurrentUser | null,
-  dispatch: React.Dispatch<Action>,
+export interface Action {
+  type: string,
+  payload: CurrentUser
 }
-
-const CurrentUserContext = createContext<CurrentUserContextValues | null>(null)
 
 interface CurrentUserContextProviderProps {
   children: React.ReactNode,
-}
-
-interface Action {
-  type: string,
-  payload: CurrentUser
 }
 
 const currentUserReducer = (state: CurrentUser | null, action: Action) => {
