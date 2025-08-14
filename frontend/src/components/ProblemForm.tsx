@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom"
 import useInput from "../hooks/useInput"
 import problemServices from '../services/problems'
 
@@ -8,12 +9,12 @@ const ProblemForm = () => {
   const question = useInput('')
   const answer = useInput('')
   const inputStyles = "border-2 rounded border-emerald-700 hover:border-emerald-500 px-0.5 py-1 focus:outline-emerald-800"
+  const navigate = useNavigate()
 
   const handleCreateProblem = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
-      console.log(event)
       event.preventDefault()
-      await problemServices.createProblem({
+      const newProblem = await problemServices.createProblem({
         subject: subject.value,
         branch: branch.value,
         topic: topic.value,
@@ -22,6 +23,7 @@ const ProblemForm = () => {
         choices: [],
         user: 'hello',
       })
+      navigate(`/dashboard/problems/${newProblem.id}`)
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error('Error: ', error)
