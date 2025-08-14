@@ -1,5 +1,5 @@
 import useInput from "../hooks/useInput"
-
+import problemServices from '../services/problems'
 
 const ProblemForm = () => {
   const subject = useInput('')
@@ -9,9 +9,24 @@ const ProblemForm = () => {
   const answer = useInput('')
   const inputStyles = "border-2 rounded border-emerald-700 hover:border-emerald-500 px-0.5 py-1 focus:outline-emerald-800"
 
-  const handleCreateProblem = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log(event)
-    event.preventDefault()
+  const handleCreateProblem = async (event: React.FormEvent<HTMLFormElement>) => {
+    try {
+      console.log(event)
+      event.preventDefault()
+      await problemServices.createProblem({
+        subject: subject.value,
+        branch: branch.value,
+        topic: topic.value,
+        question: question.value,
+        answer: answer.value,
+        choices: [],
+        user: 'hello',
+      })
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error('Error: ', error)
+      }
+    }
   }
 
   return (

@@ -11,6 +11,7 @@ import useNotification from "./hooks/useNotification"
 import loginService, { type User } from './services/login'
 import ProblemDetails from "./components/ProblemDetails"
 import useCurrentUser from "./hooks/useCurrentUser"
+import { setToken } from "./services/problems"
 
 export interface CurrentUser {
   username: string,
@@ -36,6 +37,7 @@ const App = () => {
     if (currentUserJSON) {
       const currentUser = JSON.parse(currentUserJSON)
       dispatch({ type: 'addUser', payload: currentUser})
+      setToken(currentUser.token)
       handleNotification(getNotificationMessage('success', 'saved user found!'), 5)
     }
   }, [dispatch, handleNotification])
@@ -45,6 +47,7 @@ const App = () => {
     try {
       const newUser = await loginService.login(credential)
       dispatch({ type: 'addUser', payload: newUser})
+      setToken(newUser.token)
       handleNotification(getNotificationMessage('success', 'logged in successfully!'), 5)
       localStorage.setItem('mathAppCurrentUserJSON', JSON.stringify(newUser))
       navigate('/')
