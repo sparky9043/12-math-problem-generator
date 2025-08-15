@@ -15,10 +15,20 @@ const EditProblemForm = (props: EditProblemFormProps) => {
 
   console.log(props.problem)
 
+  const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+  }
+
   return (
-    <div>
-      Editable Form
-    </div>
+      <form onSubmit={handleEdit}>
+        <h3>Edit Problem</h3>
+        <button
+          className="mr-2 font-semibold px-2 py-1 rounded border border-emerald-700 text-emerald-500 hover:bg-emerald-200 hover:cursor-pointer hover:text-emerald-300"
+        >
+          Edit Form
+        </button>
+      </form>
+
   )
 }
 

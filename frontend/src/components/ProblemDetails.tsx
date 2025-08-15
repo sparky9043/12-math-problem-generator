@@ -35,24 +35,6 @@ const ProblemDetails = () => {
   const handleBack = () => {
     navigate('/dashboard/problems')
   }
-
-  // const editForm = () => {
-  //   const handleEdit = (event: FormEvent<HTMLFormElement>) => {
-  //     event.preventDefault()
-  //   }
-  //   console.log(targetProblem)
-
-  //   return (
-  //     <form onSubmit={handleEdit}>
-  //       <h3>Edit Problem</h3>
-  //       <button
-  //         className="mr-2 font-semibold px-2 py-1 rounded border border-emerald-700 text-emerald-500 hover:bg-emerald-200 hover:cursor-pointer hover:text-emerald-300"
-  //       >
-  //         Edit Form
-  //       </button>
-  //     </form>
-  //   )
-  // }
   
   return  (
     <div className="basis-1/2 p-4">
