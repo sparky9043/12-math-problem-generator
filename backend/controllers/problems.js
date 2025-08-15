@@ -31,14 +31,13 @@ problemsRouter.post('/', async (request, response, next) => {
 })
 
 problemsRouter.delete('/:id', async (request, response, next) => {
-  console.log(request.token)
-  // try {
-  //   await problemServices.deleteProblem(request)
+  try {
+    await problemServices.deleteProblem(request)
 
-  //   return response.status(204).end()
-  // } catch (error) {
-  //   next(error)
-  // }
+    return response.status(204).end()
+  } catch (error) {
+    next(error)
+  }
 })
 
 problemsRouter.put('/:id', async (request, response, next) => {
