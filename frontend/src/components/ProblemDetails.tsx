@@ -1,12 +1,15 @@
 import { useQueryClient } from "@tanstack/react-query"
 import { useNavigate, useParams } from "react-router-dom"
 import type { Problem } from "./ProblemsList"
+import { useState } from "react"
+import EditProblemForm from "./EditProblemForm"
 
 const ProblemDetails = () => {
   const client = useQueryClient()
   const problems: Problem[] | undefined = client.getQueryData(['problems'])
   const { id } = useParams()
   const navigate = useNavigate()
+  const [showEditForm, setShowEditForm] = useState<boolean>(false)
 
   if (!problems) {
     return (
@@ -33,7 +36,23 @@ const ProblemDetails = () => {
     navigate('/dashboard/problems')
   }
 
-  console.log(targetProblem)
+  // const editForm = () => {
+  //   const handleEdit = (event: FormEvent<HTMLFormElement>) => {
+  //     event.preventDefault()
+  //   }
+  //   console.log(targetProblem)
+
+  //   return (
+  //     <form onSubmit={handleEdit}>
+  //       <h3>Edit Problem</h3>
+  //       <button
+  //         className="mr-2 font-semibold px-2 py-1 rounded border border-emerald-700 text-emerald-500 hover:bg-emerald-200 hover:cursor-pointer hover:text-emerald-300"
+  //       >
+  //         Edit Form
+  //       </button>
+  //     </form>
+  //   )
+  // }
   
   return  (
     <div className="basis-1/2 p-4">
@@ -54,7 +73,9 @@ const ProblemDetails = () => {
       <p>Answer: {targetProblem.answer}</p>
       <button
         className="mr-2 font-semibold px-2 py-1 rounded border border-emerald-700 text-emerald-500 hover:bg-emerald-200 hover:cursor-pointer hover:text-emerald-300"
-      >Edit</button>
+        onClick={() => setShowEditForm(!showEditForm)}
+      >{ showEditForm ? 'cancel' : 'edit' }</button>
+      {showEditForm && <EditProblemForm problem={targetProblem} />}
     </div>
   )
 }
