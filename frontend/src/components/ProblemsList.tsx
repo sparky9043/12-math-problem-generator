@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query"
+import { QueryClient, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { Outlet, useNavigate } from "react-router-dom"
 import problemService from '../services/problems'
 import Error from "./Error"
@@ -19,10 +19,18 @@ export interface Problem {
 const ProblemsList = () => {
   const { currentUser: user } = useCurrentUser()
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const problemsListResult = useQuery({
     queryFn: problemService.getProblems,
     queryKey: ['problems'],
     retry: 3,
+  })
+
+  const deleteProblemMutation = useMutation({
+    mutationFn: problemService.deleteProblem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['problems'] })
+    }
   })
 
   if (problemsListResult.isLoading) {
@@ -68,13 +76,22 @@ const ProblemsList = () => {
     navigate(`${id}`)
   }
 
+  const handleDelete = async (id: string) => {
+    try {
+      deleteProblemMutation.mutate(id)
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
   return (
     <div className="overflow-auto w-full p-4 flex flex-col gap-2">
       <h2 className="font-semibold text-xl">Problems</h2>
       <div className="flex">
         <ul className="flex flex-col gap-4">
           {problemsByUser.map((problem, index) => <li key={problem.id}>
-            <h3>
+            <div>
               <button
                 className="mr-2 font-semibold px-2 py-1 rounded border border-emerald-700 text-emerald-500 hover:bg-emerald-200 hover:cursor-pointer hover:text-emerald-300"
                 onClick={() => handleSeeDetails(problem.id)}
@@ -84,7 +101,11 @@ const ProblemsList = () => {
               <span>
                 {convertToNumberString(index).concat('.')} {problem.question}
               </span>
-            </h3>
+              <button
+                className="text-sm font-semibold px-1 py-0.5 rounded border border-emerald-700 text-emerald-500 hover:bg-emerald-200 hover:cursor-pointer hover:text-emerald-300 ml-2"
+                onClick={() => handleDelete(problem.id)}
+              >delete</button>
+            </div>
           </li>)
           }
         </ul>

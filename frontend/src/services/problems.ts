@@ -33,4 +33,14 @@ const createProblem = async (problem: Problem) => {
   return response.data
 }
 
-export default { getProblems, createProblem }
+const deleteProblem = async (id: string) => {
+  const config = {
+    headers: {
+      authorization: token
+    }
+  }
+
+  await axios.delete(`${baseUrl}/${id}`, config)
+}
+
+export default { getProblems, createProblem, deleteProblem }
