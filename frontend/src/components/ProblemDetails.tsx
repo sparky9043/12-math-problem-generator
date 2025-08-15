@@ -10,6 +10,7 @@ const ProblemDetails = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const [showEditForm, setShowEditForm] = useState<boolean>(false)
+  
 
   if (!problems) {
     return (
@@ -35,6 +36,10 @@ const ProblemDetails = () => {
   const handleBack = () => {
     navigate('/dashboard/problems')
   }
+
+  const handleEdit = async () => {
+    console.log('hello')
+  }
   
   return  (
     <div className="basis-1/2 p-4">
@@ -57,7 +62,7 @@ const ProblemDetails = () => {
         className="mr-2 font-semibold px-2 py-1 rounded border border-emerald-700 text-emerald-500 hover:bg-emerald-200 hover:cursor-pointer hover:text-emerald-300"
         onClick={() => setShowEditForm(!showEditForm)}
       >{ showEditForm ? 'cancel' : 'edit' }</button>
-      {showEditForm && <EditProblemForm problem={targetProblem} />}
+      {showEditForm && <EditProblemForm problem={targetProblem} onEdit={handleEdit} />}
     </div>
   )
 }

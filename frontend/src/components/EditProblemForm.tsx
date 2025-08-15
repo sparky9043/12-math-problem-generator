@@ -2,15 +2,16 @@ import useInput from "../hooks/useInput"
 import type { Problem } from "./ProblemsList"
 
 interface EditProblemFormProps {
-  problem: Problem | null
+  problem: Problem | null,
+  onEdit: () => void
 }
 
 const EditProblemForm = (props: EditProblemFormProps) => {
   const subject = useInput(props.problem?.subject)
-  const branch = useInput('')
-  const topic = useInput('')
-  const question = useInput('')
-  const answer = useInput('')
+  const branch = useInput(props.problem?.branch)
+  const topic = useInput(props.problem?.topic)
+  const question = useInput(props.problem?.question)
+  const answer = useInput(props.problem?.answer)
   const inputStyles = "border-2 rounded border-emerald-700 hover:border-emerald-500 px-0.5 py-1 focus:outline-emerald-800"
 
   if (!props.problem) {
@@ -20,7 +21,6 @@ const EditProblemForm = (props: EditProblemFormProps) => {
       </div>
     )
   }
-
 
   const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
