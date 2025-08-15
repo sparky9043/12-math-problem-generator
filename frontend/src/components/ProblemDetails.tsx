@@ -1,8 +1,9 @@
-import { useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useNavigate, useParams } from "react-router-dom"
 import type { Problem } from "./ProblemsList"
 import { useState } from "react"
 import EditProblemForm from "./EditProblemForm"
+import problemServices from '../services/problems'
 
 const ProblemDetails = () => {
   const client = useQueryClient()
@@ -10,7 +11,13 @@ const ProblemDetails = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const [showEditForm, setShowEditForm] = useState<boolean>(false)
-  
+  const queryClient = useQueryClient()
+  const updateProblemMutation = useMutation({
+    mutationFn: problemServices.editProblem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['problems' ]})
+    }
+  })
 
   if (!problems) {
     return (
@@ -37,8 +44,8 @@ const ProblemDetails = () => {
     navigate('/dashboard/problems')
   }
 
-  const handleEdit = async () => {
-    console.log('hello')
+  const handleEdit = async (problemObject: Problem) => {
+    updateProblemMutation.mutate(problemObject)
   }
   
   return  (

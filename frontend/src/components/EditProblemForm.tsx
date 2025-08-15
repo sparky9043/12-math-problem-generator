@@ -2,8 +2,8 @@ import useInput from "../hooks/useInput"
 import type { Problem } from "./ProblemsList"
 
 interface EditProblemFormProps {
-  problem: Problem | null,
-  onEdit: () => void
+  problem: Problem,
+  onEdit: (problemObject: Problem) => void
 }
 
 const EditProblemForm = (props: EditProblemFormProps) => {
@@ -24,7 +24,10 @@ const EditProblemForm = (props: EditProblemFormProps) => {
 
   const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    props.onEdit({ ...props.problem })
   }
+
+  console.log(props.problem)
 
   return (
       <form onSubmit={handleEdit}>

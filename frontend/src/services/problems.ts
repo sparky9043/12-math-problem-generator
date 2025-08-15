@@ -7,6 +7,7 @@ interface Problem {
   question: string,
   subject: string,
   topic: string,
+  id: string,
 }
 
 const baseUrl = '/api/problems'
@@ -43,4 +44,16 @@ const deleteProblem = async (id: string) => {
   await axios.delete(`${baseUrl}/${id}`, config)
 }
 
-export default { getProblems, createProblem, deleteProblem }
+const editProblem = async (problemObject: Problem) => {
+  const config = {
+    headers: {
+      authorization: token
+    }
+  }
+
+  const updatedProblem = await axios.put(`${baseUrl}/${problemObject.id}`, problemObject, config)
+
+  return updatedProblem
+}
+
+export default { getProblems, createProblem, deleteProblem, editProblem }
