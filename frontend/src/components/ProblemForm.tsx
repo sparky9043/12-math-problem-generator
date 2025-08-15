@@ -36,6 +36,7 @@ const ProblemForm = () => {
         question: question.value,
         answer: answer.value,
         choices: choices,
+        id: '',
       })
 
       navigate(`/dashboard/problems/${newProblem.id}`)
