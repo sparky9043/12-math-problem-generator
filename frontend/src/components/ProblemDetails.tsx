@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useNavigate, useParams } from "react-router-dom"
 import type { Problem } from "./ProblemsList"
 import { useState } from "react"
@@ -6,18 +6,32 @@ import EditProblemForm from "./EditProblemForm"
 import problemServices from '../services/problems'
 
 const ProblemDetails = () => {
-  const client = useQueryClient()
-  const problems: Problem[] | undefined = client.getQueryData(['problems'])
   const { id } = useParams()
   const navigate = useNavigate()
   const [showEditForm, setShowEditForm] = useState<boolean>(false)
   const queryClient = useQueryClient()
+
+  const { data: problems, isLoading, isError } = useQuery({
+    queryKey: ['problems'],
+    queryFn: problemServices.getProblems
+  })
+
   const updateProblemMutation = useMutation({
     mutationFn: problemServices.editProblem,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['problems' ]})
+      queryClient.invalidateQueries({ queryKey: ['problems']})
     }
   })
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (isError || !problems) {
+    return <div>Error: could not load problems...</div>
+  }
+
+  const targetProblem: Problem = problems.find((problem: Problem) => problem.id === id)
 
   if (!problems) {
     return (
@@ -26,7 +40,6 @@ const ProblemDetails = () => {
       </div>
     )
   }
-  const targetProblem = problems.find(problem => problem.id === id)
 
   if (!targetProblem) {
     return (
@@ -46,6 +59,7 @@ const ProblemDetails = () => {
 
   const handleEdit = async (problemObject: Problem) => {
     updateProblemMutation.mutate(problemObject)
+    setShowEditForm(false)
   }
   
   return  (

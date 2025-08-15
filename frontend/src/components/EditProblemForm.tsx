@@ -24,10 +24,15 @@ const EditProblemForm = (props: EditProblemFormProps) => {
 
   const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    props.onEdit({ ...props.problem })
+    props.onEdit({
+      ...props.problem,
+      subject: subject.value,
+      branch: branch.value,
+      topic: topic.value,
+      question: question.value,
+      answer: answer.value,
+    })
   }
-
-  console.log(props.problem)
 
   return (
       <form onSubmit={handleEdit}>
