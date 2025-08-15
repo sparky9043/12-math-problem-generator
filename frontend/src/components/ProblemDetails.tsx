@@ -32,6 +32,8 @@ const ProblemDetails = () => {
   const handleBack = () => {
     navigate('/dashboard/problems')
   }
+
+  console.log(targetProblem)
   
   return  (
     <div className="basis-1/2 p-4">
@@ -50,6 +52,9 @@ const ProblemDetails = () => {
         </li>)}
       </ul>
       <p>Answer: {targetProblem.answer}</p>
+      <button
+        className="mr-2 font-semibold px-2 py-1 rounded border border-emerald-700 text-emerald-500 hover:bg-emerald-200 hover:cursor-pointer hover:text-emerald-300"
+      >Edit</button>
     </div>
   )
 }
