@@ -48,4 +48,28 @@ const deleteProblem = async (request) => {
   await user.save()
 }
 
-module.exports = { getAll, createNewProblem, getProblem, deleteProblem }
+const updateProblem = async (request, response) => {
+  const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
+
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'invalid token' })
+  }
+  
+  const body = request.body
+
+  // const user = await userServices.getUserById(decodedToken.id)
+
+  const problem = await getProblem(request.params.id)
+
+  problem.subject = body.subject
+  problem.branch = body.branch
+  problem.topic = body.topic
+  problem.question = body.question
+  problem.choices = body.choices
+  problem.answer = body.answer
+
+  await problem.save()
+  return problem
+}
+
+module.exports = { getAll, createNewProblem, getProblem, deleteProblem, updateProblem }

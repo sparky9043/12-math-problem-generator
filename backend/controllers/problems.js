@@ -40,4 +40,14 @@ problemsRouter.delete('/:id', async (request, response, next) => {
   }
 })
 
+problemsRouter.put('/:id', async (request, response, next) => {
+  try {
+    const updatedProblem = await problemServices.updateProblem(request, response)
+
+    return response.status(201).json(updatedProblem)
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = problemsRouter
