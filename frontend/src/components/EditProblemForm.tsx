@@ -1,3 +1,4 @@
+import useInput from "../hooks/useInput"
 import type { Problem } from "./ProblemsList"
 
 interface EditProblemFormProps {
@@ -5,6 +6,13 @@ interface EditProblemFormProps {
 }
 
 const EditProblemForm = (props: EditProblemFormProps) => {
+  const subject = useInput(props.problem?.subject)
+  const branch = useInput('')
+  const topic = useInput('')
+  const question = useInput('')
+  const answer = useInput('')
+  const inputStyles = "border-2 rounded border-emerald-700 hover:border-emerald-500 px-0.5 py-1 focus:outline-emerald-800"
+
   if (!props.problem) {
     return (
       <div>
@@ -13,7 +21,6 @@ const EditProblemForm = (props: EditProblemFormProps) => {
     )
   }
 
-  console.log(props.problem)
 
   const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -27,6 +34,36 @@ const EditProblemForm = (props: EditProblemFormProps) => {
         >
           Edit Form
         </button>
+        <div>
+          <label>
+            subject
+          </label>
+          <input className={inputStyles} {...subject} />
+        </div>
+        <div>
+          <label>
+            branch
+          </label>
+          <input className={inputStyles} {...branch} />
+        </div>
+        <div>
+          <label>
+            topic
+          </label>
+          <input className={inputStyles} {...topic} />
+        </div>
+        <div>
+          <label>
+            question
+          </label>
+          <input className={inputStyles} {...question} />
+        </div>
+        <div>
+          <label>
+            answer
+          </label>
+          <input className={inputStyles} {...answer} />
+        </div>
       </form>
 
   )

@@ -7,8 +7,8 @@ interface LoginFormProps {
 }
 
 const LoginForm = (props: LoginFormProps) => {
-  const username = useInput('text')
-  const password = useInput('password')
+  const username = useInput('')
+  const password = useInput('', 'password')
   const [isLoading, setIsLoading] = useState(false)
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
