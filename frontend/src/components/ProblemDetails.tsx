@@ -63,7 +63,7 @@ const ProblemDetails = () => {
   }
   
   return  (
-    <div className="basis-1/2 p-4">
+    <div className="basis-1/2 p-4 fixed top-20 right-10 min-w-1/9 max-w-2/9">
       <button className="hover:bg-emerald-100 px-1 py-2 rounded"
         onClick={handleBack}
       >
