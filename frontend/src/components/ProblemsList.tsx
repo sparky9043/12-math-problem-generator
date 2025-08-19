@@ -1,10 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useNavigate, useParams } from "react-router-dom"
 import problemService from '../services/problems'
 import Error from "./Error"
 import LoadingSpinner from "./LoadingSpinner"
 import useCurrentUser from "../hooks/useCurrentUser"
 import useInput from "../hooks/useInput"
+import { useState } from "react"
 
 export interface Problem {
   answer: string,
@@ -27,13 +28,15 @@ const ProblemsList = () => {
     retry: 3,
   })
   const filter = useInput('', 'text')
-
+  const [filterType, setFilterType] = useState<string>('question')
+  // const params = useParams()
   const deleteProblemMutation = useMutation({
     mutationFn: problemService.deleteProblem,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['problems'] })
     }
   })
+  // console.log(params)
 
   if (problemsListResult.isLoading) {
     return (
@@ -87,24 +90,48 @@ const ProblemsList = () => {
     }
   }
 
-  const returnFunction = (index: 0 | 1) => {
-    if (index === 0) {
+  const searchFunction = (filterType: string) => {
+    if (filterType === 'question') {
       return (problem: Problem) => problem.question.toLowerCase().includes(filter.value)
-    } else {
+    } else if (filterType === 'branch') {
       return (problem: Problem) => problem.branch.toLowerCase().includes(filter.value)
+    } else {
+      return (problem: Problem) => problem.topic.toLowerCase().includes(filter.value)
     }
   }
 
-  const filteredList = [...problemsByUser].filter(returnFunction(1)) ?? [...problemsByUser]
+  const handleFilterTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilterType(event.target.value)
+  }
+
+  const filteredList = [...problemsByUser].filter(searchFunction(filterType)) ?? [...problemsByUser]
 
   return (
     <div className="overflow-auto w-full p-4 flex flex-col gap-2">
       <h2 className="font-semibold text-xl">Problems</h2>
 
       <div>
-        <label>
-          search for a problem: 
-        </label>
+        <label
+          htmlFor="filter-type"
+          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+          filter by:
+        </label>    
+          <div className="relative">
+            <select
+              className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
+              id="filter-type"
+              value={filterType}
+              onChange={handleFilterTypeChange}
+            >
+              <option value="question">question</option>
+              <option value="branch">branch</option>
+              <option value="topic">topic</option>
+            </select>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.2" stroke="currentColor" className="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+            </svg>
+          </div>
         <input
           className="border-2 border-emerald-800 rounded w-2/5 py-0.5 px-1"
           {...filter}
