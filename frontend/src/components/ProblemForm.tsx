@@ -4,6 +4,7 @@ import problemServices from '../services/problems'
 import { useState } from "react"
 import DropdownMenu from "./DropdownMenu"
 import toast from "react-hot-toast"
+import { AxiosError } from "axios"
 
 const ProblemForm = () => {
   const subject = useInput('')
@@ -48,8 +49,11 @@ const ProblemForm = () => {
       navigate(`/dashboard/problems/${newProblem.id}`)
       toast.success('Problem created!')
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message)
+      if (error instanceof AxiosError) {
+        toast.error('Error: Make sure all forms are filled and the question is not duplicated')
+        throw error
+      } else if (error instanceof Error) {
+        toast.error('Error: ' + error.message)
         throw error
       }
     }
