@@ -87,7 +87,15 @@ const ProblemsList = () => {
     }
   }
 
-  const filteredList = [...problemsByUser].filter(problem => problem.question.toLowerCase().includes(filter.value))
+  const returnFunction = (index: 0 | 1) => {
+    if (index === 0) {
+      return (problem: Problem) => problem.question.toLowerCase().includes(filter.value)
+    } else {
+      return (problem: Problem) => problem.branch.toLowerCase().includes(filter.value)
+    }
+  }
+
+  const filteredList = [...problemsByUser].filter(returnFunction(1)) ?? [...problemsByUser]
 
   return (
     <div className="overflow-auto w-full p-4 flex flex-col gap-2">
