@@ -7,6 +7,7 @@ import useCurrentUser from "../hooks/useCurrentUser"
 import useInput from "../hooks/useInput"
 import { useState } from "react"
 import DropdownMenu from "./DropdownMenu"
+import toast, { Toaster } from "react-hot-toast"
 
 export interface Problem {
   answer: string,
@@ -85,8 +86,10 @@ const ProblemsList = () => {
   const handleDelete = async (id: string) => {
     try {
       deleteProblemMutation.mutate(id)
+      toast.success('Problem deleted')
     } catch (error) {
       console.log(error)
+      toast.error('there was an error')
       throw error
     }
   }
@@ -110,7 +113,7 @@ const ProblemsList = () => {
   return (
     <div className="max-h-screen overflow-scroll p-4 flex flex-col gap-2 w-200">
       <h2 className="font-semibold text-xl">Problems</h2>
-
+      <Toaster />
       {!isIdSelected
         ? 
           <div>
