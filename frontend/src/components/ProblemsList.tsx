@@ -6,6 +6,7 @@ import LoadingSpinner from "./LoadingSpinner"
 import useCurrentUser from "../hooks/useCurrentUser"
 import useInput from "../hooks/useInput"
 import { useState } from "react"
+import DropdownMenu from "./DropdownMenu"
 
 export interface Problem {
   answer: string,
@@ -116,22 +117,12 @@ const ProblemsList = () => {
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           filter by:
-        </label>    
-          <div className="relative">
-            <select
-              className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
-              id="filter-type"
-              value={filterType}
-              onChange={handleFilterTypeChange}
-            >
-              <option value="question">question</option>
-              <option value="branch">branch</option>
-              <option value="topic">topic</option>
-            </select>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.2" stroke="currentColor" className="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-            </svg>
-          </div>
+        </label>
+        <DropdownMenu
+          options={['question', 'branch', 'topic']}
+          optionValue={filterType}
+          setOptionValue={handleFilterTypeChange}
+        />
         <input
           className="border-2 border-emerald-800 rounded w-2/5 py-0.5 px-1"
           {...filter}
