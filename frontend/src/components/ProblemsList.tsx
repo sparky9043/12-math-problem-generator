@@ -4,6 +4,7 @@ import problemService from '../services/problems'
 import Error from "./Error"
 import LoadingSpinner from "./LoadingSpinner"
 import useCurrentUser from "../hooks/useCurrentUser"
+import useInput from "../hooks/useInput"
 
 export interface Problem {
   answer: string,
@@ -25,6 +26,7 @@ const ProblemsList = () => {
     queryKey: ['problems'],
     retry: 3,
   })
+  const filter = useInput('', 'text')
 
   const deleteProblemMutation = useMutation({
     mutationFn: problemService.deleteProblem,
@@ -88,6 +90,17 @@ const ProblemsList = () => {
   return (
     <div className="overflow-auto w-full p-4 flex flex-col gap-2">
       <h2 className="font-semibold text-xl">Problems</h2>
+
+      <div>
+        <label>
+          filter: 
+        </label>
+        <input
+          className="border-2 border-emerald-800 rounded w-4/5 py-0.5 px-1"
+          {...filter}
+        />
+      </div>
+
       <div className="flex">
         <ul className="flex flex-col gap-4">
           {problemsByUser.map((problem, index) => <li key={problem.id}>
