@@ -11,7 +11,7 @@ const errorHandler = (error, request, response, next) => {
   logger.error(error.message)
 
   if (error.name === 'MongoServerError' && error.message.includes('E11000 duplicate key error')) {
-    response.status(400).json({ error: 'username already exists' })
+    response.status(400).json({ error: error.message })
   } else if (error.name === 'ValidationError') {
     response.status(400).json({ error: error.message })
   } else if (error.name === 'CastError') {
