@@ -12,6 +12,7 @@ import loginService, { type User } from './services/login'
 import ProblemDetails from "./components/ProblemDetails"
 import useCurrentUser from "./hooks/useCurrentUser"
 import { setToken } from "./services/problems"
+import toast from 'react-hot-toast'
 
 export interface CurrentUser {
   username: string,
@@ -51,7 +52,9 @@ const App = () => {
       handleNotification(getNotificationMessage('success', 'logged in successfully!'), 5)
       localStorage.setItem('mathAppCurrentUserJSON', JSON.stringify(newUser))
       navigate('/')
+      toast.success('Login Successful!')
     } catch (exception) {
+      toast.error('invalid username or password')
       handleNotification(getNotificationMessage('error', 'invalid username or password'), 5)
     }
   }

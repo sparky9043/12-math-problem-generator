@@ -1,7 +1,7 @@
 import { useState } from "react"
 import useInput from "../hooks/useInput"
 import { type User } from "../services/login"
-import toast from "react-hot-toast"
+import { Toaster } from "react-hot-toast"
 
 interface LoginFormProps {
   login: (credentials: User) => void,
@@ -15,14 +15,12 @@ const LoginForm = (props: LoginFormProps) => {
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!username.value || !password.value) return;
-    
     try {
       setIsLoading(true)
       props.login({ username: username.value, password: password.value })
-      toast.success('Login Successful')
     } catch (exception: unknown) {
       if (exception instanceof Error) {
-        console.log(exception.message)
+        console.log("Hello",exception.message)
       }
     } finally {
       setIsLoading(false)
@@ -62,6 +60,7 @@ const LoginForm = (props: LoginFormProps) => {
         type="submit"
         disabled={isLoading}
       >login</button>
+      <Toaster />
     </form>
   )
 }
