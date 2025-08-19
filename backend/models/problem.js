@@ -20,7 +20,6 @@ const problemSchema = new mongoose.Schema({
   choices: [
     {
       type: String,
-      required: true,
     }
   ],
   answer: {
