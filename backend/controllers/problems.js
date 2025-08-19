@@ -32,7 +32,7 @@ problemsRouter.post('/', async (request, response, next) => {
 
 problemsRouter.delete('/:id', async (request, response, next) => {
   try {
-    await problemServices.deleteProblem(request)
+    await problemServices.deleteProblem(request, response)
 
     return response.status(204).end()
   } catch (error) {

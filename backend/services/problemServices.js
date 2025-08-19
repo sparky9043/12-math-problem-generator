@@ -37,10 +37,19 @@ const createNewProblem = async (request) => {
   return savedProblem
 }
 
-const deleteProblem = async (request) => {
+const deleteProblem = async (request, response) => {
   const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
-
   const user = await userServices.getUserById(decodedToken.id)
+
+  const problem = await Problem.findById(request.params.id)
+
+  if (!problem) {
+    return response.status(404).json({ error: 'Problem not found' })
+  }
+
+  if (problem.user.toString() !== user._id.toString()) {
+    return response.status(403).json({ error: 'Not authorized to delete this problem' })
+  }
 
   await Problem.findByIdAndDelete(request.params.id)
   user.problems = user.problems.filter(problemId => problemId.toString() !== request.params.id)
@@ -55,11 +64,17 @@ const updateProblem = async (request, response) => {
     return response.status(401).json({ error: 'invalid token' })
   }
   
-  const body = request.body
-
-  // const user = await userServices.getUserById(decodedToken.id)
-
   const problem = await getProblem(request.params.id)
+
+  if (!problem) {
+    return response.status(404).json({ error: 'Problem not found' })
+  }
+
+  if  (problem.user.toString() !== decodedToken.id) {
+    return response.status(403).json({ error: 'Not authorized to update this problem!' })
+  }
+
+  const body = request.body
 
   problem.subject = body.subject
   problem.branch = body.branch
