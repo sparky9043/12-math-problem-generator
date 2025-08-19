@@ -108,7 +108,7 @@ const ProblemsList = () => {
   const filteredList = [...problemsByUser].filter(searchFunction(filterType)) ?? [...problemsByUser]
 
   return (
-    <div className="overflow-auto w-full p-4 flex flex-col gap-2">
+    <div className="max-h-screen overflow-scroll p-4 flex flex-col gap-2 w-200">
       <h2 className="font-semibold text-xl">Problems</h2>
 
       {!isIdSelected
