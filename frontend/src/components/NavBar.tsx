@@ -8,13 +8,14 @@ interface NavBarProps {
 
 const NavBar = (props: NavBarProps) => {
   const { currentUser: user } = useCurrentUser()
+  const isExpired = user?.expiresIn && user?.expiresIn * 1000 - Date.now() <= 0
 
   useEffect(() => {
-    if (user?.expiresIn && user?.expiresIn * 1000 - Date.now() <= 0) {
+    if (isExpired) {
       props.logout()
     }
 
-  }, [props, user?.expiresIn])
+  }, [props, isExpired])
 
   return (
     <nav className="flex justify-between p-8 bg-emerald-300 h-1/8 items-center">
