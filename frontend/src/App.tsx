@@ -63,7 +63,7 @@ const App = () => {
     dispatch({ type: 'removeUser', payload: null })
     localStorage.removeItem('mathAppCurrentUserJSON')
     handleNotification(getNotificationMessage('success', 'logged out successfully'), 5)
-
+    toast.success('logged out successfully')
     navigate('/')
   }
 

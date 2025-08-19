@@ -4,6 +4,7 @@ import type { Problem } from "./ProblemsList"
 import { useState } from "react"
 import EditProblemForm from "./EditProblemForm"
 import problemServices from '../services/problems'
+import toast from "react-hot-toast"
 
 const ProblemDetails = () => {
   const { id } = useParams()
@@ -58,8 +59,17 @@ const ProblemDetails = () => {
   }
 
   const handleEdit = async (problemObject: Problem) => {
-    updateProblemMutation.mutate(problemObject)
-    setShowEditForm(false)
+    try {
+      updateProblemMutation.mutate(problemObject)
+      setShowEditForm(false)
+      toast.success('Problem updated!')
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message)
+        toast.error(error.message)
+        throw error
+      }
+    }
   }
   
   return  (
