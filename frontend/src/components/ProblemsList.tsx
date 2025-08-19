@@ -111,23 +111,27 @@ const ProblemsList = () => {
     <div className="overflow-auto w-full p-4 flex flex-col gap-2">
       <h2 className="font-semibold text-xl">Problems</h2>
 
-      {!isIdSelected && <div>
-        <label
-          htmlFor="filter-type"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          filter by:
-        </label>
-        <DropdownMenu
-          options={['question', 'branch', 'topic']}
-          optionValue={filterType}
-          setOptionValue={handleFilterTypeChange}
-        />
-        <input
-          className="border-2 border-emerald-800 rounded w-2/5 py-0.5 px-1"
-          {...filter}
-        />
-      </div>}
+      {!isIdSelected
+        ? 
+          <div>
+            <label
+              htmlFor="filter-type"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              filter by:
+            </label>
+            <DropdownMenu
+              options={['question', 'branch', 'topic']}
+              optionValue={filterType}
+              setOptionValue={handleFilterTypeChange}
+            />
+            <input
+              className="border-2 border-emerald-800 rounded w-2/5 py-0.5 px-1"
+              {...filter}
+            />
+          </div>
+        : <p>Problem selected</p>
+      }
 
       <div className="flex">
         <ul className="flex flex-col gap-4">
