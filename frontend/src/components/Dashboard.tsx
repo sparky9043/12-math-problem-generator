@@ -1,6 +1,12 @@
-import { NavLink, Outlet } from "react-router-dom"
+import { NavLink, Outlet, useMatch } from "react-router-dom"
+import useCurrentUser from "../hooks/useCurrentUser"
 
 const DashBoard = () => {
+  const { currentUser } = useCurrentUser()
+  const matchingParameter = useMatch('/dashboard')
+  console.log(currentUser)
+
+  console.log(matchingParameter?.pathname)
 
   return (
     <div className="h-full">
@@ -18,7 +24,16 @@ const DashBoard = () => {
               </NavLink>
             </li>
           </ul>
-          <Outlet />
+          <div>
+            {matchingParameter &&
+              <div className="p-2 flex flex-col gap-4">
+                <p>Username: {currentUser && currentUser.username}</p>
+                <p>Name: {currentUser && currentUser.name}!</p>
+                <p>Use the menu on the left to navigate</p>
+              </div>
+            }
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>
