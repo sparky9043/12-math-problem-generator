@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom"
 import useCurrentUser from "../hooks/useCurrentUser"
+import { useEffect } from "react"
 
 interface NavBarProps {
   logout: () => void,
@@ -7,7 +8,14 @@ interface NavBarProps {
 
 const NavBar = (props: NavBarProps) => {
   const { currentUser: user } = useCurrentUser()
-  
+
+  useEffect(() => {
+    if (user?.expiresIn && user?.expiresIn * 1000 - Date.now() <= 0) {
+      props.logout()
+    }
+
+  }, [props, user?.expiresIn])
+
   return (
     <nav className="flex justify-between p-8 bg-emerald-300 h-1/8 items-center">
       <h2>Logo</h2>
