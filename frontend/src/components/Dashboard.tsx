@@ -4,9 +4,6 @@ import useCurrentUser from "../hooks/useCurrentUser"
 const DashBoard = () => {
   const { currentUser } = useCurrentUser()
   const matchingParameter = useMatch('/dashboard')
-  console.log(currentUser)
-
-  console.log(matchingParameter?.pathname)
 
   return (
     <div className="h-full">
