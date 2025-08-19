@@ -68,31 +68,31 @@ const ProblemForm = () => {
           <label>
             subject
           </label>
-          <input className={inputStyles} {...subject} />
+          <input className={inputStyles} {...subject} required />
         </div>
         <div>
           <label>
             branch
           </label>
-          <input className={inputStyles} {...branch} />
+          <input className={inputStyles} {...branch} required />
         </div>
         <div>
           <label>
             topic
           </label>
-          <input className={inputStyles} {...topic} />
+          <input className={inputStyles} {...topic} required />
         </div>
         <div>
           <label>
             question
           </label>
-          <input className={inputStyles} {...question} />
+          <input className={inputStyles} {...question} required />
         </div>
         <div>
           <label>
             answer
           </label>
-          <input className={inputStyles} {...answer} />
+          <input className={inputStyles} {...answer} required />
         </div>
         <div>
           <p>How many choices do you want your question to have?</p>
