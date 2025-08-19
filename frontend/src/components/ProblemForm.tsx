@@ -3,7 +3,7 @@ import useInput from "../hooks/useInput"
 import problemServices from '../services/problems'
 import { useState } from "react"
 import DropdownMenu from "./DropdownMenu"
-import toast, { Toaster } from "react-hot-toast"
+import toast from "react-hot-toast"
 
 const ProblemForm = () => {
   const subject = useInput('')
@@ -117,7 +117,6 @@ const ProblemForm = () => {
           create problem
         </button>
       </form>
-      <Toaster />
     </div>
   )
 }

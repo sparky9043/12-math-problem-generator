@@ -1,6 +1,5 @@
 import { NavLink, Outlet, useMatch } from "react-router-dom"
 import useCurrentUser from "../hooks/useCurrentUser"
-import { Toaster } from "react-hot-toast"
 
 const DashBoard = () => {
   const { currentUser } = useCurrentUser()
@@ -8,7 +7,6 @@ const DashBoard = () => {
 
   return (
     <div className="h-full">
-      <Toaster />
       <div className="h-screen">
         <div className="flex h-full">
           <ul className="w-1/5 h-full bg-emerald-700 text-emerald-50">

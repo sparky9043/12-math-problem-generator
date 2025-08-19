@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom"
 import useCurrentUser from "../hooks/useCurrentUser"
 import { useEffect } from "react"
+import { Toaster } from "react-hot-toast"
 
 interface NavBarProps {
   logout: () => void,
@@ -19,6 +20,7 @@ const NavBar = (props: NavBarProps) => {
 
   return (
     <nav className="flex justify-between p-8 bg-emerald-300 h-1/8 items-center">
+      <Toaster />
       <h2>Logo</h2>
       <ul className="flex gap-4 items-center">
         <li>

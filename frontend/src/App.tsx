@@ -40,6 +40,7 @@ const App = () => {
       dispatch({ type: 'addUser', payload: currentUser})
       setToken(currentUser.token)
       handleNotification(getNotificationMessage('success', 'saved user found!'), 5)
+      // toast.success('saved user found!')
     }
   }, [dispatch, handleNotification])
 

@@ -1,7 +1,6 @@
 import { useState } from "react"
 import useInput from "../hooks/useInput"
 import { type User } from "../services/login"
-import { Toaster } from "react-hot-toast"
 
 interface LoginFormProps {
   login: (credentials: User) => void,
@@ -60,7 +59,6 @@ const LoginForm = (props: LoginFormProps) => {
         type="submit"
         disabled={isLoading}
       >login</button>
-      <Toaster />
     </form>
   )
 }
