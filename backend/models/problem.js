@@ -1,15 +1,32 @@
 const mongoose = require('mongoose')
 const problemSchema = new mongoose.Schema({
-  subject: String,
-  branch: String,
-  topic: String,
-  question: String,
+  subject: {
+    type: String,
+    required: true,
+  },
+  branch: {
+    type: String,
+    required: true,
+  },
+  topic: {
+    type: String,
+    required: true,
+  },
+  question: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   choices: [
     {
       type: String,
+      required: true,
     }
   ],
-  answer: String,
+  answer: {
+    type: String,
+    required: true,
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
