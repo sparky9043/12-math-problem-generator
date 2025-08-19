@@ -30,7 +30,11 @@ const ProblemForm = () => {
 
         choices.push(value)
       }
-      
+
+      if (!choices.includes(answer.value)) {
+        throw new Error('Make sure that the answer is one of the choices')
+      }
+
       const newProblem = await problemServices.createProblem({
         subject: subject.value,
         branch: branch.value,
