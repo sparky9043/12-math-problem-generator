@@ -87,23 +87,25 @@ const ProblemsList = () => {
     }
   }
 
+  const filteredList = [...problemsByUser].filter(problem => problem.question.toLowerCase().includes(filter.value))
+
   return (
     <div className="overflow-auto w-full p-4 flex flex-col gap-2">
       <h2 className="font-semibold text-xl">Problems</h2>
 
       <div>
         <label>
-          filter: 
+          search for a problem: 
         </label>
         <input
-          className="border-2 border-emerald-800 rounded w-4/5 py-0.5 px-1"
+          className="border-2 border-emerald-800 rounded w-2/5 py-0.5 px-1"
           {...filter}
         />
       </div>
 
       <div className="flex">
         <ul className="flex flex-col gap-4">
-          {problemsByUser.map((problem, index) => <li key={problem.id}>
+          {filteredList.map((problem, index) => <li key={problem.id}>
             <div>
               <button
                 className="mr-2 font-semibold px-2 py-1 rounded border border-emerald-700 text-emerald-500 hover:bg-emerald-200 hover:cursor-pointer hover:text-emerald-300"
