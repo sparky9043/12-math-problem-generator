@@ -30,14 +30,14 @@ const ProblemsList = () => {
   })
   const filter = useInput('', 'text')
   const [filterType, setFilterType] = useState<string>('question')
-  // const params = useParams()
+  const { id } = useParams()
   const deleteProblemMutation = useMutation({
     mutationFn: problemService.deleteProblem,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['problems'] })
     }
   })
-  // console.log(params)
+  const isIdSelected = id !== undefined
 
   if (problemsListResult.isLoading) {
     return (
@@ -111,7 +111,7 @@ const ProblemsList = () => {
     <div className="overflow-auto w-full p-4 flex flex-col gap-2">
       <h2 className="font-semibold text-xl">Problems</h2>
 
-      <div>
+      {!isIdSelected && <div>
         <label
           htmlFor="filter-type"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -127,7 +127,7 @@ const ProblemsList = () => {
           className="border-2 border-emerald-800 rounded w-2/5 py-0.5 px-1"
           {...filter}
         />
-      </div>
+      </div>}
 
       <div className="flex">
         <ul className="flex flex-col gap-4">
