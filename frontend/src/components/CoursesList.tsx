@@ -1,4 +1,4 @@
-import { NavLink, useMatch, useNavigate } from "react-router-dom"
+import { useMatch, useNavigate } from "react-router-dom"
 import { Outlet } from "react-router-dom"
 
 const CoursesList = () => {
