@@ -1,27 +1,28 @@
-import { NavLink, useMatch } from "react-router-dom"
+import { NavLink, useMatch, useNavigate } from "react-router-dom"
 import { Outlet } from "react-router-dom"
 
 const CoursesList = () => {
   const match = useMatch('/dashboard/courses/create')
+  const navigate = useNavigate()
 
   const createCourseLink = () => {
     return (
       <div>
         {match
         ?
-          <NavLink
+          <button
             className="border-2"
-            to="/dashboard/courses"
-            >
+            onClick={() => navigate(-1)}
+          >
             back
-          </NavLink>
+          </button>
         :
-          <NavLink
-            className="border-2"
-            to="create"
-            >
+          <button
+            className="border-2 px-2 py-1 rounded"
+            onClick={() => navigate('create')}
+          >
             create course
-          </NavLink>
+          </button>
         }
       </div>
     )
