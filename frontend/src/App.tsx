@@ -115,6 +115,10 @@ const App = () => {
             path="/dashboard/create"
             element={<ProblemForm />}
           />
+          <Route
+            path="/dashboard/courses"
+            element={<p>Create Course</p>}
+          />
         </Route>
         <Route
           path="/login"
