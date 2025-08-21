@@ -13,6 +13,7 @@ import ProblemDetails from "./components/ProblemDetails"
 import useCurrentUser from "./hooks/useCurrentUser"
 import { setToken } from "./services/problems"
 import toast from 'react-hot-toast'
+import CoursesList from "./components/CoursesList"
 
 export interface CurrentUser {
   username: string,
@@ -117,8 +118,13 @@ const App = () => {
           />
           <Route
             path="/dashboard/courses"
-            element={<p>Create Course</p>}
-          />
+            element={<CoursesList />}
+          >
+            <Route
+              path="/dashboard/courses/create"
+              element={<p>Create Course</p>}
+            />
+          </Route>
         </Route>
         <Route
           path="/login"
