@@ -27,6 +27,9 @@ const userSchema = new mongoose.Schema({
       ref: 'Course',
     },
   ],
+  userType: {
+    type: String,
+  }
 })
 
 userSchema.set('toJSON', {
