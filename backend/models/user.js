@@ -21,6 +21,12 @@ const userSchema = new mongoose.Schema({
       ref: 'Problem',
     },
   ],
+  courses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Course',
+    },
+  ],
 })
 
 userSchema.set('toJSON', {
