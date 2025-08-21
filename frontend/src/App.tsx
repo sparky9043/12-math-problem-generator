@@ -14,6 +14,7 @@ import useCurrentUser from "./hooks/useCurrentUser"
 import { setToken } from "./services/problems"
 import toast from 'react-hot-toast'
 import CoursesList from "./components/CoursesList"
+import CreateCourse from "./components/CreateCourse"
 
 export interface CurrentUser {
   username: string,
@@ -122,7 +123,7 @@ const App = () => {
           >
             <Route
               path="/dashboard/courses/create"
-              element={<p>Create Course</p>}
+              element={<CreateCourse />}
             />
           </Route>
         </Route>
