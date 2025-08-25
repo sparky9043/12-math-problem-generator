@@ -5,4 +5,9 @@ const getCourses = async () => {
   return courses
 }
 
-module.exports = { getCourses }
+const getCourseById = async (id) => {
+  const course = await Course.findById(id)
+  return course
+}
+
+module.exports = { getCourses, getCourseById }
