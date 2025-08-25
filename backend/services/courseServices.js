@@ -10,4 +10,8 @@ const getCourseById = async (id) => {
   return course
 }
 
+const createCourse = async () => {
+
+}
+
 module.exports = { getCourses, getCourseById }
