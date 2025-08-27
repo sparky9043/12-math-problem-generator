@@ -104,7 +104,7 @@ const App = () => {
           path="/dashboard"
           element={<DashBoard />}
         >
-          <Route
+          {/* <Route
             path="/dashboard/problems"
             element={<ProblemsList />}
           >
@@ -112,7 +112,7 @@ const App = () => {
               path="/dashboard/problems/:id"
               element={<ProblemDetails />}
             />
-          </Route>
+          </Route> */}
           <Route
             path="/dashboard/create"
             element={<ProblemForm />}
