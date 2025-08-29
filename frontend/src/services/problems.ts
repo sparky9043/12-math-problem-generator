@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-interface Problem {
+interface NewProblem {
   answer: string,
   branch: string,
   choices: string[],
@@ -24,7 +24,7 @@ const getProblems = async () => {
   return response.data
 }
 
-const createProblem = async (problem: Problem) => {
+const createProblem = async (problem: NewProblem) => {
   const config = {
     headers: {
       authorization: token
@@ -45,7 +45,7 @@ const deleteProblem = async (id: string) => {
   await axios.delete(`${baseUrl}/${id}`, config)
 }
 
-const editProblem = async (problemObject: Problem) => {
+const editProblem = async (problemObject: NewProblem) => {
   const config = {
     headers: {
       authorization: token
