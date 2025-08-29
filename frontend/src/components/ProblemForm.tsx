@@ -114,9 +114,23 @@ const ProblemForm = () => {
     )
   }
 
+  const date = new Date(course.createdAt).toISOString()
+
+  const convertDate = (createdAt: number) => {
+    const year = new Date(createdAt).getFullYear()
+    const month = new Date(createdAt).getMonth() + 1
+    const date = new Date(createdAt).getDate()
+
+    return `${month}/${date}/${year}`
+  }
+
   return (
     <div className="px-2 py-4">
       <form onSubmit={handleCreateProblem} className="w-full flex flex-col gap-2 items-center">
+        <div>
+          <p>Selected Course: {course.title}</p>
+          <p>Created At: {convertDate(course.createdAt)}</p>
+        </div>
         <div>
           <label>
             subject
