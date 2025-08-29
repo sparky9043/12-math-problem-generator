@@ -123,8 +123,6 @@ const ProblemForm = () => {
     return `${month}/${date}/${year}`
   }
 
-  console.log(course)
-
   return (
     <div className="px-2 py-4">
       <form onSubmit={handleCreateProblem} className="w-full flex flex-col gap-2 items-center">

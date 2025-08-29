@@ -27,10 +27,6 @@ const CoursesList = () => {
     return <LoadingSpinner />
   }
 
-  if (!currentUser) {
-    navigate('/login')
-  }
-
   const courses: Course[] = coursesResults.data
 
   const coursesByUser = courses.filter(course => course?.user === currentUser?.id)
