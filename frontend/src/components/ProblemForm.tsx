@@ -41,6 +41,36 @@ const ProblemForm = () => {
     )
   }
 
+  const choicesArray = Array.from({ length: choiceNumbers }, (_, i) => {
+    return (<div>
+      <input name={`choice${i}`} className="border-2 p-1 border-emerald-700 rounded" />
+    </div>)
+  })
+
+  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setChoiceNumbers(Number(event.target.value))
+  }
+
+  const courses: Course[] = coursesResult.data
+
+  if (!courses) {
+    return (
+      <div>
+        <p>You don't have any courses</p>
+      </div>
+    )
+  }
+
+  const course = courses.find(course => course.id === courseId)
+
+  if (!course || !courseId) {
+    return (
+      <div>
+        <p>Error: Invalid Id</p>
+      </div>
+    )
+  }
+
   const handleCreateProblem = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault()
@@ -66,8 +96,9 @@ const ProblemForm = () => {
         branch: branch.value,
         topic: topic.value,
         question: question.value,
-        answer: answer.value,
         choices: choices,
+        answer: answer.value,
+        course: courseId,
         id: '',
       })
 
@@ -84,38 +115,6 @@ const ProblemForm = () => {
     }
   }
 
-  const choicesArray = Array.from({ length: choiceNumbers }, (_, i) => {
-    return (<div>
-      <input name={`choice${i}`} className="border-2 p-1 border-emerald-700 rounded" />
-    </div>)
-  })
-
-  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setChoiceNumbers(Number(event.target.value))
-  }
-
-  const courses: Course[] = coursesResult.data
-
-  if (!courses) {
-    return (
-      <div>
-        <p>You don't have any courses</p>
-      </div>
-    )
-  }
-
-  const course = courses.find(course => course.id === courseId)
-
-  if (!course) {
-    return (
-      <div>
-        <p>Error: Invalid Id</p>
-      </div>
-    )
-  }
-
-  const date = new Date(course.createdAt).toISOString()
-
   const convertDate = (createdAt: number) => {
     const year = new Date(createdAt).getFullYear()
     const month = new Date(createdAt).getMonth() + 1
@@ -123,6 +122,8 @@ const ProblemForm = () => {
 
     return `${month}/${date}/${year}`
   }
+
+  console.log(course)
 
   return (
     <div className="px-2 py-4">

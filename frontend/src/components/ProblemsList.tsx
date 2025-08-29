@@ -10,14 +10,15 @@ import DropdownMenu from "./DropdownMenu"
 import toast from "react-hot-toast"
 
 export interface Problem {
-  answer: string,
-  branch: string,
-  choices: string[],
-  id: string,
-  question: string,
   subject: string,
+  branch: string,
   topic: string,
+  question: string,
+  choices: string[],
+  answer: string,
   user: string,
+  course: string,
+  id: string,
 }
 
 const ProblemsList = () => {

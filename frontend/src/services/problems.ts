@@ -7,6 +7,7 @@ interface Problem {
   question: string,
   subject: string,
   topic: string,
+  course: string,
   id: string,
 }
 
