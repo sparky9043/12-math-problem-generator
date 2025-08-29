@@ -86,7 +86,7 @@ const App = () => {
     return messageStyles[property as keyof NotificationStyles]
   }
 
-  console.log(user)
+  const userType = user?.userType
 
   return (
     <div className="text-emerald-950 h-dvh">
@@ -123,7 +123,11 @@ const App = () => {
           />
           <Route
             path="/dashboard/courses"
-            element={<CoursesList />}
+            element={
+              userType === 'teacher'
+              ? <CoursesList />
+              : <p>student view</p>
+            }
           >
             <Route
               path="/dashboard/courses/create"
