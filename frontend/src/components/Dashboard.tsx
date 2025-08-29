@@ -15,11 +15,11 @@ const DashBoard = () => {
                 Problems
               </NavLink>
             </li> */}
-            <li className="p-2">
+            {/* <li className="p-2">
               <NavLink to='create'>
                 Create Problems
               </NavLink>
-            </li>
+            </li> */}
             <li className="p-2">
               <NavLink to='courses'>
                 My Courses

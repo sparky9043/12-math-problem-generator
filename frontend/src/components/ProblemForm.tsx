@@ -91,7 +91,7 @@ const ProblemForm = () => {
         throw new Error('Make sure that the answer is one of the choices')
       }
 
-      const newProblem = await problemServices.createProblem({
+      await problemServices.createProblem({
         subject: subject.value,
         branch: branch.value,
         topic: topic.value,
@@ -102,7 +102,7 @@ const ProblemForm = () => {
         id: '',
       })
 
-      navigate(`/dashboard/problems/${newProblem.id}`)
+      navigate('/dashboard/courses')
       toast.success('Problem created!')
     } catch (error) {
       if (error instanceof AxiosError) {

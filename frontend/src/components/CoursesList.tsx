@@ -4,12 +4,14 @@ import { Outlet } from "react-router-dom"
 import courseServices from '../services/courses'
 import LoadingSpinner from "./LoadingSpinner"
 import useCurrentUser from "../hooks/useCurrentUser"
+import type { Problem } from "./ProblemsList"
 
 interface Course {
   createdAt: string,
   id: number,
   title: string,
   user: string,
+  problems: Problem[]
 }
 
 const CoursesList = () => {
@@ -61,10 +63,15 @@ const CoursesList = () => {
     <div className="p-2">
       <h2>Courses List</h2>
       <ul className="flex flex-col gap-2">
-        {coursesByUser.map(course => <li key={course.id} className="flex gap-2 items-center">
-          <h3>
-            {course.title}
-          </h3>
+        {coursesByUser.map(course => <li key={course.id} className="flex gap-10 items-center">
+          <div>
+            <h3>
+              {course.title}
+            </h3>
+            <p>
+              Problems Created: {course.problems.length}
+            </p>
+          </div>
           <button
             className="border-2 rounded border-emerald-800 p-2"
             onClick={() => navigate(`/dashboard/problemform/${course.id}`)}
