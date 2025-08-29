@@ -15,12 +15,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  problems: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Problem',
-    },
-  ],
   courses: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -29,6 +23,7 @@ const userSchema = new mongoose.Schema({
   ],
   userType: {
     type: String,
+    required: true,
   }
 })
 
