@@ -6,11 +6,15 @@ const courseServices = require('./courseServices')
 
 const getAll = async () => {
   const problems = await Problem.find({})
+    .populate('course', { title: 1 })
+    .populate('user', { username: 1 })
   return problems
 }
 
 const getProblem = async (id) => {
   const problem = await Problem.findById(id)
+    .populate('course', { title: 1 })
+    .populate('user', { username: 1 })
   return problem
 }
 

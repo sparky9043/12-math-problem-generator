@@ -9,7 +9,7 @@ const getCourses = async () => {
 }
 
 const getCourseById = async (id) => {
-  const course = await Course.findById(id)
+  const course = await Course.findById(id).populate('problems', { question: 1})
   return course
 }
 

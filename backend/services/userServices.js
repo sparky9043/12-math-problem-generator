@@ -3,13 +3,12 @@ const Problem = require('../models/problem')
 const bcrypt = require('bcrypt')
 
 const getUsers = async () => {
-  const users = await User.find({})
+  const users = await User.find({}).populate('courses', { title: 1 })
   return users
 }
 
 const getUserById = async (id) => {
-  const user = await User.findById(id)
-
+  const user = await User.findById(id).populate('courses', { title: 1 })
   return user
 }
 
