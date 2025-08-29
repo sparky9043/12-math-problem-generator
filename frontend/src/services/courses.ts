@@ -2,6 +2,15 @@ import axios from 'axios'
 
 let token:string
 
+interface Course {
+  title: String,
+  courseCode: String,
+}
+
+export const setToken = (inputToken: string) => {
+  token = `Bearer ${inputToken}`
+}
+
 const baseUrl = '/api/courses'
 
 const getAllCourses = async () => {
@@ -9,8 +18,15 @@ const getAllCourses = async () => {
   return response.data
 }
 
-const createCourse = async() => {
+const createCourse = async(course: Course) => {
+  const config = {
+    headers: {
+      authorization: token
+    }
+  }
 
+  const response = await axios.post(baseUrl, course, config)
+  return response.data
 }
 
-export default { getAllCourses }
+export default { getAllCourses, createCourse }
