@@ -19,7 +19,7 @@ const getUserByUsername = async (username) => {
 }
 
 const createNewUser = async (body) => {
-  const { username, name, password } = body
+  const { username, name, password, userType } = body
 
   const passwordHash = await bcrypt.hash(password, 10)
 
@@ -27,6 +27,7 @@ const createNewUser = async (body) => {
     username,
     name,
     passwordHash,
+    userType,
   })
 
   const savedUser = await user.save()
