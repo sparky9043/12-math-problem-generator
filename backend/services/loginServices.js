@@ -37,6 +37,7 @@ const login = async (user) => {
     username: user.username,
     name: user.name,
     id: user._id,
+    userType: user.userType,
     expiresIn: decodedToken.exp
   }
 }

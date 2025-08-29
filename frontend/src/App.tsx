@@ -22,6 +22,7 @@ export interface CurrentUser {
   token: string,
   name: string,
   expiresIn: number,
+  userType: string,
 }
 
 const App = () => {
@@ -50,6 +51,7 @@ const App = () => {
 
     try {
       const newUser = await loginService.login(credential)
+      console.log(newUser)
       dispatch({ type: 'addUser', payload: newUser})
       setToken(newUser.token)
       handleNotification(getNotificationMessage('success', 'logged in successfully!'), 5)
@@ -83,6 +85,8 @@ const App = () => {
   const getNotificationStyles = (property: string) => {
     return messageStyles[property as keyof NotificationStyles]
   }
+
+  console.log(user)
 
   return (
     <div className="text-emerald-950 h-dvh">
