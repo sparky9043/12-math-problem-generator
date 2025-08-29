@@ -37,9 +37,9 @@ coursesRouter.post('/', async (request, response) => {
 
   const newCourse = new Course({
     title: body.title,
-    createdAt: body.createdAt,
+    courseCode: body.courseCode,
+    createdAt: Date.now(),
     user: user._id,
-    codeHash: '',
   })
 
   const savedCourse = await newCourse.save()
