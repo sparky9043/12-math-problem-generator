@@ -22,7 +22,7 @@ problemsRouter.get('/:id', async (request, response, next) => {
 
 problemsRouter.post('/', async (request, response, next) => {
   try {
-    const savedProblem = await problemServices.createNewProblem(request)
+    const savedProblem = await problemServices.createNewProblem(request, response)
 
     return response.status(201).json(savedProblem)
   } catch (error) {

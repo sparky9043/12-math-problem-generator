@@ -2,6 +2,7 @@ const Problem = require('../models/problem')
 const jwt = require('jsonwebtoken')
 const configs = require('../utils/configs')
 const userServices = require('./userServices')
+const courseServices = require('./courseServices')
 
 const getAll = async () => {
   const problems = await Problem.find({})
@@ -13,12 +14,26 @@ const getProblem = async (id) => {
   return problem
 }
 
-const createNewProblem = async (request) => {
+const createNewProblem = async (request, response) => {
   const body = request.body
 
   const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
+
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
   
   const user = await userServices.getUserById(decodedToken.id)
+
+  if (!user) {
+    return response.status(404).json({ error: 'user not found' })
+  }
+
+  const course = await courseServices.getCourseById(body.course)
+
+  if (!course) {
+    return response.status(404).json({ error: 'course not found' })
+  }
 
   const problem = new Problem({
     subject: body.subject,
@@ -27,12 +42,13 @@ const createNewProblem = async (request) => {
     question: body.question,
     choices: body.choices,
     answer: body.answer,
+    course: course._id,
     user: user._id
   })
 
   const savedProblem = await problem.save()
-  user.problems = user.problems.concat(savedProblem._id)
-  await user.save()
+  course.problems = course.problems.concat(savedProblem._id)
+  await course.save()
 
   return savedProblem
 }

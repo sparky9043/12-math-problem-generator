@@ -1,9 +1,9 @@
 const coursesRouter = require('express').Router()
-const Course = require('../models/course')
+// const Course = require('../models/course')
 const courseServices = require('../services/courseServices')
-const userServices = require('../services/userServices')
-const configs = require('../utils/configs')
-const jwt = require('jsonwebtoken')
+// const userServices = require('../services/userServices')
+// const configs = require('../utils/configs')
+// const jwt = require('jsonwebtoken')
 
 coursesRouter.get('/', async (_request, response) => {
   const courses = await courseServices.getCourses()

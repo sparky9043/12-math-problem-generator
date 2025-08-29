@@ -4,7 +4,7 @@ const configs = require('../utils/configs')
 const userServices = require('../services/userServices')
 
 const getCourses = async () => {
-  const courses = await Course.find({})
+  const courses = await Course.find({}).populate('problems', { question: 1 })
   return courses
 }
 
