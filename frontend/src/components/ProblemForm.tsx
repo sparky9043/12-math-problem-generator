@@ -1,10 +1,23 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import useInput from "../hooks/useInput"
 import problemServices from '../services/problems'
 import { useState } from "react"
 import DropdownMenu from "./DropdownMenu"
 import toast from "react-hot-toast"
 import { AxiosError } from "axios"
+import { useQuery } from "@tanstack/react-query"
+import courseServices from '../services/courses'
+import LoadingSpinner from "./LoadingSpinner"
+import type { Problem } from "./ProblemsList"
+
+interface Course {
+  courseCode: string,
+  createdAt: number,
+  id: string,
+  problems: Problem[],
+  title: string,
+  user: string,
+}
 
 const ProblemForm = () => {
   const subject = useInput('')
@@ -15,6 +28,18 @@ const ProblemForm = () => {
   const inputStyles = "border-2 rounded border-emerald-700 hover:border-emerald-500 px-0.5 py-1 focus:outline-emerald-800"
   const navigate = useNavigate()
   const [choiceNumbers, setChoiceNumbers] = useState<number>(4)
+  const { id: courseId } = useParams()
+
+  const coursesResult = useQuery({
+    queryFn: courseServices.getAllCourses,
+    queryKey: ['courses']
+  })
+
+  if (coursesResult.isLoading) {
+    return (
+      <LoadingSpinner />
+    )
+  }
 
   const handleCreateProblem = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
@@ -67,6 +92,26 @@ const ProblemForm = () => {
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setChoiceNumbers(Number(event.target.value))
+  }
+
+  const courses: Course[] = coursesResult.data
+
+  if (!courses) {
+    return (
+      <div>
+        <p>You don't have any courses</p>
+      </div>
+    )
+  }
+
+  const course = courses.find(course => course.id === courseId)
+
+  if (!course) {
+    return (
+      <div>
+        <p>Error: Invalid Id</p>
+      </div>
+    )
   }
 
   return (

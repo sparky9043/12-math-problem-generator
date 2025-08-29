@@ -3,8 +3,8 @@ import axios from 'axios'
 let token:string
 
 interface Course {
-  title: String,
-  courseCode: String,
+  title: string,
+  courseCode: string,
 }
 
 export const setToken = (inputToken: string) => {
@@ -15,6 +15,11 @@ const baseUrl = '/api/courses'
 
 const getAllCourses = async () => {
   const response = await axios.get(baseUrl)
+  return response.data
+}
+
+const getCourseById = async (id: string) => {
+  const response = await axios.get(`${baseUrl}/${id}`)
   return response.data
 }
 
@@ -29,4 +34,4 @@ const createCourse = async(course: Course) => {
   return response.data
 }
 
-export default { getAllCourses, createCourse }
+export default { getAllCourses, createCourse, getCourseById }
