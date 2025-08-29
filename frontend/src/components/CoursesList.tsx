@@ -56,14 +56,21 @@ const CoursesList = () => {
     )
   }
 
+
   return (
     <div className="p-2">
       <h2>Courses List</h2>
-      <ul>
-        {coursesByUser.map(course => <li key={course.id}>
+      <ul className="flex flex-col gap-2">
+        {coursesByUser.map(course => <li key={course.id} className="flex gap-2 items-center">
           <h3>
             {course.title}
           </h3>
+          <button
+            className="border-2 rounded border-emerald-800 p-2"
+            onClick={() => navigate(`/dashboard/problemform/${course.id}`)}
+          >
+            create problems
+          </button>
         </li>)}
       </ul>
       <div>

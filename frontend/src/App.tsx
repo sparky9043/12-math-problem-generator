@@ -6,10 +6,10 @@ import HomePage from "./components/HomePage"
 import LoginForm from "./components/LoginForm"
 import NavBar from "./components/NavBar"
 import ProblemForm from "./components/ProblemForm"
-import ProblemsList from "./components/ProblemsList"
+// import ProblemsList from "./components/ProblemsList"
 import useNotification from "./hooks/useNotification"
 import loginService, { type User } from './services/login'
-import ProblemDetails from "./components/ProblemDetails"
+// import ProblemDetails from "./components/ProblemDetails"
 import useCurrentUser from "./hooks/useCurrentUser"
 import { setToken } from "./services/problems"
 import toast from 'react-hot-toast'
@@ -114,7 +114,7 @@ const App = () => {
             />
           </Route> */}
           <Route
-            path="/dashboard/create"
+            path="/dashboard/problemform/:id"
             element={<ProblemForm />}
           />
           <Route
