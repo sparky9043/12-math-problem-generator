@@ -51,7 +51,6 @@ const App = () => {
 
     try {
       const newUser = await loginService.login(credential)
-      console.log(newUser)
       dispatch({ type: 'addUser', payload: newUser})
       setToken(newUser.token)
       handleNotification(getNotificationMessage('success', 'logged in successfully!'), 5)
