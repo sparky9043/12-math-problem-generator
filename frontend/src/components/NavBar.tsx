@@ -25,7 +25,7 @@ const NavBar = (props: NavBarProps) => {
       <ul className="flex gap-4 items-center">
         <li>
           
-          {user && <div className="font-semibold">logged in as: {user.name}</div>}
+          {user && <div className="font-semibold">user type: {user.userType}</div>}
         </li>
         <li>
           {user === null
