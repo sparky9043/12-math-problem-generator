@@ -12,7 +12,13 @@ const courseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  codeHash: {
+  problems: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Problem',
+    },
+  ],
+  courseCode: {
     type: String,
   },
 })
