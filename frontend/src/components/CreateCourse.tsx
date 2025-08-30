@@ -4,12 +4,14 @@ import { setToken } from '../services/courses'
 import courseServices from '../services/courses'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const CreateCourse = () => {
   const [courseTitle, setCourseTitle] = useState<string>('')
   const [courseCode, setCourseCode] = useState<string>('')
   const { currentUser } = useCurrentUser()
   const client = useQueryClient()
+  const navigate = useNavigate()
   const createCourseMutation = useMutation({
     mutationFn: courseServices.createCourse,
     mutationKey: ['courses'],
@@ -26,6 +28,7 @@ const CreateCourse = () => {
       toast.error('Please fill out the coures Title and course code!')
       throw new Error('Please fill out the title and course code')
     }
+
     try {
       if (currentUser?.token) {
         setToken(currentUser.token)
@@ -33,6 +36,7 @@ const CreateCourse = () => {
       }
       setCourseTitle('')
       setCourseCode('')
+      navigate(-1)
     } catch (error) {
       if (error instanceof Error) {
         toast(error.message)

@@ -31,9 +31,12 @@ const CoursesList = () => {
 
   const coursesByUser = courses.filter(course => course?.user === currentUser?.id)
 
+  const emptyCourseListMessage = () => 'You have no courses! Press the button below to start making new courses!'
+
   const createCourseLink = () => {
     return (
       <div>
+        {coursesByUser.length === 0 && emptyCourseListMessage()}
         {match
         ?
           <button
