@@ -20,6 +20,8 @@ const CreateNewUser = () => {
       } else if (password !== confirmPwd) {
         throw new Error('Make sure the passwords match!')
       }
+
+      
     } catch (exception: unknown) {
       if (exception instanceof Error) {
         toast.error(exception.message)
