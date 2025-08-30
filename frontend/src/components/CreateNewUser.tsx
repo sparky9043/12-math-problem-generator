@@ -14,9 +14,16 @@ const CreateNewUser = () => {
 
   const handleCreateUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!name || !username || !password || !confirm) {
-      toast.error('Make sure all the fields are filled out!')
-      throw new Error('Make sure all the fields are filled out!')
+    try {
+      if (!name || !username || !password || !confirmPwd) {
+        throw new Error('Make sure all the fields are filled out!')
+      } else if (password !== confirmPwd) {
+        throw new Error('Make sure the passwords match!')
+      }
+    } catch (exception: unknown) {
+      if (exception instanceof Error) {
+        toast.error(exception.message)
+      }
     }
   }
 
