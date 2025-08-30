@@ -58,6 +58,7 @@ const App = () => {
       navigate('/')
       toast.success('Login Successful!')
     } catch (exception) {
+      console.log(exception)
       toast.error('invalid username or password')
       handleNotification(getNotificationMessage('error', 'invalid username or password'), 5)
     }
