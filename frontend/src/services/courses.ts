@@ -9,6 +9,7 @@ interface Course {
 
 export const setToken = (inputToken: string) => {
   token = `Bearer ${inputToken}`
+  console.log(token)
 }
 
 const baseUrl = '/api/courses'
@@ -34,4 +35,14 @@ const createCourse = async(course: Course) => {
   return response.data
 }
 
-export default { getAllCourses, createCourse, getCourseById }
+const deleteCourse = async (id: string) => {
+  const config = {
+    headers: {
+      authorization: token
+    }
+  }
+
+  await axios.delete(`${baseUrl}/${id}`, config)
+}
+
+export default { getAllCourses, createCourse, getCourseById, deleteCourse }

@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { useMatch, useNavigate } from "react-router-dom"
 import { Outlet } from "react-router-dom"
-import courseServices from '../services/courses'
+import courseServices, { setToken } from '../services/courses'
 import LoadingSpinner from "./LoadingSpinner"
 import useCurrentUser from "../hooks/useCurrentUser"
 import type { Problem } from "./ProblemsList"
@@ -22,6 +22,12 @@ const CoursesList = () => {
     queryFn: courseServices.getAllCourses,
     queryKey: ['courses'],
   })
+  const deleteMutation = useMutation({
+    mutationFn: courseServices.deleteCourse,
+    mutationKey: ['courses'],
+  })
+
+  const buttonStyles = "border-2 rounded border-emerald-800 p-2 text-sm"
 
   if (coursesResults.isLoading) {
     return <LoadingSpinner />
@@ -57,9 +63,21 @@ const CoursesList = () => {
     )
   }
 
+  const handleDeleteCourse = async (id: string) => {
+    try {
+      if (currentUser) {
+        setToken(currentUser?.token)
+        deleteMutation.mutate(id)
+      }
+    } catch (exception) {
+      if (exception instanceof Error) {
+        throw exception
+      }
+    }
+  }
 
   return (
-    <div className="p-2">
+    <div className="p-2 border">
       <h2>Courses List</h2>
       <ul className="flex flex-col gap-2">
         {coursesByUser.map(course => <li key={course.id} className="flex gap-10 items-center">
@@ -72,15 +90,22 @@ const CoursesList = () => {
             </p>
           </div>
           <button
-            className="border-2 rounded border-emerald-800 p-2"
+            className={buttonStyles}
             onClick={() => navigate(`/dashboard/problemform/${course.id}`)}
           >
-            create problems
+            create problem
           </button>
           <button
+            className={buttonStyles}
             onClick={() => navigate(`${course.id}`)}
           >
             view problems
+          </button>
+          <button
+            className={buttonStyles}
+            onClick={() => handleDeleteCourse(String(course.id))}
+          >
+            delete course
           </button>
         </li>)}
       </ul>
