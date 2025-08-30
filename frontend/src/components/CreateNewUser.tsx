@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import userServices from '../services/users'
 
 // type UserType = 'teacher' | 'student'
 
@@ -9,6 +11,7 @@ const CreateNewUser = () => {
   const [password, setPassword] = useState<string>('')
   const [confirmPwd, setConfirmPwd] = useState<string>('')
   const [userType, setUserType] = useState<string>('teacher')
+  const navigate = useNavigate()
 
   const inputStyles = 'border-2 border-emerald-800 rounded px-1 py-0.5'
 
@@ -21,7 +24,9 @@ const CreateNewUser = () => {
         throw new Error('Make sure the passwords match!')
       }
 
-      
+      await userServices.createNewUser({ name, username, userType, password })
+      navigate('/login')
+      toast.success(`Account creation success! Login with your new username: ${username}`)
     } catch (exception: unknown) {
       if (exception instanceof Error) {
         toast.error(exception.message)
