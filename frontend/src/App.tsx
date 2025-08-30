@@ -105,6 +105,10 @@ const App = () => {
           element={user ? <Navigate replace to="/dashboard" /> : <HomePage />}
         />
         <Route
+          path="/new"
+          element={user ? <Navigate replace to="/" /> : <p>Create new</p>}
+        />
+        <Route
           path="/dashboard"
           element={<DashBoard />}
         >
