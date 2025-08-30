@@ -78,7 +78,7 @@ const CoursesList = () => {
   }
 
   return (
-    <div className="p-2 border">
+    <div className="p-2">
       <h2>Courses List</h2>
       <ul className="flex flex-col gap-2">
         {coursesByUser.map(course => <li key={course.id} className="flex gap-10 items-center">
