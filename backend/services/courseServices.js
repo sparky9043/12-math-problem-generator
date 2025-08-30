@@ -62,7 +62,7 @@ const deleteCourse = async (request, response) => {
     return response.status(404).json({ error: 'course not found' })
   }
 
-  if (!savedUser._id.toString() !== savedCourse.user.toString()) {
+  if (savedCourse.user.toString() !== savedUser._id.toString()) {
     return response.status(401).json({ error: 'username does not match the course creator' })
   }
 
