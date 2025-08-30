@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import problemServices from '../services/problems'
 import LoadingSpinner from './LoadingSpinner'
 
@@ -26,11 +26,15 @@ export interface Problem {
 }
 
 const CourseDetails = () => {
+  const navigate = useNavigate()
   const { id: courseId } = useParams()
   const problemResult = useQuery({
     queryFn: problemServices.getProblems,
     queryKey: ['problems']
   })
+  
+  const buttonStyles = "border-2 rounded border-emerald-800 p-2 text-sm"
+
 
   if (problemResult.isLoading) {
     return (
@@ -42,6 +46,22 @@ const CourseDetails = () => {
 
 
   const problemsByCourse: Problem[] = allProblems.filter(problem => problem.course.id === courseId)
+
+  if (problemsByCourse.length === 0) {
+    return (
+      <div>
+        <p>
+          You have no problems! Click the button to create problem
+        </p>
+        <button
+          className={buttonStyles}
+          onClick={() => navigate(`/dashboard/problemform/${courseId}`)}
+        >
+          create problem
+        </button>
+      </div>
+    )
+  }
 
   return (
     <div>
