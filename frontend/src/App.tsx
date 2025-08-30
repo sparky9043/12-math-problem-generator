@@ -15,6 +15,7 @@ import { setToken } from "./services/problems"
 import toast from 'react-hot-toast'
 import CoursesList from "./components/CoursesList"
 import CreateCourse from "./components/CreateCourse"
+import CreateNewUser from './components/CreateNewUser'
 
 export interface CurrentUser {
   username: string,
@@ -106,7 +107,7 @@ const App = () => {
         />
         <Route
           path="/new"
-          element={user ? <Navigate replace to="/" /> : <p>Create new</p>}
+          element={user ? <Navigate replace to="/" /> : <CreateNewUser />}
         />
         <Route
           path="/dashboard"
