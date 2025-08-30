@@ -1,6 +1,9 @@
 const User = require('../models/user')
 const Problem = require('../models/problem')
+const Course = require('../models/course')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const configs = require('../utils/configs')
 
 const getUsers = async () => {
   const users = await User.find({}).populate('courses', { title: 1 })
@@ -33,12 +36,32 @@ const createNewUser = async (body) => {
   return savedUser
 }
 
-const deleteUser = async (user) => {
-  for (const id of user.problems) {
-    await Problem.findByIdAndDelete(id)
+const deleteUser = async (request, response) => {
+  const userToDelete = await getUserById(request.params.id)
+
+  if (!userToDelete) {
+    return response.status(404).json({ error: 'user not found' })
   }
 
-  await User.findByIdAndDelete(id)
+  const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
+
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  } else if (decodedToken.id !== userToDelete.id.toString()) {
+    return response.status(401).json({ error: 'unauthorized request detected' })
+  }
+
+  for (const course of userToDelete.courses) {
+    const savedCourse = await Course.findById(course._id.toString())
+    
+    for (const problem of savedCourse.problems) {
+      await Problem.findByIdAndDelete(problem._id.toString())
+    }
+
+    await Course.findByIdAndDelete(course._id.toString())
+  }
+
+  await User.findByIdAndDelete(request.params.id)
 }
 
 module.exports = {
