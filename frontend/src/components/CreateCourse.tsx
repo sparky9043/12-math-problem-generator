@@ -5,6 +5,7 @@ import courseServices from '../services/courses'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import LoadingSpinner from './LoadingSpinner'
 
 const CreateCourse = () => {
   const [courseTitle, setCourseTitle] = useState<string>('')
@@ -19,6 +20,14 @@ const CreateCourse = () => {
       client.invalidateQueries({ queryKey: ['courses'] })
     }
   })
+
+  if (createCourseMutation.isPending) {
+    return (
+      <div>
+        <LoadingSpinner />
+      </div>
+    )
+  }
 
   const inputStyles = "border-2 rounded border-emerald-700 hover:border-emerald-500 px-0.5 py-1 focus:outline-emerald-800"
 
@@ -36,7 +45,7 @@ const CreateCourse = () => {
       }
       setCourseTitle('')
       setCourseCode('')
-      navigate(-1)
+      navigate('/dashboard/courses')
     } catch (error) {
       if (error instanceof Error) {
         toast(error.message)
@@ -74,7 +83,7 @@ const CreateCourse = () => {
         <button
           className="border-2 p-1"
           type='submit'
-          >
+        >
           submit
         </button>
       </div>
