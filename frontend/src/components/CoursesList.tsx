@@ -91,13 +91,6 @@ const CoursesList = () => {
               Problems Created: {course.problems.length}
             </p>
           </div>
-          {course.problems.length > 0 && <NavLink
-            className={buttonStyles}
-            to={`${course.id}`}
-            // onClick={() => navigate(`${course.id}`)}
-          >
-            view problems
-          </NavLink>}
           <NavLink
             className={buttonStyles}
             to={`/dashboard/problemform/${course.id}`}
@@ -110,6 +103,13 @@ const CoursesList = () => {
           >
             delete course
           </button>
+          {course.problems.length > 0 && <NavLink
+            className={buttonStyles}
+            to={`${course.id}`}
+            // onClick={() => navigate(`${course.id}`)}
+          >
+            view problems
+          </NavLink>}
         </li>)}
       </ul>
       <div>
