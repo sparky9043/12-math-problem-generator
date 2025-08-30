@@ -62,6 +62,10 @@ const deleteCourse = async (request, response) => {
     return response.status(404).json({ error: 'course not found' })
   }
 
+  if (!savedUser._id.toString() !== savedCourse.user.toString()) {
+    return response.status(401).json({ error: 'username does not match the course creator' })
+  }
+
   for (const problem of savedCourse.problems) {
     await Problem.findByIdAndDelete(problem._id.toString())
   }
