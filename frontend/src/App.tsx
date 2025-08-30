@@ -136,7 +136,7 @@ const App = () => {
             }
           />
           <Route
-            path="/dashboard/courses/create"
+            path="/dashboard/create"
             element={<CreateCourse />}
           />
           <Route

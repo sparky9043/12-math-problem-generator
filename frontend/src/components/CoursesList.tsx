@@ -48,7 +48,7 @@ const CoursesList = () => {
         {coursesByUser.length === 0 && emptyCourseListMessage()}
         <button
           className="border-2 px-2 py-1 rounded"
-          onClick={() => navigate('create')}
+          onClick={() => navigate('/dashboard/create')}
         >
           create course
         </button>
