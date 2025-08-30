@@ -2,6 +2,7 @@ const Course = require('../models/course')
 const jwt = require('jsonwebtoken')
 const configs = require('../utils/configs')
 const userServices = require('../services/userServices')
+const Problem = require('../models/problem')
 
 const getCourses = async () => {
   const courses = await Course.find({}).populate('problems', { question: 1 })
@@ -42,4 +43,32 @@ const createCourse = async (request, response) => {
   return savedCourse
 }
 
-module.exports = { getCourses, getCourseById, createCourse }
+const deleteCourse = async (request, response) => {
+  const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
+
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+
+  const savedUser = await userServices.getUserById(decodedToken.id)
+
+  if (!savedUser) {
+    return response.status(404).json({ error: 'user not found' })
+  }
+
+  const savedCourse = await getCourseById(request.params.id)
+
+  if (!savedCourse) {
+    return response.status(404).json({ error: 'course not found' })
+  }
+
+  for (const problem of savedCourse.problems) {
+    await Problem.findByIdAndDelete(problem._id.toString())
+  }
+  
+  await Course.findByIdAndDelete(request.params.id)
+  savedUser.courses = savedUser.courses.filter(courseId => courseId.toString() !== request.params.id)
+  await savedUser.save()
+}
+
+module.exports = { getCourses, getCourseById, createCourse, deleteCourse }
