@@ -9,7 +9,6 @@ interface Course {
 
 export const setToken = (inputToken: string) => {
   token = `Bearer ${inputToken}`
-  console.log(token)
 }
 
 const baseUrl = '/api/courses'

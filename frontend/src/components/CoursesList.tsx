@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useMatch, useNavigate } from "react-router-dom"
 import { Outlet } from "react-router-dom"
 import courseServices, { setToken } from '../services/courses'
@@ -22,9 +22,13 @@ const CoursesList = () => {
     queryFn: courseServices.getAllCourses,
     queryKey: ['courses'],
   })
+  const client = useQueryClient()
   const deleteMutation = useMutation({
     mutationFn: courseServices.deleteCourse,
     mutationKey: ['courses'],
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ['courses'] })
+    }
   })
 
   const buttonStyles = "border-2 rounded border-emerald-800 p-2 text-sm"
