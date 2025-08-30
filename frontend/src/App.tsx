@@ -134,12 +134,11 @@ const App = () => {
               ? <CoursesList />
               : <p>student view</p>
             }
-          >
-            <Route
-              path="/dashboard/courses/create"
-              element={<CreateCourse />}
-            />
-          </Route>
+          />
+          <Route
+            path="/dashboard/courses/create"
+            element={<CreateCourse />}
+          />
           <Route
             path="/dashboard/courses/:id"
             element={<CourseDetails />}
