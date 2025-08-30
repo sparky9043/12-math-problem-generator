@@ -77,6 +77,11 @@ const CoursesList = () => {
           >
             create problems
           </button>
+          <button
+            onClick={() => navigate(`${course.id}`)}
+          >
+            view problems
+          </button>
         </li>)}
       </ul>
       <div>
