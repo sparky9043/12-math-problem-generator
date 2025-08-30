@@ -53,12 +53,6 @@ const CourseDetails = () => {
         <p>
           You have no problems! Click the button to create problem
         </p>
-        <button
-          className={buttonStyles}
-          onClick={() => navigate(`/dashboard/problemform/${courseId}`)}
-        >
-          create problem
-        </button>
       </div>
     )
   }
@@ -79,6 +73,12 @@ const CourseDetails = () => {
             </div>
           </li>)}
       </ul>
+      <button
+        className={buttonStyles}
+        onClick={() => navigate(`/dashboard/problemform/${courseId}`)}
+      >
+        create problem
+      </button>
     </div>
   )
 }

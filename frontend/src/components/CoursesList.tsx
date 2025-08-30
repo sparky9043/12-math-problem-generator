@@ -5,6 +5,7 @@ import courseServices, { setToken } from '../services/courses'
 import LoadingSpinner from "./LoadingSpinner"
 import useCurrentUser from "../hooks/useCurrentUser"
 import type { Problem } from "./ProblemsList"
+import { NavLink } from 'react-router-dom'
 
 interface Course {
   createdAt: string,
@@ -90,18 +91,19 @@ const CoursesList = () => {
               Problems Created: {course.problems.length}
             </p>
           </div>
-          <button
+          {course.problems.length > 0 && <NavLink
             className={buttonStyles}
-            onClick={() => navigate(`/dashboard/problemform/${course.id}`)}
-          >
-            create problem
-          </button>
-          <button
-            className={buttonStyles}
-            onClick={() => navigate(`${course.id}`)}
+            to={`${course.id}`}
+            // onClick={() => navigate(`${course.id}`)}
           >
             view problems
-          </button>
+          </NavLink>}
+          <NavLink
+            className={buttonStyles}
+            to={`/dashboard/problemform/${course.id}`}
+          >
+            create problem
+          </NavLink>
           <button
             className={buttonStyles}
             onClick={() => handleDeleteCourse(String(course.id))}
