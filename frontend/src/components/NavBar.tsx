@@ -28,6 +28,13 @@ const NavBar = (props: NavBarProps) => {
           {user && <div className="font-semibold">user type: {user.userType}</div>}
         </li>
         <li>
+          {user === null && 
+            <NavLink to="/new" className="hover:text-emerald-800">
+              create new account
+            </NavLink>
+          }
+        </li>
+        <li>
           {user === null
           ? <NavLink to="/" className="hover:text-emerald-900">
             Home
