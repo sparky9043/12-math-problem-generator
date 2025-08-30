@@ -16,6 +16,7 @@ import toast from 'react-hot-toast'
 import CoursesList from "./components/CoursesList"
 import CreateCourse from "./components/CreateCourse"
 import CreateNewUser from './components/CreateNewUser'
+import CourseDetails from './components/CourseDetails'
 
 export interface CurrentUser {
   username: string,
@@ -139,6 +140,10 @@ const App = () => {
               element={<CreateCourse />}
             />
           </Route>
+          <Route
+            path="/dashboard/courses/:id"
+            element={<CourseDetails />}
+          />
         </Route>
         <Route
           path="/login"
