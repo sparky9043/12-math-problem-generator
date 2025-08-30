@@ -102,7 +102,7 @@ const ProblemForm = () => {
         id: '',
       })
 
-      navigate('/dashboard/courses')
+      navigate(`/dashboard/courses/${courseId}`)
       toast.success('Problem created!')
     } catch (error) {
       if (error instanceof AxiosError) {
