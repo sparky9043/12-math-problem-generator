@@ -6,6 +6,7 @@ import LoadingSpinner from "./LoadingSpinner"
 import useCurrentUser from "../hooks/useCurrentUser"
 import type { Problem } from "./ProblemsList"
 import { NavLink } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 interface Course {
   createdAt: string,
@@ -68,11 +69,16 @@ const CoursesList = () => {
   const handleDeleteCourse = async (id: string) => {
     try {
       if (currentUser) {
-        setToken(currentUser?.token)
-        deleteMutation.mutate(id)
+        if (window.confirm('are you sure you want to delete this course?')) {
+          setToken(currentUser?.token)
+          deleteMutation.mutate(id)
+        } else {
+          throw new Error('Delete cancelled')
+        }
       }
     } catch (exception) {
       if (exception instanceof Error) {
+        toast.error(exception.message)
         throw exception
       }
     }
