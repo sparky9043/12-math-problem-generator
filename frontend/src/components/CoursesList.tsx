@@ -30,6 +30,14 @@ const CoursesList = () => {
     }
   })
 
+  if (deleteMutation.isPending) {
+    return (
+      <div>
+        <LoadingSpinner />
+      </div>
+    )
+  }
+
   const buttonStyles = "border-2 rounded border-emerald-800 p-2 text-sm"
 
   if (coursesResults.isLoading) {
