@@ -1,16 +1,53 @@
 import { useState } from 'react'
 
+// type UserType = 'teacher' | 'student'
+
 const CreateNewUser = () => {
   const [name, setName] = useState<string>('')
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPwd, setConfirmPwd] = useState<string>('')
+  const [userType, setUserType] = useState<string>('teacher')
 
-  const inputStyles = 'border-2 border-emerald-800 rounded'
+  const inputStyles = 'border-2 border-emerald-800 rounded px-1 py-0.5'
 
   return (
     <form className='p-2 flex flex-col gap-2 items-center h-full font text-lg'>
       <h2>Account Forms</h2>
+      <div>
+        <label>
+          Select User Type
+        </label>
+        <select
+          className='
+            block
+            w-48
+            rounded-md
+            border border-emerald-700
+            py-2 px-3
+            text-sm
+            text-emerald-900
+            shadow-sm
+            focus:outline-none
+            focus:ring-2 focus:ring-emerald-500
+            focus:border-emerald-500
+            cursor-pointer
+          '
+          value={userType}
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setUserType(event.target.value)}
+        >
+          <option
+            value="teacher"
+          >
+            teacher
+          </option>
+          <option
+            value="student"
+          >
+            student
+          </option>
+        </select>
+      </div>
       <div>
         <label>
           name
@@ -55,6 +92,7 @@ const CreateNewUser = () => {
           type='password'
         />
       </div>
+      
       <div className='text-center'>
         <button
           className='border-2 px-2 py-1 rounded'
