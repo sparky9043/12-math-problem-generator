@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import useCurrentUser from '../hooks/useCurrentUser'
-import { useQuery } from '@tanstack/react-query'
-import userServices from '../services/users'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import LoadingSpinner from './LoadingSpinner'
 import Togglable from './Togglable'
 import { useState } from 'react'
@@ -30,6 +29,15 @@ const StudentCourses = () => {
     queryFn: courseServices.getAllCourses,
     queryKey: ['courses']
   })
+  const client = useQueryClient()
+
+  const addCourseMutations = useMutation({
+    mutationFn: courseServices.updateCourse,
+    mutationKey: ['courses'],
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ['courses' ]})
+    }
+  })
 
   if (user?.userType !== 'student') {
     return (
@@ -41,6 +49,12 @@ const StudentCourses = () => {
   }
 
   if (courseResults.isLoading) {
+    return (
+      <LoadingSpinner />
+    )
+  }
+
+  if (addCourseMutations.isPending) {
     return (
       <LoadingSpinner />
     )
@@ -61,10 +75,11 @@ const StudentCourses = () => {
     
     try {
       if (targetCourse) {
-        const newCourse = await courseServices.updateCourse({...targetCourse, students: [
+        addCourseMutations.mutate({...targetCourse, students: [
           user.id,
         ]})
-        console.log(newCourse)
+        setCourseCode('')
+        toast.success('Added Course Successfully!')
       } else {
         throw new Error('Could not find target course')
       }
