@@ -112,7 +112,7 @@ const App = () => {
         />
         <Route
           path="/dashboard"
-          element={<DashBoard />}
+          element={user ? <DashBoard /> : <Navigate replace to='/' />}
         >
           {/* <Route
             path="/dashboard/problems"
