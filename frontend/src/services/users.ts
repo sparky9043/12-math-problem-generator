@@ -22,6 +22,12 @@ interface User {
 
 const baseUrl = '/api/users'
 
+const getAllUsers = async () => {
+  const response = await axios.get(baseUrl)
+
+  return response.data
+}
+
 const getTeachers = async () => {
   const response = await axios.get(baseUrl)
 
@@ -47,4 +53,4 @@ const createNewUser = async (credentials: UserCredentials) => {
   return response.data
 }
 
-export default { createNewUser, getStudents, getTeachers }
+export default { createNewUser, getStudents, getTeachers, getAllUsers }
