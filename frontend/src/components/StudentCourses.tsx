@@ -90,10 +90,17 @@ const StudentCourses = () => {
       }
     }
   }
-  
+
   return (
     <div className='p-2'>
       {isCourseEmpty && noCoursesMessage()}
+      <div>
+        <ul>
+          {currentStudent?.courses.map(course => <li key={course.id}>
+            {course.title}
+          </li>)}
+        </ul>
+      </div>
       <div>
         <Togglable text='click to add new course'>
           <form
