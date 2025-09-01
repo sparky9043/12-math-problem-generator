@@ -17,6 +17,7 @@ import CoursesList from "./components/CoursesList"
 import CreateCourse from "./components/CreateCourse"
 import CreateNewUser from './components/CreateNewUser'
 import CourseDetails from './components/CourseDetails'
+import StudentCourses from './components/StudentCourses'
 
 export interface CurrentUser {
   username: string,
@@ -132,7 +133,7 @@ const App = () => {
             element={
               userType === 'teacher'
               ? <CoursesList />
-              : <p>student view</p>
+              : <StudentCourses />
             }
           />
           <Route
