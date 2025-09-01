@@ -26,16 +26,23 @@ const StudentCourses = () => {
       <LoadingSpinner />
     )
   }
-  
-  console.log(studentResults.data)
 
+  const students = studentResults.data
+
+  const currentStudent = students?.find(student => student.id === user.id)
+
+  const isCourseEmpty = !currentStudent?.courses.length
+  
+  const noCoursesMessage = () =>
+      <div>
+        You don't have any courses. Press the button below to add a course
+      </div>
 
   return (
-    <div>
-      Student View
-
+    <div className='p-2'>
+      {isCourseEmpty && noCoursesMessage()}
       <div>
-        <button>
+        <button className='border-2 px-2 py-1 rounded'>
           add new course
         </button>
       </div>
