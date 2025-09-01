@@ -32,4 +32,10 @@ coursesRouter.delete('/:id', async (request, response) => {
   return response.status(204).end()
 })
 
+coursesRouter.put('/:id', async (request, response) => {
+  const savedCourse = await courseServices.updateCourse(request, response)
+
+  return response.status(201).json(savedCourse)
+})
+
 module.exports = coursesRouter

@@ -75,15 +75,42 @@ const deleteCourse = async (request, response) => {
   await savedUser.save()
 }
 
-// const getCourseByCode = async (code) => {
-//   const savedCourse = await Course.findOne({ code })
-//   return savedCourse
-// }
+const updateCourse = async (request, response) => {
+  const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
+
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+
+  const savedCourse = await getCourseById(request.params.id)
+  
+  if (!savedCourse) {
+    return response.status(404).json({ error: 'course not found' })
+  }
+
+  const savedUser = await userServices.getUserById(savedCourse.user.toString())
+
+  if (!savedUser) {
+    return response.status(404).json({ error: 'user not found' })
+  }
+
+  const body = request.body
+
+  savedCourse.title = body.title
+  savedCourse.createdAt = body.createdAt
+  savedCourse.problems = body.problems
+  savedCourse.courseCode = body.courseCode
+  savedCourse.students = body.students
+  const updatedCourse = await savedCourse.save()
+
+  return updatedCourse
+}
 
 module.exports = {
   getCourses,
   getCourseById,
   createCourse,
   deleteCourse,
+  updateCourse,
   // getCourseByCode,
 }
