@@ -21,11 +21,6 @@ interface Problem {
   id: string,
 }
 
-interface Student {
-  id: string,
-}
-
-
 export const setToken = (inputToken: string) => {
   token = `Bearer ${inputToken}`
 }
