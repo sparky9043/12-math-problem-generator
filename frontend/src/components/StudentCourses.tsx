@@ -3,6 +3,7 @@ import useCurrentUser from '../hooks/useCurrentUser'
 import { useQuery } from '@tanstack/react-query'
 import userServices from '../services/users'
 import LoadingSpinner from './LoadingSpinner'
+import Togglable from './Togglable'
 
 const StudentCourses = () => {
   const { currentUser: user } = useCurrentUser()
@@ -38,13 +39,37 @@ const StudentCourses = () => {
         You don't have any courses. Press the button below to add a course
       </div>
 
+  const handleAddCourse = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    console.log(event)
+  }
+
   return (
     <div className='p-2'>
       {isCourseEmpty && noCoursesMessage()}
       <div>
-        <button className='border-2 px-2 py-1 rounded'>
-          add new course
-        </button>
+        <Togglable text='click to add new course'>
+          <form
+            onSubmit={handleAddCourse}
+            className='flex flex-col gap-2 mb-2'
+          >
+            <div>
+              <label htmlFor="course-code">course code</label>
+              <input
+                type="text"
+                className='border-2 rounded px-1 py-0.5'
+              />
+            </div>
+            <div>
+              <button
+                className='border-2 px-2 py-1 rounded'
+                type='submit'
+                >
+                add course
+              </button>
+            </div>
+          </form>
+        </Togglable>
       </div>
     </div>
   )

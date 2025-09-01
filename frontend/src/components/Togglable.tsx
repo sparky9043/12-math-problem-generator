@@ -2,6 +2,7 @@ import { useState } from "react"
 
 interface TogglableProps {
   children: React.ReactNode,
+  text: string,
 }
 
 const Togglable = (props: TogglableProps) => {
@@ -14,12 +15,19 @@ const Togglable = (props: TogglableProps) => {
   return (
     <div>
       <div style={{ display: showPanel ? 'none' : '' }}>
-        Click to create problems
-        <button onClick={handleShowPanel}>click</button>
+        <button
+          className='border-2 px-2 py-1 rounded'
+          onClick={handleShowPanel}
+        >
+          {props.text}
+        </button>
       </div>
       <div style={{ display: showPanel ? '' : 'none' }}>
         {props.children}
-        <button onClick={handleShowPanel}>cancel</button>
+        <button
+          className='border-2 px-2 py-1 rounded'
+          onClick={handleShowPanel}
+        >cancel</button>
       </div>
     </div>
   )
