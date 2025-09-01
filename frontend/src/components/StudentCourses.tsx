@@ -4,9 +4,31 @@ import { useQuery } from '@tanstack/react-query'
 import userServices from '../services/users'
 import LoadingSpinner from './LoadingSpinner'
 import Togglable from './Togglable'
+import { useState } from 'react'
+import courseServices from '../services/courses'
+import toast from 'react-hot-toast'
+
+interface Course {
+  courseCode: string,
+  createdAt: string,
+  id: string,
+  problems: Problem[],
+  students: Student[],
+  tite: string,
+  user: string,
+}
+
+interface Problem {
+  id: string,
+}
+
+interface Student {
+  id: string,
+}
 
 const StudentCourses = () => {
   const { currentUser: user } = useCurrentUser()
+  const [courseCode, setCourseCode] = useState<string>('')
   const navigate = useNavigate()
   const studentResults = useQuery({
     queryFn: userServices.getStudents,
@@ -39,9 +61,23 @@ const StudentCourses = () => {
         You don't have any courses. Press the button below to add a course
       </div>
 
-  const handleAddCourse = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleAddCourse = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log(event)
+    const courses: Course[] = await courseServices.getAllCourses()
+    const targetCourse = courses?.find(course => course.courseCode === courseCode)
+    
+    try {
+      if (targetCourse) {
+        console.log(targetCourse)
+      } else {
+        throw new Error('Could not find target course')
+      }
+    } catch (exception) {
+      if (exception instanceof Error) {
+        console.log(exception.message)
+        toast.error(exception.message, { duration: 5000 })
+      }
+    }
   }
 
   return (
@@ -58,6 +94,10 @@ const StudentCourses = () => {
               <input
                 type="text"
                 className='border-2 rounded px-1 py-0.5'
+                value={courseCode}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setCourseCode(event.target.value)
+                }
               />
             </div>
             <div>
