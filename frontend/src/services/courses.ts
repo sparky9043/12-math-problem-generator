@@ -12,8 +12,8 @@ interface CourseObject {
   createdAt: string,
   id: string,
   problems: Problem[],
-  students: Student[],
-  tite: string,
+  students: string[],
+  title: string,
   user: string,
 }
 

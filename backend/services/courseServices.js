@@ -96,8 +96,8 @@ const updateCourse = async (request, response) => {
 
   const body = request.body
 
-  for (const student of body.students) {
-    const savedStudent = await userServices.getUserById(student.id)
+  for (const id of body.students) {
+    const savedStudent = await userServices.getUserById(id)
     savedCourse.students = savedCourse.students.concat(savedStudent._id)
     savedStudent.courses = savedStudent.courses.concat(savedCourse._id)
     await savedStudent.save()

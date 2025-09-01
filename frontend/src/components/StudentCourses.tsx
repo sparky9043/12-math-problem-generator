@@ -13,8 +13,8 @@ interface Course {
   createdAt: string,
   id: string,
   problems: Problem[],
-  students: Student[],
-  tite: string,
+  students: string[],
+  title: string,
   user: string,
 }
 
@@ -22,21 +22,13 @@ interface Problem {
   id: string,
 }
 
-interface Student {
-  courses: Course[],
-  id: string,
-  name: string,
-  userType: string,
-  username: string,
-}
-
 const StudentCourses = () => {
   const { currentUser: user } = useCurrentUser()
   const [courseCode, setCourseCode] = useState<string>('')
   const navigate = useNavigate()
-  const studentResults = useQuery({
-    queryFn: userServices.getStudents,
-    queryKey: ['students']
+  const courseResults = useQuery({
+    queryFn: courseServices.getAllCourses,
+    queryKey: ['courses']
   })
 
   if (user?.userType !== 'student') {
@@ -48,22 +40,18 @@ const StudentCourses = () => {
     )
   }
 
-  if (studentResults.isLoading) {
+  if (courseResults.isLoading) {
     return (
       <LoadingSpinner />
     )
   }
 
-  const students = studentResults.data
+  const allCourses: Course[] = courseResults.data
 
-  const currentStudent = students?.find(student => student.id === user.id)
+  const enrolledCourses = allCourses.filter(
+    course => course.students.includes(user.id))
 
-  const isCourseEmpty = !currentStudent?.courses.length
-  
-  const noCoursesMessage = () =>
-      <div>
-        You don't have any courses. Press the button below to add a course
-      </div>
+  console.log(enrolledCourses)
 
   const handleAddCourse = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -72,13 +60,10 @@ const StudentCourses = () => {
     setToken(user.token)
     
     try {
-      if (targetCourse && currentStudent) {
-        const newCourse = await courseServices.updateCourse({
-          ...targetCourse,
-          students: [
-            currentStudent,
-          ]
-        })
+      if (targetCourse) {
+        const newCourse = await courseServices.updateCourse({...targetCourse, students: [
+          user.id,
+        ]})
         console.log(newCourse)
       } else {
         throw new Error('Could not find target course')
@@ -93,11 +78,10 @@ const StudentCourses = () => {
 
   return (
     <div className='p-2'>
-      {isCourseEmpty && noCoursesMessage()}
       <div>
         <ul>
-          {currentStudent?.courses.map(course => <li key={course.id}>
-            {course.title}
+          {enrolledCourses.map(course => <li key={course.id}>
+            {course?.title}
           </li>)}
         </ul>
       </div>
