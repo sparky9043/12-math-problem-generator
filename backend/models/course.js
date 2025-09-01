@@ -20,6 +20,7 @@ const courseSchema = new mongoose.Schema({
   ],
   courseCode: {
     type: String,
+    unique: true,
   },
   students: [
     {
