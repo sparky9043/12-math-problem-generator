@@ -75,15 +75,15 @@ const deleteCourse = async (request, response) => {
   await savedUser.save()
 }
 
-const getCourseByCode = async (code) => {
-  const savedCourse = await Course.findOne({ code })
-  return savedCourse
-}
+// const getCourseByCode = async (code) => {
+//   const savedCourse = await Course.findOne({ code })
+//   return savedCourse
+// }
 
 module.exports = {
   getCourses,
   getCourseById,
   createCourse,
   deleteCourse,
-  getCourseByCode
+  // getCourseByCode,
 }
