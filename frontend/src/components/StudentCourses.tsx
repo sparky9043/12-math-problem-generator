@@ -23,7 +23,11 @@ interface Problem {
 }
 
 interface Student {
+  courses: Course[],
   id: string,
+  name: string,
+  userType: string,
+  username: string,
 }
 
 const StudentCourses = () => {
@@ -31,7 +35,7 @@ const StudentCourses = () => {
   const [courseCode, setCourseCode] = useState<string>('')
   const navigate = useNavigate()
   const studentResults = useQuery({
-    queryFn: userServices.getAllUsers,
+    queryFn: userServices.getStudents,
     queryKey: ['students']
   })
 
@@ -86,9 +90,7 @@ const StudentCourses = () => {
       }
     }
   }
-
-  console.log(currentStudent.courses)
-
+  
   return (
     <div className='p-2'>
       {isCourseEmpty && noCoursesMessage()}

@@ -38,19 +38,19 @@ const getTeachers = async () => {
   return teachersOnly
 }
 
-// const getStudents = async () => {
-//   const response = await axios.get(baseUrl)
+const getStudents = async () => {
+  const response = await axios.get(baseUrl)
 
-//   const allUsers: User[] = response.data
+  const allUsers: User[] = response.data
 
-//   const studentsOnly = allUsers.filter(user => user.userType === 'student')
+  const studentsOnly = allUsers.filter(user => user.userType === 'student')
   
-//   return studentsOnly
-// }
+  return studentsOnly
+}
 
 const createNewUser = async (credentials: UserCredentials) => {
   const response = await axios.post(baseUrl, credentials)
   return response.data
 }
 
-export default { createNewUser, getTeachers, getAllUsers }
+export default { createNewUser, getTeachers, getAllUsers, getStudents }
