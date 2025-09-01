@@ -21,6 +21,12 @@ const courseSchema = new mongoose.Schema({
   courseCode: {
     type: String,
   },
+  students: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
 })
 
 courseSchema.set('toJSON', {
