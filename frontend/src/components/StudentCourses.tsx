@@ -5,7 +5,7 @@ import userServices from '../services/users'
 import LoadingSpinner from './LoadingSpinner'
 import Togglable from './Togglable'
 import { useState } from 'react'
-import courseServices from '../services/courses'
+import courseServices, { setToken } from '../services/courses'
 import toast from 'react-hot-toast'
 
 interface Course {
@@ -31,7 +31,7 @@ const StudentCourses = () => {
   const [courseCode, setCourseCode] = useState<string>('')
   const navigate = useNavigate()
   const studentResults = useQuery({
-    queryFn: userServices.getStudents,
+    queryFn: userServices.getAllUsers,
     queryKey: ['students']
   })
 
@@ -65,10 +65,17 @@ const StudentCourses = () => {
     event.preventDefault()
     const courses: Course[] = await courseServices.getAllCourses()
     const targetCourse = courses?.find(course => course.courseCode === courseCode)
+    setToken(user.token)
     
     try {
-      if (targetCourse) {
-        console.log(targetCourse)
+      if (targetCourse && currentStudent) {
+        const newCourse = await courseServices.updateCourse({
+          ...targetCourse,
+          students: [
+            currentStudent,
+          ]
+        })
+        console.log(newCourse)
       } else {
         throw new Error('Could not find target course')
       }
@@ -79,6 +86,8 @@ const StudentCourses = () => {
       }
     }
   }
+
+  console.log(currentStudent.courses)
 
   return (
     <div className='p-2'>

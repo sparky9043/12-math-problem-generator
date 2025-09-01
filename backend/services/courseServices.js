@@ -88,7 +88,7 @@ const updateCourse = async (request, response) => {
     return response.status(404).json({ error: 'course not found' })
   }
 
-  const savedUser = await userServices.getUserById(savedCourse.user.toString())
+  const savedUser = await userServices.getUserById(savedCourse.user._id)
 
   if (!savedUser) {
     return response.status(404).json({ error: 'user not found' })
@@ -96,11 +96,18 @@ const updateCourse = async (request, response) => {
 
   const body = request.body
 
+  for (const student of body.students) {
+    const savedStudent = await userServices.getUserById(student.id)
+    savedCourse.students = savedCourse.students.concat(savedStudent._id)
+    savedStudent.courses = savedStudent.courses.concat(savedCourse._id)
+    await savedStudent.save()
+  }
+
   savedCourse.title = body.title
   savedCourse.createdAt = body.createdAt
   savedCourse.problems = body.problems
   savedCourse.courseCode = body.courseCode
-  savedCourse.students = body.students
+  // savedCourse.students = savedCourse.students.concat()
   const updatedCourse = await savedCourse.save()
 
   return updatedCourse

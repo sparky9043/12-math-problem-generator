@@ -7,6 +7,25 @@ interface Course {
   courseCode: string,
 }
 
+interface CourseObject {
+  courseCode: string,
+  createdAt: string,
+  id: string,
+  problems: Problem[],
+  students: Student[],
+  tite: string,
+  user: string,
+}
+
+interface Problem {
+  id: string,
+}
+
+interface Student {
+  id: string,
+}
+
+
 export const setToken = (inputToken: string) => {
   token = `Bearer ${inputToken}`
 }
@@ -44,4 +63,16 @@ const deleteCourse = async (id: string) => {
   await axios.delete(`${baseUrl}/${id}`, config)
 }
 
-export default { getAllCourses, createCourse, getCourseById, deleteCourse }
+const updateCourse = async (courseObject: CourseObject) => {
+  const config = {
+    headers: {
+      authorization: token
+    }
+  }
+
+  const updatedCourse = await axios.put(`${baseUrl}/${courseObject.id}`, courseObject, config)
+
+  return updatedCourse
+}
+
+export default { getAllCourses, createCourse, getCourseById, deleteCourse, updateCourse }

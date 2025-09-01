@@ -32,11 +32,21 @@ const courseSchema = new mongoose.Schema({
 
 courseSchema.set('toJSON', {
   transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
+    returnedObject.id = returnedObject._id?.toString()
     delete returnedObject._id
     delete returnedObject.__v
-    delete returnedObject.codeHash
+
+    if (returnedObject.user && returnedObject.user._id) {
+      returnedObject.user = returnedObject.user._id.toString()
+    }
+
+    if (Array.isArray(returnedObject.students)) {
+      returnedObject.students = returnedObject.students.map(s =>
+        s._id ? s._id.toString() : s.toString()
+      )
+    }
   }
 })
+
 
 module.exports = mongoose.model('Course', courseSchema)
