@@ -54,7 +54,7 @@ coursesRouter.put('/:id', middleware.userExtractor, async (request, response, ne
       title, courseCode, courseId: request.params.id, userId: request.user.id, studentId
      })
   
-    return response.status(201).json(savedCourse)
+    return response.status(200).json(savedCourse)
   } catch (error) {
     next(error)
   }
