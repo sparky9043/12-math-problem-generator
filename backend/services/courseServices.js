@@ -1,19 +1,10 @@
 const Course = require('../models/course')
-const jwt = require('jsonwebtoken')
-const configs = require('../utils/configs')
 const userServices = require('../services/userServices')
 const Problem = require('../models/problem')
 const Errors = require('../utils/errors')
-const course = require('../models/course')
-const { request } = require('../app')
 
 const getCourses = async () => {
   const courses = await Course.find({}).populate('problems', { question: 1 })
-
-  if (!courses) {
-    throw new Errors.NotFoundError('courses not found')
-  }
-
   return courses
 }
 
@@ -46,7 +37,7 @@ const createCourse = async ({ title, courseCode, userId }) => {
   user.courses = user.courses.concat(savedCourse._id)
   await user.save()
 
-  return savedCourse
+  return savedCourse.toJSON()
 }
 
 const deleteCourse = async ({ userId, courseId }) => {
@@ -129,5 +120,4 @@ module.exports = {
   createCourse,
   deleteCourse,
   updateCourse,
-  // getCourseByCode,
 }
