@@ -36,10 +36,14 @@ coursesRouter.post('/', middleware.userExtractor, async (request, response, next
   }
 })
 
-coursesRouter.delete('/:id', middleware.userExtractor, async (request, response) => {
-  await courseServices.deleteCourse({ userId: request.user.id, courseId: request.params.id })
-
-  return response.status(204).end()
+coursesRouter.delete('/:id', middleware.userExtractor, async (request, response, next) => {
+  try {
+    await courseServices.deleteCourse({ userId: request.user.id, courseId: request.params.id })
+  
+    return response.status(204).end()
+  } catch (error) {
+    next(error)
+  }
 })
 
 coursesRouter.put('/:id', async (request, response) => {
