@@ -41,8 +41,6 @@ const createCourse = async ({ title, courseCode, userId }) => {
 }
 
 const deleteCourse = async ({ userId, courseId }) => {
-  console.log(userId, courseId)
-
   const savedUser = await userServices.getUserById(userId)
 
   const savedCourse = await getCourseById(courseId)
