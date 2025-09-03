@@ -47,35 +47,27 @@ const createCourse = async ({ title, courseCode, userId }) => {
   return savedCourse
 }
 
-const deleteCourse = async (request, response) => {
-  const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
+const deleteCourse = async ({ userId, courseId }) => {
+  console.log(userId, courseId)
 
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: 'token invalid' })
-  }
+  const savedUser = await userServices.getUserById(userId)
 
-  const savedUser = await userServices.getUserById(decodedToken.id)
-
-  if (!savedUser) {
-    return response.status(404).json({ error: 'user not found' })
-  }
-
-  const savedCourse = await getCourseById(request.params.id)
+  const savedCourse = await getCourseById(courseId)
 
   if (!savedCourse) {
-    return response.status(404).json({ error: 'course not found' })
+    throw new Errors.NotFoundError('course not found')
   }
 
-  if (savedCourse.user.toString() !== savedUser._id.toString()) {
-    return response.status(401).json({ error: 'username does not match the course creator' })
+  if (savedCourse.user.toString() !== userId) {
+    return new Errors.TokenError('user id does not match')
   }
 
   for (const problem of savedCourse.problems) {
     await Problem.findByIdAndDelete(problem._id.toString())
   }
-  
-  await Course.findByIdAndDelete(request.params.id)
-  savedUser.courses = savedUser.courses.filter(courseId => courseId.toString() !== request.params.id)
+
+  await Course.findByIdAndDelete(courseId)
+  savedUser.courses = savedUser.courses.filter(courseId => courseId.toString() !== courseId)
   await savedUser.save()
 }
 
