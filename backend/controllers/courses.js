@@ -38,9 +38,9 @@ coursesRouter.post('/', middleware.userExtractor, async (request, response, next
 
 coursesRouter.delete('/:id', middleware.userExtractor, async (request, response, next) => {
   try {
-    await courseServices.deleteCourse({ userId: request.user.id, courseId: request.params.id })
+    const result = await courseServices.deleteCourse({ userId: request.user.id, courseId: request.params.id })
   
-    return response.status(204).end()
+    return response.status(200).json(result)
   } catch (error) {
     next(error)
   }

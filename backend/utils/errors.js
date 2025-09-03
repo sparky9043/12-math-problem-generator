@@ -10,7 +10,7 @@ class AppError extends Error {
 
 class NotFoundError extends AppError {
   constructor(message = 'Not Found', details) {
-    super(message, { status: 404, code: 'AUTH_ERROR', details })
+    super(message, { status: 404, code: 'NOT_FOUND', details }) // <- fix code
   }
 }
 
@@ -20,4 +20,10 @@ class TokenError extends AppError {
   }
 }
 
-module.exports = { AppError, NotFoundError, TokenError }
+class ForbiddenError extends AppError {
+  constructor(message = 'Forbidden', details) {
+    super(message, { status: 403, code: 'ACCESS_FORBIDDEN', details })
+  }
+}
+
+module.exports = { AppError, NotFoundError, TokenError, ForbiddenError }

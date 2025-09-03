@@ -4,6 +4,7 @@ const configs = require('../utils/configs')
 const userServices = require('../services/userServices')
 const Problem = require('../models/problem')
 const Errors = require('../utils/errors')
+const course = require('../models/course')
 
 const getCourses = async () => {
   const courses = await Course.find({}).populate('problems', { question: 1 })
@@ -54,21 +55,18 @@ const deleteCourse = async ({ userId, courseId }) => {
 
   const savedCourse = await getCourseById(courseId)
 
-  if (!savedCourse) {
-    throw new Errors.NotFoundError('course not found')
+  if (String(savedCourse.user) !== String(userId)) {
+    throw new Errors.ForbiddenError('user id does not match')
   }
 
-  if (savedCourse.user.toString() !== userId) {
-    return new Errors.TokenError('user id does not match')
-  }
-
-  for (const problem of savedCourse.problems) {
-    await Problem.findByIdAndDelete(problem._id.toString())
-  }
+  await Problem.deleteMany({ course: savedCourse._id })
 
   await Course.findByIdAndDelete(courseId)
-  savedUser.courses = savedUser.courses.filter(courseId => courseId.toString() !== courseId)
+  savedUser.courses = savedUser.courses
+    .filter(cid => String(cid) !== String(courseId))
   await savedUser.save()
+
+  return { success: true }
 }
 
 const updateCourse = async (request, response) => {
