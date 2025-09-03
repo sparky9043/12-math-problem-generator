@@ -10,8 +10,14 @@ class AppError extends Error {
 
 class NotFoundError extends AppError {
   constructor(message = 'Not Found', details) {
-    super(message, { status: 401, code: 'AUTH_ERROR', details })
+    super(message, { status: 404, code: 'AUTH_ERROR', details })
   }
 }
 
-module.exports = { AppError, NotFoundError }
+class TokenError extends AppError {
+  constructor(message = 'Token Invalid', details) {
+    super(message, { status: 401, code: 'TOKEN_ERROR', details })
+  }
+}
+
+module.exports = { AppError, NotFoundError, TokenError }
