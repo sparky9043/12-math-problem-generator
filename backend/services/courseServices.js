@@ -25,35 +25,26 @@ const getCourseById = async (id) => {
   return course
 }
 
-const createCourse = async (user) => {
-  // console.log(user)
+const createCourse = async ({ title, courseCode, userId }) => {
 
-  // const body = request.body
+  const newCourse = new Course({
+    title,
+    courseCode,
+    createdAt: Date.now(),
+    user: userId,
+  })
 
-  // const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
+  const user = await userServices.getUserById(userId)
 
-  // if (!decodedToken.id) {
-  //   return response.status(401).json({ error: 'token invalid' })
-  // }
+  if (!user) {
+    throw new Errors.NotFoundError('user not found')
+  }
 
-  // const user = await userServices.getUserById(decodedToken.id)
+  const savedCourse = await newCourse.save()
+  user.courses = user.courses.concat(savedCourse._id)
+  await user.save()
 
-  // if (!user) {
-  //   return response.status(404).json({ error: 'user not found' })
-  // }
-
-  // const newCourse = new Course({
-  //   title: body.title,
-  //   courseCode: body.courseCode,
-  //   createdAt: Date.now(),
-  //   user: user._id,
-  // })
-
-  // const savedCourse = await newCourse.save()
-  // user.courses = user.courses.concat(savedCourse._id)
-  // user.save()
-
-  // return savedCourse
+  return savedCourse
 }
 
 const deleteCourse = async (request, response) => {

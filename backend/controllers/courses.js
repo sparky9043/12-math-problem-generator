@@ -21,12 +21,19 @@ coursesRouter.get('/:id', async (request, response, next) => {
 })
 
 coursesRouter.post('/', middleware.userExtractor, async (request, response) => {
-  // const user = request.user
-  console.log(request.user)
-
-  // const savedCourse = await courseServices.createCourse(user)
-
-  // return response.status(201).json(savedCourse)
+  try {
+    const { title, courseCode } = request.body
+  
+    const savedCourse = await courseServices.createCourse({
+      title,
+      courseCode,
+      userId: request.user.id,
+    })
+  
+    return response.status(201).json(savedCourse)
+  } catch (error) {
+    next(error)
+  }
 })
 
 coursesRouter.delete('/:id', async (request, response) => {
