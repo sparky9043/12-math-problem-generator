@@ -5,6 +5,7 @@ const userServices = require('../services/userServices')
 const Problem = require('../models/problem')
 const Errors = require('../utils/errors')
 const course = require('../models/course')
+const { request } = require('../app')
 
 const getCourses = async () => {
   const courses = await Course.find({}).populate('problems', { question: 1 })
@@ -69,42 +70,57 @@ const deleteCourse = async ({ userId, courseId }) => {
   return { success: true }
 }
 
-const updateCourse = async (request, response) => {
-  const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
+const updateCourse = async ({ title, courseCode, courseId, userId, studentId,  }) => {
+  const requester = await userServices.getUserById(userId)
+  if (!requester) throw new Errors.NotFoundError('requester not found')
 
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: 'token invalid' })
+  const course = await getCourseById(courseId)
+
+  const addStudentBothSides = async (targetStudentId) => {
+    const student = await userServices.getUserById(targetStudentId)
+    if (!student) throw new Errors.NotFoundError('student not found')
+    
+    if (!course.students.some(id => String(id) === String(student._id))) {
+      course.students = course.students.concat(student._id)
+    }
+
+    if (!student.courses.some(id => String(id) === String(course._id))) {
+      student.courses = student.courses.concat(course._id)
+      await student.save()
+    }
   }
 
-  const savedCourse = await getCourseById(request.params.id)
+  if (requester.userType === 'teacher') {
+    if (String(course.user) !== String(requester._id)) {
+      throw new Errors.ForbiddenError('You do not own this course')
+    }
+
+    if (typeof title === 'string' && title) course.title = title
+    if (typeof courseCode === 'string'&& courseCode) course.courseCode = courseCode
   
-  if (!savedCourse) {
-    return response.status(404).json({ error: 'course not found' })
+    if (studentId) {
+      await addStudentBothSides(studentId)
+    }
+  
+    await course.save()
+    return course.toJSON()
   }
 
-  const savedUser = await userServices.getUserById(savedCourse.user._id)
+  if (requester.userType === 'student') {
+    if (title || courseCode) {
+      throw new Errors.ForbiddenError('Students cannot edit course fields')
+    }
 
-  if (!savedUser) {
-    return response.status(404).json({ error: 'user not found' })
+    if (!studentId || String(studentId) !== String(requester._id)) {
+      throw new Errors.ForbiddenError('Students can only add themselves to course')
+    }
+
+    await addStudentBothSides(requester._id)
+    await course.save()
+    return course.toJSON()
   }
 
-  const body = request.body
-
-  for (const id of body.students) {
-    const savedStudent = await userServices.getUserById(id)
-    savedCourse.students = savedCourse.students.concat(savedStudent._id)
-    savedStudent.courses = savedStudent.courses.concat(savedCourse._id)
-    await savedStudent.save()
-  }
-
-  savedCourse.title = body.title
-  savedCourse.createdAt = body.createdAt
-  savedCourse.problems = body.problems
-  savedCourse.courseCode = body.courseCode
-  // savedCourse.students = savedCourse.students.concat()
-  const updatedCourse = await savedCourse.save()
-
-  return updatedCourse
+  throw new Errors.ForbiddenError('Unauthorized action')
 }
 
 module.exports = {
