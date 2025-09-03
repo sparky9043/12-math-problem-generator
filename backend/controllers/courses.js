@@ -1,11 +1,8 @@
 const coursesRouter = require('express').Router()
-// const Course = require('../models/course')
 const courseServices = require('../services/courseServices')
-// const userServices = require('../services/userServices')
-// const configs = require('../utils/configs')
-// const jwt = require('jsonwebtoken')
+const middleware = require('../utils/middleware')
 
-coursesRouter.get('/', async (_request, response) => {
+coursesRouter.get('/', async (_request, response, next) => {
   try {
     const courses = await courseServices.getCourses()
     return response.json(courses)
@@ -23,10 +20,13 @@ coursesRouter.get('/:id', async (request, response, next) => {
   }
 })
 
-coursesRouter.post('/', async (request, response) => {
-  const savedCourse = await courseServices.createCourse(request, response)
+coursesRouter.post('/', middleware.userExtractor, async (request, response) => {
+  // const user = request.user
+  console.log(request.user)
 
-  return response.status(201).json(savedCourse)
+  // const savedCourse = await courseServices.createCourse(user)
+
+  // return response.status(201).json(savedCourse)
 })
 
 coursesRouter.delete('/:id', async (request, response) => {

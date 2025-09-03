@@ -25,33 +25,35 @@ const getCourseById = async (id) => {
   return course
 }
 
-const createCourse = async (request, response) => {
-  const body = request.body
+const createCourse = async (user) => {
+  // console.log(user)
 
-  const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
+  // const body = request.body
 
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: 'token invalid' })
-  }
+  // const decodedToken = jwt.verify(request.token, configs.SECRET_KEY)
 
-  const user = await userServices.getUserById(decodedToken.id)
+  // if (!decodedToken.id) {
+  //   return response.status(401).json({ error: 'token invalid' })
+  // }
 
-  if (!user) {
-    return response.status(404).json({ error: 'user not found' })
-  }
+  // const user = await userServices.getUserById(decodedToken.id)
 
-  const newCourse = new Course({
-    title: body.title,
-    courseCode: body.courseCode,
-    createdAt: Date.now(),
-    user: user._id,
-  })
+  // if (!user) {
+  //   return response.status(404).json({ error: 'user not found' })
+  // }
 
-  const savedCourse = await newCourse.save()
-  user.courses = user.courses.concat(savedCourse._id)
-  user.save()
+  // const newCourse = new Course({
+  //   title: body.title,
+  //   courseCode: body.courseCode,
+  //   createdAt: Date.now(),
+  //   user: user._id,
+  // })
 
-  return savedCourse
+  // const savedCourse = await newCourse.save()
+  // user.courses = user.courses.concat(savedCourse._id)
+  // user.save()
+
+  // return savedCourse
 }
 
 const deleteCourse = async (request, response) => {
