@@ -6,18 +6,21 @@ const courseServices = require('../services/courseServices')
 // const jwt = require('jsonwebtoken')
 
 coursesRouter.get('/', async (_request, response) => {
-  const courses = await courseServices.getCourses()
-  return response.json(courses)
+  try {
+    const courses = await courseServices.getCourses()
+    return response.json(courses)
+  } catch (error) {
+    next(error)
+  }
 })
 
-coursesRouter.get('/:id', async (request, response) => {
-  const course = await courseServices.getCourseById(request.params.id)
-
-  if (!course) {
-    return response.status(404).json({ error: 'course not found' })
+coursesRouter.get('/:id', async (request, response, next) => {
+  try {
+    const course = await courseServices.getCourseById(request.params.id)
+    return response.json(course)
+  } catch (error) {
+    next(error)
   }
-
-  return response.json(course)
 })
 
 coursesRouter.post('/', async (request, response) => {

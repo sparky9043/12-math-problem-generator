@@ -3,14 +3,25 @@ const jwt = require('jsonwebtoken')
 const configs = require('../utils/configs')
 const userServices = require('../services/userServices')
 const Problem = require('../models/problem')
+const Errors = require('../utils/errors')
 
 const getCourses = async () => {
   const courses = await Course.find({}).populate('problems', { question: 1 })
+
+  if (!courses) {
+    throw new Errors.NotFoundError('courses not found')
+  }
+
   return courses
 }
 
 const getCourseById = async (id) => {
-  const course = await Course.findById(id).populate('problems', { question: 1})
+  const course = await Course.findById(id).populate('problems', { question: 1 })
+
+  if (!course) {
+    throw new Errors.NotFoundError('course not found')
+  }
+
   return course
 }
 
