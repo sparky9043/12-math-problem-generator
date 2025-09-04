@@ -72,7 +72,6 @@ const StudentCourses = () => {
     setToken(user.token)
     
     try {
-      console.log(targetCourse)
       if (targetCourse) {
         addCourseMutations.mutate({ studentId: user.id, courseId: targetCourse.id })
         setCourseCode('')
