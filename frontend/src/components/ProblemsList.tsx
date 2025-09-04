@@ -16,9 +16,14 @@ export interface Problem {
   question: string,
   choices: string[],
   answer: string,
-  user: string,
+  user: User,
   course: string,
   id: string,
+}
+
+interface User {
+  id: string,
+  username: string,
 }
 
 const ProblemsList = () => {
@@ -59,9 +64,11 @@ const ProblemsList = () => {
 
   const problems: Problem[] = problemsListResult.data
 
+  console.log(problems)
+
   const problemsByUser = problems.filter(problem => {
     if (problem !== null && user !== null) {
-      return problem.user === user.id
+      return problem.user.id === user.id
     }
   })
 
