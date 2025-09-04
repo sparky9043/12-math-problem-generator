@@ -115,15 +115,6 @@ const App = () => {
           path="/dashboard"
           element={user ? <DashBoard /> : <Navigate replace to='/' />}
         >
-          {/* <Route
-            path="/dashboard/problems"
-            element={<ProblemsList />}
-          >
-            <Route
-              path="/dashboard/problems/:id"
-              element={<ProblemDetails />}
-            />
-          </Route> */}
           <Route
             path="courses"
             element={

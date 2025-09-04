@@ -15,6 +15,11 @@ const DashBoard = () => {
                 My Courses
               </NavLink>
             </li>
+            <li className="p-2">
+              <NavLink to='assignments'>
+                Assignments
+              </NavLink>
+            </li>
           </ul>
           <div>
             {matchingParameter &&
