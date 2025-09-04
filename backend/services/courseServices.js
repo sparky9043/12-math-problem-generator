@@ -59,6 +59,10 @@ const deleteCourse = async ({ userId, courseId }) => {
     throw new Errors.ForbiddenError('user id does not match')
   }
 
+  if (savedUser.userType !== 'teacher') {
+    throw new Errors.ForbiddenError('only teachers can delete courses')
+  }
+
   await Problem.deleteMany({ course: savedCourse._id })
 
   await Course.findByIdAndDelete(courseId)
