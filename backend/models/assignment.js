@@ -9,6 +9,7 @@ const assignmentSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: 'Problem',
+      required: true,
     }
   ],
   teacher: {
