@@ -12,6 +12,10 @@ interface StudentCourseObject {
   courseId: string,
 }
 
+interface CourseCodeObject {
+  courseCode: string,
+}
+
 // interface Problem {
 //   id: string,
 // }
@@ -65,4 +69,16 @@ const addCourse = async (courseObject: StudentCourseObject) => {
   return updatedCourse
 }
 
-export default { getAllCourses, createCourse, getCourseById, deleteCourse, addCourse }
+const addCourseByCode = async (courseCodeObject: CourseCodeObject) => {
+  const config = {
+    headers: {
+      authorization: token
+    }
+  }
+
+  const response = await axios.put(`${baseUrl}/join-by-code`, courseCodeObject, config)
+
+  return response.data
+}
+
+export default { getAllCourses, createCourse, getCourseById, deleteCourse, addCourse, addCourseByCode }

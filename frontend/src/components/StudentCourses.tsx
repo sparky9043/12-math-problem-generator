@@ -32,7 +32,7 @@ const StudentCourses = () => {
   const client = useQueryClient()
 
   const addCourseMutations = useMutation({
-    mutationFn: courseServices.addCourse,
+    mutationFn: courseServices.addCourseByCode,
     mutationKey: ['courses'],
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ['courses' ]})
@@ -67,18 +67,12 @@ const StudentCourses = () => {
 
   const handleAddCourse = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const courses: Course[] = await courseServices.getAllCourses()
-    const targetCourse = courses?.find(course => course.courseCode === courseCode)
     setToken(user.token)
     
     try {
-      if (targetCourse) {
-        addCourseMutations.mutate({ studentId: user.id, courseId: targetCourse.id })
-        setCourseCode('')
-        toast.success('Added Course Successfully!')
-      } else {
-        throw new Error('Could not find target course')
-      }
+      addCourseMutations.mutate({ courseCode })
+      setCourseCode('')
+      toast.success('course added!')
     } catch (exception) {
       if (exception instanceof Error) {
         console.log(exception.message)
