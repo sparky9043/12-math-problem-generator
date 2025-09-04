@@ -46,6 +46,19 @@ coursesRouter.delete('/:id', middleware.userExtractor, async (request, response,
   }
 })
 
+coursesRouter.put('/join-by-code', middleware.userExtractor, async (request, response, next) => {
+  try {
+    const savedCourse = await courseServices.updateCourseByCode({
+      courseCode: request.body.courseCode,
+      userId: request.user.id
+    })
+
+    return response.status(200).json(savedCourse)
+  } catch (error) {
+    next(error)
+  }
+})
+
 coursesRouter.put('/:id', middleware.userExtractor, async (request, response, next) => {
   try {
     const { title, courseCode, studentId } = request.body

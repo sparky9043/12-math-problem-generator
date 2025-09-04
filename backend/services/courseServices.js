@@ -18,6 +18,16 @@ const getCourseById = async (id) => {
   return course
 }
 
+const getCourseByCode = async (courseCode) => {
+  const course = await Course.findOne({ courseCode })
+
+  if (!course) {
+    throw new Errors.NotFoundError('course not found')
+  }
+
+  return course
+}
+
 const createCourse = async ({ title, courseCode, userId }) => {
 
   const newCourse = new Course({
@@ -112,10 +122,33 @@ const updateCourse = async ({ title, courseCode, courseId, userId, studentId,  }
   throw new Errors.ForbiddenError('Unauthorized action')
 }
 
+const updateCourseByCode = async ({ courseCode, userId }) => {
+  const savedCourse = await getCourseByCode(courseCode)
+
+  const savedStudent = await userServices.getUserById(userId)
+
+  const addStudent = async (course, student) => {
+    if (!course.students.some(sid => String(sid._id || sid) === String(student._id))) {
+      course.students.push(student._id)
+    }
+    if (!student.courses.some(cid => String(cid._id || cid) === String(course._id))) {
+      student.courses.push(course._id)
+    }
+
+    await course.save()
+    await student.save()
+  }
+
+  await addStudent(savedCourse, savedStudent)
+  return savedCourse.toJSON()
+}
+
 module.exports = {
   getCourses,
   getCourseById,
+  getCourseByCode,
   createCourse,
   deleteCourse,
   updateCourse,
+  updateCourseByCode
 }
