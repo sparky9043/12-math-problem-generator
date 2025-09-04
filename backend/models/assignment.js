@@ -5,10 +5,12 @@ const assignmentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Course',
   },
-  problems: {
-    type: Schema.Types.ObjectId,
-    ref: 'Problem',
-  },
+  problems: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Problem',
+    }
+  ],
   teacher: {
     type: Schema.Types.ObjectId,
     ref: 'User',
