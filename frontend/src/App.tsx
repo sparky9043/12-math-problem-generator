@@ -19,6 +19,7 @@ import CreateNewUser from './components/CreateNewUser'
 import CourseDetails from './components/CourseDetails'
 import StudentCourses from './components/StudentCourses'
 import TeacherAssignmentList from './components/TeacherAssignmentList'
+import ProblemDetails from './components/ProblemDetails'
 
 export interface CurrentUser {
   username: string,
@@ -131,7 +132,12 @@ const App = () => {
               ? <TeacherAssignmentList />
               : <p>Student View</p>
             }
-          />
+          >
+            <Route
+              path="problem/:id"
+              element={<ProblemDetails />}
+            />
+          </Route>
           <Route
             path="problemform/:id"
             element={<ProblemForm />}

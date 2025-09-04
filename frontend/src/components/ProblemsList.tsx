@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { Outlet, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import problemService from '../services/problems'
 import Error from "./Error"
 import LoadingSpinner from "./LoadingSpinner"
@@ -88,7 +88,7 @@ const ProblemsList = () => {
   }
 
   const handleSeeDetails = (id: string) => {
-    navigate(`${id}`)
+    navigate(`problem/${id}`)
   }
 
   const handleDelete = async (id: string) => {
@@ -140,7 +140,7 @@ const ProblemsList = () => {
               {...filter}
             />
           </div>
-        : <p>Problem selected</p>
+        : null
       }
 
       <div className="flex">
@@ -164,7 +164,6 @@ const ProblemsList = () => {
           </li>)
           }
         </ul>
-        <Outlet />
       </div>
     </div>
   )
