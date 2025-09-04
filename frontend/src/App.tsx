@@ -125,11 +125,7 @@ const App = () => {
             />
           </Route> */}
           <Route
-            path="/dashboard/problemform/:id"
-            element={<ProblemForm />}
-          />
-          <Route
-            path="/dashboard/courses"
+            path="courses"
             element={
               userType === 'teacher'
               ? <CoursesList />
@@ -137,11 +133,21 @@ const App = () => {
             }
           />
           <Route
-            path="/dashboard/create"
+            path="assignments"
+            element={
+              <p>List of assignments</p>
+            }
+          />
+          <Route
+            path="problemform/:id"
+            element={<ProblemForm />}
+          />
+          <Route
+            path="create"
             element={<CreateCourse />}
           />
           <Route
-            path="/dashboard/courses/:id"
+            path="courses/:id"
             element={<CourseDetails />}
           />
         </Route>
