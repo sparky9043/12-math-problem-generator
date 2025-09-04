@@ -32,7 +32,7 @@ const StudentCourses = () => {
   const client = useQueryClient()
 
   const addCourseMutations = useMutation({
-    mutationFn: courseServices.updateCourse,
+    mutationFn: courseServices.addCourse,
     mutationKey: ['courses'],
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ['courses' ]})
@@ -65,8 +65,6 @@ const StudentCourses = () => {
   const enrolledCourses = allCourses.filter(
     course => course.students.includes(user.id))
 
-  console.log(enrolledCourses)
-
   const handleAddCourse = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const courses: Course[] = await courseServices.getAllCourses()
@@ -74,10 +72,9 @@ const StudentCourses = () => {
     setToken(user.token)
     
     try {
+      console.log(targetCourse)
       if (targetCourse) {
-        addCourseMutations.mutate({...targetCourse, students: [
-          user.id,
-        ]})
+        addCourseMutations.mutate({ studentId: user.id, courseId: targetCourse.id })
         setCourseCode('')
         toast.success('Added Course Successfully!')
       } else {
