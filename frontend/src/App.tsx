@@ -18,6 +18,7 @@ import CreateCourse from "./components/CreateCourse"
 import CreateNewUser from './components/CreateNewUser'
 import CourseDetails from './components/CourseDetails'
 import StudentCourses from './components/StudentCourses'
+import TeacherAssignmentList from './components/TeacherAssignmentList'
 
 export interface CurrentUser {
   username: string,
@@ -126,7 +127,9 @@ const App = () => {
           <Route
             path="assignments"
             element={
-              <p>List of assignments</p>
+              userType === 'teacher'
+              ? <TeacherAssignmentList />
+              : <p>Student View</p>
             }
           />
           <Route

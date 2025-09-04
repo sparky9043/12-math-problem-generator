@@ -1,7 +1,9 @@
+import ProblemsList from './ProblemsList'
+
 const TeacherAssignmentList = () => {
   return (
     <div>
-      Assignments
+      <ProblemsList />
     </div>
   )
 }
