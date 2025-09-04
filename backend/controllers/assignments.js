@@ -14,7 +14,9 @@ assignmentsRouter.get('/', async (request, response, next) => {
 
 assignmentsRouter.get('/:id', async (request, response, next) => {
   try {
-    console.log('get by id')
+    const assignment = await assignmentServices.getAssignmentById(request.params.id)
+
+    return response.json(assignment)
   } catch (error) {
     next(error)
   }
