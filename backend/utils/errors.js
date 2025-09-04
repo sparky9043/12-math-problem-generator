@@ -26,4 +26,10 @@ class ForbiddenError extends AppError {
   }
 }
 
-module.exports = { AppError, NotFoundError, TokenError, ForbiddenError }
+class ValidationError extends AppError {
+  constructor(message = 'ValidationError', details) {
+    super(message, { status: 400, code: 'VALIDATION_ERROR', details })
+  }
+}
+
+module.exports = { AppError, NotFoundError, TokenError, ForbiddenError, ValidationError }

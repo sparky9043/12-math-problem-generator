@@ -20,6 +20,10 @@ const getAssignmentById = async (id) => {
 }
 
 const createAssignment = async ({ courseId, userId, problems }) => {
+  if (!problems || problems?.length === 0) {
+    throw new Errors.ValidationError('you need at least one problem')
+  }
+
   const savedCourse = await courseServices.getCourseById(courseId)
 
   const savedUser = await userServices.getUserById(userId)
