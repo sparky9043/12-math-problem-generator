@@ -1,8 +1,7 @@
 import axios from 'axios'
-import type { Problem } from '../components/ProblemsList'
 
 interface ProblemsObject {
-  problems: Problem[],
+  problems: string[]
   courseId: string,
 }
 

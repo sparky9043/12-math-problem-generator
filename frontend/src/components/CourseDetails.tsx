@@ -6,6 +6,9 @@ import ProblemItem from './ProblemItem'
 import type { Problem } from './ProblemsList'
 import useProblems from '../hooks/useProblems'
 import toast from 'react-hot-toast'
+import { setToken } from '../services/assignments'
+import useCurrentUser from '../hooks/useCurrentUser'
+import assignmentServices from '../services/assignments'
 
 const CourseDetails = () => {
   const navigate = useNavigate()
@@ -15,8 +18,8 @@ const CourseDetails = () => {
     queryKey: ['problems']
   })
   const buttonStyles = "border-2 rounded border-emerald-800 p-2 text-sm"
-  const { problems } = useProblems()
-
+  const { problems, setProblems } = useProblems()
+  const { currentUser } = useCurrentUser()
 
   if (problemResult.isLoading) {
     return (
@@ -45,7 +48,14 @@ const CourseDetails = () => {
       if (!problems.length) {
         throw new Error('You need at least one problem to create assignment!')
       }
-
+      
+      if (currentUser && courseId) {
+        setToken(currentUser?.token)
+        assignmentServices.createAssignment({ problems: problems.map(problem => problem.id), courseId })
+      }
+      setProblems([])
+      navigate('/dashboard/courses')
+      toast.success('assignment created!')
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message)
