@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import problemServices from '../services/problems'
 import LoadingSpinner from './LoadingSpinner'
 import { useState } from 'react'
+import ProblemItem from './ProblemItem'
 
 interface User {
   username: string,
@@ -65,27 +66,8 @@ const CourseDetails = () => {
     <div>
       <ul>
         {problemsByCourse.map((problem, index) =>
-          <li
-            className='p-4 my-1'
-            key={problem.id}
-          >
-            <div>
-              {`${index + 1}.`} {problem.question}
-            </div>
-            <div>
-              Answer: {problem.answer}
-            </div>
-            <div className='flex justify-center align-center'>
-              <label>
-                include in assignment?
-              </label>
-              <input
-                type='checkbox'
-                className='border-2 p-2 checked:bg-emerald-200 rounded'
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => console.log(event.currentTarget.checked)}
-              />
-            </div>
-          </li>)}
+          <ProblemItem key={problem.id} problem={problem} index={Number(index)} />
+        )}
       </ul>
       <button
         className={buttonStyles}
