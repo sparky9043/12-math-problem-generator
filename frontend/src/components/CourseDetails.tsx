@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import problemServices from '../services/problems'
 import LoadingSpinner from './LoadingSpinner'
-import { useState } from 'react'
 import ProblemItem from './ProblemItem'
 
 interface User {
@@ -34,8 +33,6 @@ const CourseDetails = () => {
     queryFn: problemServices.getProblems,
     queryKey: ['problems']
   })
-  const [problemsForAssignment, setProblemsForAssignment] = useState<Problem[] | null>(null)
-  
   const buttonStyles = "border-2 rounded border-emerald-800 p-2 text-sm"
 
 
@@ -59,8 +56,6 @@ const CourseDetails = () => {
       </div>
     )
   }
-
-  console.log(problemsForAssignment)
 
   return (
     <div>
