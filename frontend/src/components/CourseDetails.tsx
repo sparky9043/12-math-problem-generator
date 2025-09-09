@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import problemServices from '../services/problems'
 import LoadingSpinner from './LoadingSpinner'
+import { useState } from 'react'
 
 interface User {
   username: string,
@@ -32,6 +33,7 @@ const CourseDetails = () => {
     queryFn: problemServices.getProblems,
     queryKey: ['problems']
   })
+  const [problemsForAssignment, setProblemsForAssignment] = useState<Problem[] | null>(null)
   
   const buttonStyles = "border-2 rounded border-emerald-800 p-2 text-sm"
 
@@ -57,6 +59,8 @@ const CourseDetails = () => {
     )
   }
 
+  console.log(problemsForAssignment)
+
   return (
     <div>
       <ul>
@@ -71,6 +75,16 @@ const CourseDetails = () => {
             <div>
               Answer: {problem.answer}
             </div>
+            <div className='flex justify-center align-center'>
+              <label>
+                include in assignment?
+              </label>
+              <input
+                type='checkbox'
+                className='border-2 p-2 checked:bg-emerald-200 rounded'
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => console.log(event.currentTarget.checked)}
+              />
+            </div>
           </li>)}
       </ul>
       <button
@@ -78,6 +92,11 @@ const CourseDetails = () => {
         onClick={() => navigate(`/dashboard/problemform/${courseId}`)}
       >
         create problem
+      </button>
+      <button
+        className={buttonStyles}
+      >
+        make assignment
       </button>
     </div>
   )
