@@ -9,7 +9,7 @@ interface ProblemItemProps {
 
 const ProblemItem = (props: ProblemItemProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(false)
-  const { problems, setProblems } = useProblems()
+  const { setProblems } = useProblems()
 
   const handleCheckProblem = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.currentTarget.checked)
