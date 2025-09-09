@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Problem } from './CourseDetails'
 
 interface ProblemItemProps {
@@ -6,6 +7,7 @@ interface ProblemItemProps {
 }
 
 const ProblemItem = (props: ProblemItemProps) => {
+  const [isChecked, setIsChecked] = useState<boolean>(false)
 
   return (
     <li
@@ -25,7 +27,8 @@ const ProblemItem = (props: ProblemItemProps) => {
         <input
           type='checkbox'
           className='border-2 p-2 checked:bg-emerald-200 rounded'
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => console.log(event.currentTarget.checked)}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => setIsChecked(event.currentTarget.checked)}
+          checked={isChecked}
         />
       </div>
     </li>
