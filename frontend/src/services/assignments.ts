@@ -14,6 +14,12 @@ export const setToken = (inputToken: string) => {
   token = `Bearer ${inputToken}`
 }
 
+const getAssignments = async () => {
+  const response = await axios.get(baseUrl)
+
+  return response.data
+}
+
 const createAssignment = async (problemsObject: ProblemsObject) => {
   const config = {
     headers: {
@@ -26,4 +32,4 @@ const createAssignment = async (problemsObject: ProblemsObject) => {
   return response.data
 }
 
-export default { createAssignment }
+export default { getAssignments, createAssignment }
