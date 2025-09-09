@@ -19,7 +19,7 @@ const getAssignmentById = async (id) => {
   return assignment.toJSON()
 }
 
-const createAssignment = async ({ courseId, userId, problems }) => {
+const createAssignment = async ({ assignmentTitle, courseId, userId, problems }) => {
   if (!problems || problems?.length === 0) {
     throw new Errors.ValidationError('you need at least one problem')
   }
@@ -39,6 +39,7 @@ const createAssignment = async ({ courseId, userId, problems }) => {
   }
 
   const savedAssignment = new Assignment({
+    assignmentTitle,
     course: savedCourse._id,
     teacher: savedUser._id,
     problems: savedProblems.map(problem => problem._id)

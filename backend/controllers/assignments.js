@@ -24,11 +24,11 @@ assignmentsRouter.get('/:id', async (request, response, next) => {
 
 assignmentsRouter.post('/', middleware.userExtractor, async (request, response, next) => {
   try {
-    const { courseId, problems } = request.body
+    const { assignmentTitle, courseId, problems } = request.body
     const userId = request.user.id
   
     const assignment = await assignmentServices.createAssignment({
-      courseId, userId, problems
+      assignmentTitle, courseId, userId, problems
     })
 
     return response.status(201).json(assignment)

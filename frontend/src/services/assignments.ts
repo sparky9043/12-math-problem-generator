@@ -3,6 +3,7 @@ import axios from 'axios'
 interface ProblemsObject {
   problems: string[]
   courseId: string,
+  assignmentTitle: string,
 }
 
 const baseUrl = '/api/assignments'
