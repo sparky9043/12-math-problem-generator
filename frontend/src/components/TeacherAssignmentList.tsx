@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import assignmentServices from '../services/assignments'
 import { Outlet } from 'react-router-dom'
 import LoadingSpinner from './LoadingSpinner'
-import type { Problem } from './ProblemsList'
+// import type { Problem } from './ProblemsList'
 import useCurrentUser from '../hooks/useCurrentUser'
 
 interface Assignment {
@@ -10,7 +10,7 @@ interface Assignment {
   assignmentTitle: string,
   course: string,
   id: string,
-  problems: Problem[],
+  problems: string[],
   teacher: string,
 }
 
