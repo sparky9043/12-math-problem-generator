@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import type { Problem } from './CourseDetails'
+import type { Problem } from './ProblemsList'
+import useProblems from '../hooks/useProblems'
 
 interface ProblemItemProps {
   problem: Problem,
@@ -8,6 +9,18 @@ interface ProblemItemProps {
 
 const ProblemItem = (props: ProblemItemProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(false)
+  const { problems, setProblems } = useProblems()
+
+  const handleCheckProblem = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(event.currentTarget.checked)
+    setProblems(problems => {
+      if (!problems.find(problem => problem.id === props.problem.id)) {
+        return problems.concat(props.problem)
+      } else {
+        return problems.filter(problem => problem.id !== props.problem.id)
+      }
+    })
+  }
 
   return (
     <li
@@ -27,7 +40,7 @@ const ProblemItem = (props: ProblemItemProps) => {
         <input
           type='checkbox'
           className='border-2 p-2 checked:bg-emerald-200 rounded'
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => setIsChecked(event.currentTarget.checked)}
+          onChange={handleCheckProblem}
           checked={isChecked}
         />
       </div>

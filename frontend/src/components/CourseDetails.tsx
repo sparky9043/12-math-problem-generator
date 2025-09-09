@@ -3,28 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import problemServices from '../services/problems'
 import LoadingSpinner from './LoadingSpinner'
 import ProblemItem from './ProblemItem'
-
-interface User {
-  username: string,
-  id: string,
-}
-
-interface Course {
-  title: string,
-  id: string,
-}
-
-export interface Problem {
-  subject: string,
-  branch: string,
-  topic: string,
-  question: string,
-  choices: string[],
-  answer: string,
-  user: User,
-  course: Course,
-  id: string,
-}
+import type { Problem } from './ProblemsList'
 
 const CourseDetails = () => {
   const navigate = useNavigate()

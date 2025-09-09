@@ -17,13 +17,18 @@ export interface Problem {
   choices: string[],
   answer: string,
   user: User,
-  course: string,
+  course: Course,
   id: string,
 }
 
 interface User {
   id: string,
   username: string,
+}
+
+interface Course {
+  title: string,
+  id: string,
 }
 
 const ProblemsList = () => {
