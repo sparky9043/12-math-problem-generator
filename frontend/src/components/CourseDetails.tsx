@@ -4,6 +4,8 @@ import problemServices from '../services/problems'
 import LoadingSpinner from './LoadingSpinner'
 import ProblemItem from './ProblemItem'
 import type { Problem } from './ProblemsList'
+import useProblems from '../hooks/useProblems'
+import toast from 'react-hot-toast'
 
 const CourseDetails = () => {
   const navigate = useNavigate()
@@ -13,6 +15,7 @@ const CourseDetails = () => {
     queryKey: ['problems']
   })
   const buttonStyles = "border-2 rounded border-emerald-800 p-2 text-sm"
+  const { problems } = useProblems()
 
 
   if (problemResult.isLoading) {
@@ -36,6 +39,22 @@ const CourseDetails = () => {
     )
   }
 
+  const handleCreateAssignment = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    try {
+      if (!problems.length) {
+        throw new Error('You need at least one problem to create assignment!')
+      }
+
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+        console.log(error)
+      }
+    }
+
+  }
+
   return (
     <div>
       <ul>
@@ -43,17 +62,24 @@ const CourseDetails = () => {
           <ProblemItem key={problem.id} problem={problem} index={Number(index)} />
         )}
       </ul>
+      {problems.length > 0 && <div>
+        <p>Assignment Added</p>
+        </div>
+      }
       <button
         className={buttonStyles}
         onClick={() => navigate(`/dashboard/problemform/${courseId}`)}
       >
         create problem
       </button>
-      <button
-        className={buttonStyles}
-      >
-        make assignment
-      </button>
+      <form onSubmit={handleCreateAssignment}>
+        <button
+          className={buttonStyles}
+          type="submit"
+        >
+          make assignment
+        </button>
+      </form>
     </div>
   )
 }
