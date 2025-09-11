@@ -7,13 +7,13 @@ import type { Assignment } from '../types/types'
 const StudentCourseAssignments = () => {
   const { id: courseId } = useParams()
 
-  const { data: assignmentData, isLoading: assignmentIsLoading } = useQuery({
+  const { data: assignmentData, isLoading: assignmentIsLoading, isPending } = useQuery({
     queryFn: () => assignmentServices.getAssignmentsByCourseId(courseId!),
     queryKey: ['assignments'],
     enabled: !!courseId,
   })
 
-  if (assignmentIsLoading) {
+  if (assignmentIsLoading || isPending) {
     return (
       <div>
         <LoadingSpinner />
