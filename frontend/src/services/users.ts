@@ -48,9 +48,15 @@ const getStudents = async () => {
   return studentsOnly
 }
 
+const getUserById = async (userId: string) => {
+  const response = await axios.get(`${baseUrl}/${userId}`)
+  
+  return response.data
+}
+
 const createNewUser = async (credentials: UserCredentials) => {
   const response = await axios.post(baseUrl, credentials)
   return response.data
 }
 
-export default { createNewUser, getTeachers, getAllUsers, getStudents }
+export default { createNewUser, getTeachers, getAllUsers, getStudents, getUserById }
