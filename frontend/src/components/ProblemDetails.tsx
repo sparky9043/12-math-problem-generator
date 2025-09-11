@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useNavigate, useParams } from "react-router-dom"
-import type { Problem } from "./ProblemsList"
+import type { Problem } from '../types/types'
 import { useState } from "react"
 import EditProblemForm from "./EditProblemForm"
 import problemServices from '../services/problems'

@@ -8,28 +8,7 @@ import useInput from "../hooks/useInput"
 import { useState } from "react"
 import DropdownMenu from "./DropdownMenu"
 import toast from "react-hot-toast"
-
-export interface Problem {
-  subject: string,
-  branch: string,
-  topic: string,
-  question: string,
-  choices: string[],
-  answer: string,
-  user: User,
-  course: Course,
-  id: string,
-}
-
-interface User {
-  id: string,
-  username: string,
-}
-
-interface Course {
-  title: string,
-  id: string,
-}
+import type { Problem } from '../types/types'
 
 const ProblemsList = () => {
   const { currentUser: user } = useCurrentUser()

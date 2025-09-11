@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom"
 import courseServices, { setToken } from '../services/courses'
 import LoadingSpinner from "./LoadingSpinner"
 import useCurrentUser from "../hooks/useCurrentUser"
-import type { Problem } from "./ProblemsList"
+import type { Problem } from '../types/types'
 import { NavLink } from 'react-router-dom'
 import toast from 'react-hot-toast'
 

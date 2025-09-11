@@ -1,5 +1,5 @@
 import React, { createContext, useContext, type SetStateAction } from "react"
-import type { Problem } from "../components/ProblemsList"
+import type { Problem } from '../types/types'
 
 interface ProblemsContextType {
   problems: Problem[],

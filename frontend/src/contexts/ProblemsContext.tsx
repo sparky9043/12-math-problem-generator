@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import type { Problem } from "../components/ProblemsList"
+import type { Problem } from '../types/types'
 import { ProblemsContext } from "../hooks/useProblems"
 
 interface ProblemsContextProviderProps {

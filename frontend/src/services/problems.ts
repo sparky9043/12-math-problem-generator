@@ -1,15 +1,5 @@
 import axios from 'axios'
-
-interface NewProblem {
-  answer: string,
-  branch: string,
-  choices: string[],
-  question: string,
-  subject: string,
-  topic: string,
-  course: string,
-  id: string,
-}
+import type { Problem } from '../types/types'
 
 const baseUrl = '/api/problems'
 
@@ -24,7 +14,7 @@ const getProblems = async () => {
   return response.data
 }
 
-const createProblem = async (problem: NewProblem) => {
+const createProblem = async (problem: Problem) => {
   const config = {
     headers: {
       authorization: token
@@ -45,7 +35,7 @@ const deleteProblem = async (id: string) => {
   await axios.delete(`${baseUrl}/${id}`, config)
 }
 
-const editProblem = async (problemObject: NewProblem) => {
+const editProblem = async (problemObject: Problem) => {
   const config = {
     headers: {
       authorization: token

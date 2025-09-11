@@ -8,7 +8,7 @@ import { AxiosError } from "axios"
 import { useQuery } from "@tanstack/react-query"
 import courseServices from '../services/courses'
 import LoadingSpinner from "./LoadingSpinner"
-import type { Problem } from "./ProblemsList"
+import type { Problem } from '../types/types'
 
 interface Course {
   courseCode: string,

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { Problem } from './ProblemsList'
+import type { Problem } from '../types/types'
 import useProblems from '../hooks/useProblems'
 
 interface ProblemItemProps {

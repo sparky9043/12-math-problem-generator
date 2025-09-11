@@ -1,5 +1,5 @@
 import useInput from "../hooks/useInput"
-import type { Problem } from "./ProblemsList"
+import type { Problem } from '../types/types'
 
 interface EditProblemFormProps {
   problem: Problem,
