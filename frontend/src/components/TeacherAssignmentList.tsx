@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import assignmentServices from '../services/assignments'
 import { Outlet } from 'react-router-dom'
 import LoadingSpinner from './LoadingSpinner'
-// import type { Problem } from './ProblemsList'
+import type { Problem } from './ProblemsList'
 import useCurrentUser from '../hooks/useCurrentUser'
 
 interface Assignment {
@@ -10,7 +10,7 @@ interface Assignment {
   assignmentTitle: string,
   course: string,
   id: string,
-  problems: string[],
+  problems: Problem[],
   teacher: string,
 }
 
@@ -52,8 +52,14 @@ const TeacherAssignmentList = () => {
       {assignmentsByUser.map(assignment => <li key={assignment.id}>
         {assignment.assignmentTitle}
         <ul>
-          {assignment.problems.map(problem => <li key={problem}>
-            {problem}
+          {assignment.problems.map(problem => <li key={problem.id}>
+            <div>
+              {problem.question}
+
+              {problem.choices.map(choice => <li key={choice}>
+                {choice}
+              </li>)}
+            </div>
           </li>)}
         </ul>
       </li>)}

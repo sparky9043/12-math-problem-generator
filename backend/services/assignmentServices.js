@@ -5,12 +5,12 @@ const userServices = require('./userServices')
 const Problem = require('../models/problem')
 
 const getAssignments = async () => {
-  const assignments = await Assignment.find({})
+  const assignments = await Assignment.find({}).populate('problems', { question: 1, choices: 1, answer: 1 })
   return assignments
 }
 
 const getAssignmentById = async (id) => {
-  const assignment = await Assignment.findById(id)
+  const assignment = await Assignment.findById(id).find({}).populate('problems', { question: 1, choices: 1, answer: 1 })
 
   if (!assignment) {
     throw new Errors.NotFoundError('assignment not found')
