@@ -1,4 +1,5 @@
 import axios from 'axios'
+import type { Assignment } from '../types/types'
 
 interface ProblemsObject {
   problems: string[]
@@ -20,6 +21,16 @@ const getAssignments = async () => {
   return response.data
 }
 
+const getAssignmentsByCourseId = async (courseId: string) => {
+  const response = await axios.get(baseUrl)
+
+  const assignments:Assignment[] = response.data
+
+  const courseById = assignments.filter(assignment => assignment.course === courseId)
+
+  return courseById
+}
+
 const createAssignment = async (problemsObject: ProblemsObject) => {
   const config = {
     headers: {
@@ -32,4 +43,4 @@ const createAssignment = async (problemsObject: ProblemsObject) => {
   return response.data
 }
 
-export default { getAssignments, createAssignment }
+export default { getAssignments, createAssignment, getAssignmentsByCourseId }

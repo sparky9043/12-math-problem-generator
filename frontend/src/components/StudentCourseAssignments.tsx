@@ -1,6 +1,37 @@
+import { useQuery } from '@tanstack/react-query'
+import { useParams } from 'react-router-dom'
+import assignmentServices from '../services/assignments'
+import LoadingSpinner from './LoadingSpinner'
+import type { Assignment } from '../types/types'
+
 const StudentCourseAssignments = () => {
+  const { id: courseId } = useParams()
+
+  const { data: assignmentData, isLoading: assignmentIsLoading } = useQuery({
+    queryFn: () => assignmentServices.getAssignmentsByCourseId(courseId!),
+    queryKey: ['assignments'],
+    enabled: !!courseId,
+  })
+
+  if (assignmentIsLoading) {
+    return (
+      <div>
+        <LoadingSpinner />
+      </div>
+    )
+  }
+
+  const assignments:Assignment[] = assignmentData!
+
   return (
     <div>
+      <ul>
+        {assignments.map(assignment => 
+          <li key={assignment.id}>
+            {assignment.assignmentTitle}
+          </li>
+        )}
+      </ul>
       List of assignments for each course
     </div>
   )
