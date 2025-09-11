@@ -20,6 +20,7 @@ import CourseDetails from './components/CourseDetails'
 import StudentCourses from './components/StudentCourses'
 import TeacherAssignmentList from './components/TeacherAssignmentList'
 import ProblemDetails from './components/ProblemDetails'
+import StudentAssignmentList from './components/StudentAssignmentList'
 
 export interface CurrentUser {
   username: string,
@@ -130,7 +131,7 @@ const App = () => {
             element={
               userType === 'teacher'
               ? <TeacherAssignmentList />
-              : <p>Student View</p>
+              : <StudentAssignmentList />
             }
           >
             <Route
