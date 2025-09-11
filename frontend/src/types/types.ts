@@ -19,3 +19,12 @@ export interface Course {
   title: string,
   id: string,
 }
+
+export interface Assignment {
+  assignedAt: string,
+  assignmentTitle: string,
+  course: string,
+  id: string,
+  problems: Problem[],
+  teacher: string,
+}

@@ -2,17 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 import assignmentServices from '../services/assignments'
 import { Outlet } from 'react-router-dom'
 import LoadingSpinner from './LoadingSpinner'
-import type { Problem } from '../types/types'
+import type { Assignment } from '../types/types'
 import useCurrentUser from '../hooks/useCurrentUser'
-
-interface Assignment {
-  assignedAt: string,
-  assignmentTitle: string,
-  course: string,
-  id: string,
-  problems: Problem[],
-  teacher: string,
-}
 
 const TeacherAssignmentList = () => {
   const { currentUser } = useCurrentUser()
