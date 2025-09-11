@@ -81,12 +81,22 @@ const StudentCourses = () => {
     }
   }
 
+  const handleViewAssignment = () => {
+    navigate('/dashboard/assignments')
+  }
+
   return (
     <div className='p-2'>
       <div>
         <ul>
-          {enrolledCourses.map(course => <li key={course.id}>
+          {enrolledCourses.map(course => <li key={course.id} className='my-3'>
             {course?.title}
+            <button
+              className='border-2 border-emerald-500'
+              onClick={handleViewAssignment}
+            >
+              click to view assignments
+            </button>
           </li>)}
         </ul>
       </div>
