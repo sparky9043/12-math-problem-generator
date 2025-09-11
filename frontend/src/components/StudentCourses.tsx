@@ -81,8 +81,8 @@ const StudentCourses = () => {
     }
   }
 
-  const handleViewAssignment = () => {
-    navigate('/dashboard/assignments')
+  const handleViewAssignment = (courseId: string) => {
+    navigate(`${courseId}`)
   }
 
   return (
@@ -93,7 +93,7 @@ const StudentCourses = () => {
             {course?.title}
             <button
               className='border-2 border-emerald-500'
-              onClick={handleViewAssignment}
+              onClick={() => handleViewAssignment(course.id)}
             >
               click to view assignments
             </button>
