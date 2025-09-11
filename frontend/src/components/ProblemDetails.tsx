@@ -5,6 +5,7 @@ import { useState } from "react"
 import EditProblemForm from "./EditProblemForm"
 import problemServices from '../services/problems'
 import toast from "react-hot-toast"
+import { convertToChar } from '../utils/helper'
 
 const ProblemDetails = () => {
   const { id } = useParams()
@@ -48,10 +49,6 @@ const ProblemDetails = () => {
         Error: Invalid id
       </div>
     )
-  }
-
-  const convertToChar = (index: number) => {
-    return String.fromCharCode(index + 65)
   }
 
   const handleBack = () => {

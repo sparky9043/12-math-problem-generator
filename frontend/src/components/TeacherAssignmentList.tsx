@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom'
 import LoadingSpinner from './LoadingSpinner'
 import type { Assignment } from '../types/types'
 import useCurrentUser from '../hooks/useCurrentUser'
+import { convertToChar } from '../utils/helper'
 
 const TeacherAssignmentList = () => {
   const { currentUser } = useCurrentUser()
@@ -40,20 +41,24 @@ const TeacherAssignmentList = () => {
 
   return (
     <div>
-      {assignmentsByUser.map(assignment => <li key={assignment.id}>
-        {assignment.assignmentTitle}
-        <ul>
-          {assignment.problems.map(problem => <li key={problem.id}>
-            <div>
+      {assignmentsByUser.map(assignment => <div
+        className='p-2 my-1'
+        key={assignment.id}
+      >
+        <h2>
+          {assignment.assignmentTitle}
+        </h2>
+        <div>
+          {assignment.problems.map(problem => <div key={problem.id}>
               {problem.question}
 
-              {problem.choices.map(choice => <li key={choice}>
-                {choice}
-              </li>)}
-            </div>
-          </li>)}
-        </ul>
-      </li>)}
+              {problem.choices.map((choice, index) =>
+                <div key={choice}>
+                  {convertToChar(Number(index)).concat('.')}  {choice}
+                </div>)}
+          </div>)}
+        </div>
+      </div>)}
       <Outlet />
     </div>
   )
