@@ -2,7 +2,7 @@ import axios from 'axios'
 
 let token:string
 
-interface Course {
+interface CreateCourseObject {
   title: string,
   courseCode: string,
 }
@@ -15,10 +15,6 @@ interface StudentCourseObject {
 interface CourseCodeObject {
   courseCode: string,
 }
-
-// interface Problem {
-//   id: string,
-// }
 
 export const setToken = (inputToken: string) => {
   token = `Bearer ${inputToken}`
@@ -36,7 +32,7 @@ const getCourseById = async (id: string) => {
   return response.data
 }
 
-const createCourse = async(course: Course) => {
+const createCourse = async(course: CreateCourseObject) => {
   const config = {
     headers: {
       authorization: token
