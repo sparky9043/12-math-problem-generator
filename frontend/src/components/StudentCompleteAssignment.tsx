@@ -47,27 +47,45 @@ const StudentCompleteAssignment = () => {
 
   const targetAssignmentProblems: TargetProblem[] | undefined = targetAssignment && targetAssignment.problems
 
-  console.log(targetAssignmentProblems)
+  const handleSubmitAssignment = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
+    if (targetAssignmentProblems) {
+      for (const problem of targetAssignmentProblems) {
+        const targetProblem = targetAssignmentProblems.find(p => p.id === problem.id)
+        console.log(targetProblem, targetProblem?.answer === formData.get(problem.id))
+      }
+    }
+  };
 
   return (
     <div>
-      {targetAssignmentProblems?.map(problem => <div key={problem.id}>
-        {problem.question}
-        <form>
-          <ul>
-            {problem.choices.map((choice) => <li key={choice} className='flex items-center justify-center'>
-              <input type='radio' name='choice' className='border-2 p-4 rounded-full checked:bg-amber-600' id={choice} />
-              <label htmlFor={choice} className='text-left'>
-                {choice}
-              </label>
-            </li>)}
-          </ul>
-          <button type='submit'>
-            complete assignment
-          </button>
-        </form>
+      <form onSubmit={handleSubmitAssignment}>
+        {targetAssignmentProblems?.map(problem => <div key={problem.id}>
+          {problem.question}
+            <ul>
+              {problem.choices.map((choice) => <li key={choice} className='flex items-center justify-center'>
+                <input
+                  type='radio'
+                  name={problem.id}
+                  value={choice}
+                  className='border-2 p-4 rounded-full checked:bg-amber-600'
+                  id={`${problem.id}-${choice}`} />
+                <label
+                  htmlFor={`${problem.id}-${choice}`}
+                  className='text-left'
+                >
+                  {choice}
+                </label>
+              </li>)}
+            </ul>
+            <button type='submit'>
+              complete assignment
+            </button>
 
-      </div>)}
+        </div>)}
+      </form>
     </div>
   )
 }
