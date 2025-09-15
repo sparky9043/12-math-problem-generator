@@ -70,7 +70,9 @@ const StudentCompleteAssignment = () => {
                   name={problem.id}
                   value={choice}
                   className='border-2 p-4 rounded-full checked:bg-amber-600'
-                  id={`${problem.id}-${choice}`} />
+                  id={`${problem.id}-${choice}`}
+                  required
+                />
                 <label
                   htmlFor={`${problem.id}-${choice}`}
                   className='text-left'
