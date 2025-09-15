@@ -32,11 +32,15 @@ const StudentCourseAssignments = () => {
   }
 
   return (
-    <div>
+    <div className='p-2'>
       <ul>
         {assignments.map(assignment => 
-          <li key={assignment.id}>
+          <li key={assignment.id} className='rounded p-1'>
             {assignment.assignmentTitle}
+
+            <button
+              className='border-2 mx-4 p-1 rounded'
+            >start</button>
           </li>
         )}
       </ul>
