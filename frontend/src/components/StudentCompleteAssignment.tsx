@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import assignmentServices from '../services/assignments'
 import LoadingSpinner from './LoadingSpinner'
 import type { Assignment } from '../types/types'
-import { convertToChar } from '../utils/helper'
 
 interface TargetProblem {
   answer: string,
@@ -54,12 +53,19 @@ const StudentCompleteAssignment = () => {
     <div>
       {targetAssignmentProblems?.map(problem => <div key={problem.id}>
         {problem.question}
-
-        <ul>
-          {problem.choices.map((choice, index) => <li key={choice}>
-            {convertToChar(Number(index))} {choice}
-          </li>)}
-        </ul>
+        <form>
+          <ul>
+            {problem.choices.map((choice) => <li key={choice} className='flex items-center justify-center'>
+              <input type='radio' name='choice' className='border-2 p-4 rounded-full checked:bg-amber-600' id={choice} />
+              <label htmlFor={choice} className='text-left'>
+                {choice}
+              </label>
+            </li>)}
+          </ul>
+          <button type='submit'>
+            complete assignment
+          </button>
+        </form>
 
       </div>)}
     </div>
