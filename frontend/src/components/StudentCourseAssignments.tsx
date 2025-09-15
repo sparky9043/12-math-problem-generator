@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import assignmentServices from '../services/assignments'
 import LoadingSpinner from './LoadingSpinner'
 import type { Assignment } from '../types/types'
 
 const StudentCourseAssignments = () => {
   const { id: courseId } = useParams()
-
+  const navigate = useNavigate()
   const { data: assignmentData, isLoading: assignmentIsLoading, isPending } = useQuery({
     queryFn: () => assignmentServices.getAssignmentsByCourseId(courseId!),
     queryKey: ['assignments'],
@@ -40,6 +40,7 @@ const StudentCourseAssignments = () => {
 
             <button
               className='border-2 mx-4 p-1 rounded'
+              onClick={() => navigate(`${assignment.assignmentTitle}`)}
             >start</button>
           </li>
         )}

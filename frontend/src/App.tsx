@@ -156,6 +156,12 @@ const App = () => {
               : <StudentCourseAssignments />
             }
           />
+            {userType === 'student' &&
+              <Route
+                path="courses/:id/:assignment"
+                element={<p>Hello</p>}
+              />
+            }
         </Route>
         <Route
           path="/login"
