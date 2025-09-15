@@ -1,9 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import assignmentServices from '../services/assignments'
-import problemServices from '../services/problems'
 import LoadingSpinner from './LoadingSpinner'
-import type { Assignment, Problem } from '../types/types'
+import type { Assignment } from '../types/types'
+import { convertToChar } from '../utils/helper'
+
+interface TargetProblem {
+  answer: string,
+  choices: string[],
+  id: string,
+  question: string,
+}
 
 const StudentCompleteAssignment = () => {
   const { id: courseId, assignment } = useParams()
@@ -13,17 +20,6 @@ const StudentCompleteAssignment = () => {
     queryKey: ['assignments', courseId],
     enabled: !!courseId,
   })
-
-  const problemResult = useQuery({
-    queryFn: problemServices.getProblems,
-    queryKey: ['problems'],
-  })
-
-  if (problemResult.isLoading) {
-    return (
-      <LoadingSpinner />
-    )
-  }
 
   if (assignmentResult.isLoading) {
     return (
@@ -44,19 +40,28 @@ const StudentCompleteAssignment = () => {
   const targetAssignment: Assignment | undefined = assignmentsByUser
     && assignmentsByUser.find(a => assignment && a.assignmentTitle.includes(assignment))
 
-  if (targetAssignment) {
+  if (!targetAssignment) {
     <div>
       there was an error
     </div>
   }
 
-  // const allProblems: Problem[] = problemResult.data
+  const targetAssignmentProblems: TargetProblem[] | undefined = targetAssignment && targetAssignment.problems
 
-  // console.log(targetAssignment, problemsByCourseId)
+  console.log(targetAssignmentProblems)
 
   return (
     <div>
-      Complete assignment
+      {targetAssignmentProblems?.map(problem => <div key={problem.id}>
+        {problem.question}
+
+        <ul>
+          {problem.choices.map((choice, index) => <li key={choice}>
+            {convertToChar(Number(index))} {choice}
+          </li>)}
+        </ul>
+
+      </div>)}
     </div>
   )
 }
