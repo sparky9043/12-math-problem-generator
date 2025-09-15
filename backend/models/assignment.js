@@ -23,7 +23,19 @@ const assignmentSchema = new Schema({
   assignedAt: {
     type: Date,
     default: Date.now,
-  }
+  },
+  studentsCompleted: [
+    {
+      studentId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      },
+      score: {
+        type: Number,
+        required: true,
+      },
+    },
+  ]
 })
 
 assignmentSchema.set('toJSON', {
