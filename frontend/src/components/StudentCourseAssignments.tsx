@@ -23,6 +23,14 @@ const StudentCourseAssignments = () => {
 
   const assignments:Assignment[] = assignmentData!
 
+  if (!assignments.length) {
+    return (
+      <div>
+        Your teacher has not assigned any work yet...
+      </div>
+    )
+  }
+
   return (
     <div>
       <ul>
