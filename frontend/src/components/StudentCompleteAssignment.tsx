@@ -61,8 +61,8 @@ const StudentCompleteAssignment = () => {
   return (
     <div>
       <form onSubmit={handleSubmitAssignment}>
-        {targetAssignmentProblems?.map(problem => <div key={problem.id}>
-          {problem.question}
+        {targetAssignmentProblems?.map((problem, index) => <div key={problem.id}>
+          {index + 1}. {problem.question}
             <ul>
               {problem.choices.map((choice) => <li key={choice} className='flex items-center justify-center'>
                 <input
