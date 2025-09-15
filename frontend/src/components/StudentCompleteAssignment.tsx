@@ -53,8 +53,7 @@ const StudentCompleteAssignment = () => {
 
     if (targetAssignmentProblems) {
       for (const problem of targetAssignmentProblems) {
-        const targetProblem = targetAssignmentProblems.find(p => p.id === problem.id)
-        console.log(targetProblem, targetProblem?.answer === formData.get(problem.id))
+        console.log(problem.answer === formData.get(problem.id))
       }
     }
   };
