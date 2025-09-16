@@ -3,8 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import assignmentServices from '../services/assignments'
 import LoadingSpinner from './LoadingSpinner'
 import type { Assignment } from '../types/types'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import useCurrentUser from '../hooks/useCurrentUser'
 
 interface TargetProblem {
   answer: string,
@@ -17,6 +18,7 @@ const StudentCompleteAssignment = () => {
   const { id: courseId, assignment } = useParams()
   const [isFinished, setIsFinished] = useState<boolean>(false)
   const [correctQuestions, setCorrectQuestions] = useState<string[]>([])
+  const { user: studentId } = useCurrentUser()
   const navigate = useNavigate()
   const assignmentResult = useQuery({
     queryFn: () => assignmentServices.getAssignmentsByCourseId(courseId!),
@@ -73,7 +75,20 @@ const StudentCompleteAssignment = () => {
       }
     }
   };
-    console.log(correctQuestions)
+
+  if (targetAssignment?.studentsCompleted.map(s => s.studentId).includes(studentId)) {
+    return (
+      <div>
+        You already finished this assignment!
+        <button
+          className='border-2 bg-green-300 rounded py-1 px-2 hover:cursor-pointer active:bg-green-400'
+          onClick={() => navigate(-1)}
+        >
+          go back
+        </button>
+      </div>
+    )
+  }
 
   return (
     <div>

@@ -28,4 +28,11 @@ export interface Assignment {
   id: string,
   problems: Problem[],
   teacher: string,
+  studentsCompleted: StudentsCompleted[],
+}
+
+export interface StudentsCompleted {
+  correctProblems: string[],
+  studentId: string,
+  _id: string,
 }
