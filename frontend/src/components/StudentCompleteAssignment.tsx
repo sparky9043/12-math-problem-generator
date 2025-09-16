@@ -88,9 +88,12 @@ const StudentCompleteAssignment = () => {
 
   const correctProblems = targetAssignment?.studentsCompleted.find(s => s.studentId === studentId?.id)?.correctProblems
 
+  const totalScore = (correctProblems && targetAssignmentProblems) ? Math.round(correctProblems.length / targetAssignmentProblems.length * 100) : 0
+
   return (
     <div>
       {isAssignmentComplete ? <h2>You already completed this assignment!</h2> : null}
+      {isAssignmentComplete ? totalScore : null}
       <form onSubmit={handleSubmitAssignment}>
         {targetAssignmentProblems?.map((problem, index) => <div key={problem.id}>
           {index + 1}. {problem.question}
