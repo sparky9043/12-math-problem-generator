@@ -30,9 +30,9 @@ const assignmentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
       },
-      score: {
-        type: Number,
-        required: true,
+      correctProblems: {
+        type: Schema.Types.ObjectId,
+        ref: 'Problem',
       },
     },
   ]
