@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import assignmentServices, { setToken } from '../services/assignments'
 import LoadingSpinner from './LoadingSpinner'
@@ -26,7 +26,12 @@ const StudentCompleteAssignment = () => {
   const assignmentMutation = useMutation({
     mutationFn: assignmentServices.updateAssignment,
     mutationKey: ['assignments'],
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ['assignments'] })
+    }
   })
+
+  const client = useQueryClient()
 
   if (assignmentResult.isLoading) {
     return (
@@ -81,20 +86,31 @@ const StudentCompleteAssignment = () => {
     }
   };
 
-  console.log(isAssignmentComplete)
+  const correctProblems = targetAssignment?.studentsCompleted.find(s => s.studentId === studentId?.id)?.correctProblems
 
   return (
     <div>
+      {isAssignmentComplete ? <h2>You already completed this assignment!</h2> : null}
       <form onSubmit={handleSubmitAssignment}>
         {targetAssignmentProblems?.map((problem, index) => <div key={problem.id}>
           {index + 1}. {problem.question}
+          <div>
+            {correctProblems?.includes(problem.id)
+              ? <div className='text-green-400'>
+              `You got this right! Correct Answer: ${problem.answer}`
+              </div>
+              : <div className='text-red-400'>
+                `Wrong! Answer: ${problem.answer}`
+              </div>
+            }
+          </div>
             <ul>
               {problem.choices.map((choice) => <li key={choice} className='flex items-center justify-center'>
                 <input
                   type='radio'
                   name={problem.id}
                   value={choice}
-                  className={`border-2 p-4 rounded-full checked:bg-amber-600  disabled:border-gray-300 ${choice !== problem.answer ? 'checked:disabled:bg-red-400': 'checked:disabled:bg-green-400'}`}
+                  className={`border-2 p-4 rounded-full checked:bg-amber-600  disabled:border-gray-300`}
                   id={`${problem.id}-${choice}`}
                   disabled={isAssignmentComplete}
                   required

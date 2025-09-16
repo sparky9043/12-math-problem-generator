@@ -28,7 +28,7 @@ export interface Assignment {
   id: string,
   problems: Problem[],
   teacher: string,
-  studentsCompleted: StudentsCompleted[],
+  studentsCompleted: StudentsCompleted[]
 }
 
 export interface StudentsCompleted {
