@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import assignmentServices from '../services/assignments'
 import LoadingSpinner from './LoadingSpinner'
 import type { Assignment } from '../types/types'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 interface TargetProblem {
   answer: string,
@@ -13,6 +15,8 @@ interface TargetProblem {
 
 const StudentCompleteAssignment = () => {
   const { id: courseId, assignment } = useParams()
+  const [isFinished, setIsFinished] = useState<boolean>(false)
+  const [correctQuestions, setCorrectQuestions] = useState<string[]>([])
 
   const assignmentResult = useQuery({
     queryFn: () => assignmentServices.getAssignmentsByCourseId(courseId!),
@@ -49,14 +53,27 @@ const StudentCompleteAssignment = () => {
 
   const handleSubmitAssignment = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+    try {
+      if (isFinished) throw new Error('you already finished this assignment')
 
-    if (targetAssignmentProblems) {
-      for (const problem of targetAssignmentProblems) {
-        console.log(problem.answer === formData.get(problem.id))
+      const formData = new FormData(event.currentTarget);
+
+      if (targetAssignmentProblems) {
+        for (const problem of targetAssignmentProblems) {
+          if (problem.answer === formData.get(problem.id)) {
+            setCorrectQuestions(questionIds => [...questionIds, problem.id])
+          }
+        }
+      }
+      setIsFinished(true)
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log('Error: ', error.message)
+        toast.error(`Error: ${error.message}`)
       }
     }
   };
+    console.log(correctQuestions)
 
   return (
     <div>
@@ -71,6 +88,7 @@ const StudentCompleteAssignment = () => {
                   value={choice}
                   className='border-2 p-4 rounded-full checked:bg-amber-600'
                   id={`${problem.id}-${choice}`}
+                  disabled={isFinished}
                   required
                 />
                 <label
