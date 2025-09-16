@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import assignmentServices from '../services/assignments'
 import LoadingSpinner from './LoadingSpinner'
 import type { Assignment } from '../types/types'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import useCurrentUser from '../hooks/useCurrentUser'
 
@@ -76,7 +76,7 @@ const StudentCompleteAssignment = () => {
     }
   };
 
-  if (targetAssignment?.studentsCompleted.map(s => s.studentId).includes(studentId)) {
+  if (studentId && targetAssignment?.studentsCompleted.map(s => s.studentId).includes(studentId.id)) {
     return (
       <div>
         You already finished this assignment!
@@ -92,6 +92,7 @@ const StudentCompleteAssignment = () => {
 
   return (
     <div>
+      {isFinished && `You got ${correctQuestions.length} questions correct!`}
       <form onSubmit={handleSubmitAssignment}>
         {targetAssignmentProblems?.map((problem, index) => <div key={problem.id}>
           {index + 1}. {problem.question}
