@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import assignmentServices from '../services/assignments'
 import LoadingSpinner from './LoadingSpinner'
 import type { Assignment } from '../types/types'
@@ -17,7 +17,7 @@ const StudentCompleteAssignment = () => {
   const { id: courseId, assignment } = useParams()
   const [isFinished, setIsFinished] = useState<boolean>(false)
   const [correctQuestions, setCorrectQuestions] = useState<string[]>([])
-
+  const navigate = useNavigate()
   const assignmentResult = useQuery({
     queryFn: () => assignmentServices.getAssignmentsByCourseId(courseId!),
     queryKey: ['assignments', courseId],
@@ -102,12 +102,22 @@ const StudentCompleteAssignment = () => {
         </div>)}
         <button
           type='submit'
-          className='border-2 bg-green-300 rounded py-1 px-2 hover:cursor-pointer disabled:hover:cursor-default disabled:bg-gray-400 disabled:text-gray-200'
+          className='border-2 bg-green-300 rounded py-1 px-2 hover:cursor-pointer disabled:hover:cursor-default disabled:bg-gray-300 disabled:text-gray-400'
           disabled={isFinished}
         >
           complete assignment
         </button>
       </form>
+        {
+          isFinished
+            &&
+            <button
+              className='border-2 bg-green-300 rounded py-1 px-2 hover:cursor-pointer active:bg-green-400'
+              onClick={() => navigate(-1)}
+            >
+              go back
+            </button>
+        }
     </div>
   )
 }
