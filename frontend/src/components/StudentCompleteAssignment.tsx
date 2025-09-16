@@ -86,7 +86,7 @@ const StudentCompleteAssignment = () => {
                   type='radio'
                   name={problem.id}
                   value={choice}
-                  className='border-2 p-4 rounded-full checked:bg-amber-600'
+                  className={`border-2 p-4 rounded-full checked:bg-amber-600  disabled:border-gray-300 ${choice !== problem.answer ? 'checked:disabled:bg-red-400': 'checked:disabled:bg-green-400'}`}
                   id={`${problem.id}-${choice}`}
                   disabled={isFinished}
                   required
@@ -102,7 +102,8 @@ const StudentCompleteAssignment = () => {
         </div>)}
         <button
           type='submit'
-          className='border-2 rounded py-1 px-2'
+          className='border-2 bg-green-300 rounded py-1 px-2 hover:cursor-pointer disabled:hover:cursor-default disabled:bg-gray-400 disabled:text-gray-200'
+          disabled={isFinished}
         >
           complete assignment
         </button>
