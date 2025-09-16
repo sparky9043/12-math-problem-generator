@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import assignmentServices, { setToken } from '../services/assignments'
 import LoadingSpinner from './LoadingSpinner'
 import type { Assignment } from '../types/types'
-import { useState } from 'react'
 import toast from 'react-hot-toast'
 import useCurrentUser from '../hooks/useCurrentUser'
 
@@ -16,7 +15,6 @@ interface TargetProblem {
 
 const StudentCompleteAssignment = () => {
   const { id: courseId, assignment } = useParams()
-  const [correctQuestions, setCorrectQuestions] = useState<string[]>([])
   const { currentUser: studentId } = useCurrentUser()
   const navigate = useNavigate()
   const assignmentResult = useQuery({
@@ -70,7 +68,7 @@ const StudentCompleteAssignment = () => {
         const correctProblems: string[] = []
         for (const problem of targetAssignmentProblems) {
           if (problem.answer === formData.get(problem.id)) {
-            correctQuestions.push(problem.id)
+            correctProblems.push(problem.id)
           }
         }
         assignmentMutation.mutate({ assignmentId: targetAssignment?.id, studentId: studentId.id, correctProblems })
@@ -83,25 +81,10 @@ const StudentCompleteAssignment = () => {
     }
   };
 
-  if (isAssignmentComplete) {
-    return (
-      <div>
-        You already finished this assignment!
-        <button
-          className='border-2 bg-green-300 rounded py-1 px-2 hover:cursor-pointer active:bg-green-400'
-          onClick={() => navigate(-1)}
-        >
-          go back
-        </button>
-      </div>
-    )
-  }
-
   console.log(isAssignmentComplete)
 
   return (
     <div>
-      {isAssignmentComplete && `You got ${correctQuestions.length} questions correct!`}
       <form onSubmit={handleSubmitAssignment}>
         {targetAssignmentProblems?.map((problem, index) => <div key={problem.id}>
           {index + 1}. {problem.question}
