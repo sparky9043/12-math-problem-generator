@@ -93,7 +93,7 @@ const StudentCompleteAssignment = () => {
   return (
     <div>
       {isAssignmentComplete ? <h2>You already completed this assignment!</h2> : null}
-      {isAssignmentComplete ? totalScore : null}
+      {isAssignmentComplete ? `You got ${correctProblems?.length} problems correct! Your total score is: ${totalScore}%.` : null}
       <form onSubmit={handleSubmitAssignment}>
         {targetAssignmentProblems?.map((problem, index) => <div key={problem.id}>
           {index + 1}. {problem.question}
