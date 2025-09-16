@@ -55,10 +55,15 @@ const updateAssignment = async ({ assignmentId, studentId, correctProblems }) =>
   if (correctProblems.length > 0) {
     const savedStudent = await userServices.getUserById(studentId)
     const savedProblems = await Problem.find({ _id: { $in: correctProblems } })
-    savedAssignment.studentsCompleted.push({
-      studentId: savedStudent._id,
-      correctProblems: savedProblems.map(p => p._id)
-    })
+
+    if (!savedAssignment.studentsCompleted.map(s => String(s?.studentId)).includes(studentId)) {
+      savedAssignment.studentsCompleted.push({
+        studentId: savedStudent._id,
+        correctProblems: savedProblems.map(p => p._id)
+      })
+    } else {
+      throw new Errors.ForbiddenError('you already completed this assignment')
+    }
     await savedAssignment.save()
   }
 
