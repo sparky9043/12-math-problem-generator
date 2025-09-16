@@ -18,7 +18,7 @@ const StudentCompleteAssignment = () => {
   const { id: courseId, assignment } = useParams()
   const [isFinished, setIsFinished] = useState<boolean>(false)
   const [correctQuestions, setCorrectQuestions] = useState<string[]>([])
-  const { user: studentId } = useCurrentUser()
+  const { currentUser: studentId } = useCurrentUser()
   const navigate = useNavigate()
   const assignmentResult = useQuery({
     queryFn: () => assignmentServices.getAssignmentsByCourseId(courseId!),
