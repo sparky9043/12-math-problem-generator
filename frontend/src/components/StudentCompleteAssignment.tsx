@@ -81,11 +81,13 @@ const StudentCompleteAssignment = () => {
                 </label>
               </li>)}
             </ul>
-            <button type='submit'>
-              complete assignment
-            </button>
-
         </div>)}
+        <button
+          type='submit'
+          className='border-2 rounded py-1 px-2'
+        >
+          complete assignment
+        </button>
       </form>
     </div>
   )
