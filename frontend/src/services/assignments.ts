@@ -7,6 +7,12 @@ interface ProblemsObject {
   assignmentTitle: string,
 }
 
+interface UpdateObject {
+  assignmentId: string,
+  studentId: string,
+  correctProblems: string[],
+}
+
 const baseUrl = '/api/assignments'
 
 let token:string
@@ -43,4 +49,18 @@ const createAssignment = async (problemsObject: ProblemsObject) => {
   return response.data
 }
 
-export default { getAssignments, createAssignment, getAssignmentsByCourseId }
+const updateAssignment = async(updateObject: UpdateObject) => {
+  const config = {
+    headers: {
+      authorization: token
+    }
+  }
+
+  const { assignmentId, studentId, correctProblems } = updateObject
+
+  const response = await axios.put(`${baseUrl}/${assignmentId}`, { studentId, correctProblems }, config)
+
+  return response.data
+}
+
+export default { getAssignments, createAssignment, getAssignmentsByCourseId, updateAssignment }

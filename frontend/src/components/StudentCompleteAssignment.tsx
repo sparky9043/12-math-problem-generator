@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
-import assignmentServices from '../services/assignments'
+import assignmentServices, { setToken } from '../services/assignments'
 import LoadingSpinner from './LoadingSpinner'
 import type { Assignment } from '../types/types'
 import { useState } from 'react'
@@ -16,7 +16,6 @@ interface TargetProblem {
 
 const StudentCompleteAssignment = () => {
   const { id: courseId, assignment } = useParams()
-  const [isFinished, setIsFinished] = useState<boolean>(false)
   const [correctQuestions, setCorrectQuestions] = useState<string[]>([])
   const { currentUser: studentId } = useCurrentUser()
   const navigate = useNavigate()
@@ -24,6 +23,11 @@ const StudentCompleteAssignment = () => {
     queryFn: () => assignmentServices.getAssignmentsByCourseId(courseId!),
     queryKey: ['assignments', courseId],
     enabled: !!courseId,
+  })
+
+  const assignmentMutation = useMutation({
+    mutationFn: assignmentServices.updateAssignment,
+    mutationKey: ['assignments'],
   })
 
   if (assignmentResult.isLoading) {
@@ -53,21 +57,24 @@ const StudentCompleteAssignment = () => {
 
   const targetAssignmentProblems: TargetProblem[] | undefined = targetAssignment && targetAssignment.problems
 
+  const isAssignmentComplete: boolean = (studentId && targetAssignment?.studentsCompleted.map(s => s.studentId).includes(studentId?.id)) ? true : false
+
   const handleSubmitAssignment = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      if (isFinished) throw new Error('you already finished this assignment')
-
+      if (isAssignmentComplete) throw new Error('you already finished this assignment')
       const formData = new FormData(event.currentTarget);
 
-      if (targetAssignmentProblems) {
+      if (targetAssignmentProblems && studentId && targetAssignment) {
+        setToken(studentId.token)
+        const correctProblems: string[] = []
         for (const problem of targetAssignmentProblems) {
           if (problem.answer === formData.get(problem.id)) {
-            setCorrectQuestions(questionIds => [...questionIds, problem.id])
+            correctQuestions.push(problem.id)
           }
         }
+        assignmentMutation.mutate({ assignmentId: targetAssignment?.id, studentId: studentId.id, correctProblems })
       }
-      setIsFinished(true)
     } catch (error) {
       if (error instanceof Error) {
         console.log('Error: ', error.message)
@@ -76,7 +83,7 @@ const StudentCompleteAssignment = () => {
     }
   };
 
-  if (studentId && targetAssignment?.studentsCompleted.map(s => s.studentId).includes(studentId.id)) {
+  if (isAssignmentComplete) {
     return (
       <div>
         You already finished this assignment!
@@ -90,9 +97,11 @@ const StudentCompleteAssignment = () => {
     )
   }
 
+  console.log(isAssignmentComplete)
+
   return (
     <div>
-      {isFinished && `You got ${correctQuestions.length} questions correct!`}
+      {isAssignmentComplete && `You got ${correctQuestions.length} questions correct!`}
       <form onSubmit={handleSubmitAssignment}>
         {targetAssignmentProblems?.map((problem, index) => <div key={problem.id}>
           {index + 1}. {problem.question}
@@ -104,7 +113,7 @@ const StudentCompleteAssignment = () => {
                   value={choice}
                   className={`border-2 p-4 rounded-full checked:bg-amber-600  disabled:border-gray-300 ${choice !== problem.answer ? 'checked:disabled:bg-red-400': 'checked:disabled:bg-green-400'}`}
                   id={`${problem.id}-${choice}`}
-                  disabled={isFinished}
+                  disabled={isAssignmentComplete}
                   required
                 />
                 <label
@@ -119,13 +128,13 @@ const StudentCompleteAssignment = () => {
         <button
           type='submit'
           className='border-2 bg-green-300 rounded py-1 px-2 hover:cursor-pointer disabled:hover:cursor-default disabled:bg-gray-300 disabled:text-gray-400'
-          disabled={isFinished}
+          disabled={isAssignmentComplete}
         >
           complete assignment
         </button>
       </form>
         {
-          isFinished
+          isAssignmentComplete
             &&
             <button
               className='border-2 bg-green-300 rounded py-1 px-2 hover:cursor-pointer active:bg-green-400'
