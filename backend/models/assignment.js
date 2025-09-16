@@ -29,7 +29,6 @@ const assignmentSchema = new Schema({
       studentId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        unique: true,
       },
       correctProblems: [
         {

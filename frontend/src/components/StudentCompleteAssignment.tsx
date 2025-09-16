@@ -95,13 +95,14 @@ const StudentCompleteAssignment = () => {
         {targetAssignmentProblems?.map((problem, index) => <div key={problem.id}>
           {index + 1}. {problem.question}
           <div>
-            {correctProblems?.includes(problem.id)
+            {isAssignmentComplete ? correctProblems?.includes(problem.id)
               ? <div className='text-green-400'>
               `You got this right! Correct Answer: ${problem.answer}`
               </div>
               : <div className='text-red-400'>
                 `Wrong! Answer: ${problem.answer}`
               </div>
+              : null
             }
           </div>
             <ul>
