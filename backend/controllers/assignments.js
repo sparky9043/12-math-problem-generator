@@ -40,10 +40,12 @@ assignmentsRouter.post('/', middleware.userExtractor, async (request, response, 
 assignmentsRouter.put('/:id', middleware.userExtractor, async (request, response, next) => {
   try {
     const { studentId, correctProblems } = request.body
+    const assignmentId = request.params.id
     const assignment = await assignmentServices.updateAssignment({
-      studentId, correctProblems
+      assignmentId, studentId, correctProblems
     })
-    console.log(studentId, correctProblems)
+
+    return response.status(201).json(assignment)
   } catch (error) {
     next(error)
   }

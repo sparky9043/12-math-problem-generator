@@ -10,13 +10,13 @@ const getAssignments = async () => {
 }
 
 const getAssignmentById = async (id) => {
-  const assignment = await Assignment.findById(id).find({}).populate('problems', { question: 1, choices: 1, answer: 1 })
+  const assignment = await Assignment.findById(id).populate('problems', { question: 1, choices: 1, answer: 1 })
 
   if (!assignment) {
     throw new Errors.NotFoundError('assignment not found')
   }
 
-  return assignment.toJSON()
+  return assignment
 }
 
 const createAssignment = async ({ assignmentTitle, courseId, userId, problems }) => {
@@ -50,4 +50,19 @@ const createAssignment = async ({ assignmentTitle, courseId, userId, problems })
   return savedAssignment.toJSON()
 }
 
-module.exports = { getAssignments, getAssignmentById, createAssignment }
+const updateAssignment = async ({ assignmentId, studentId, correctProblems }) => {
+  const savedAssignment = await getAssignmentById(assignmentId)
+  if (correctProblems.length > 0) {
+    const savedStudent = await userServices.getUserById(studentId)
+    const savedProblems = await Problem.find({ _id: { $in: correctProblems } })
+    savedAssignment.studentsCompleted.push({
+      studentId: savedStudent._id,
+      correctProblems: savedProblems.map(p => p._id)
+    })
+    await savedAssignment.save()
+  }
+
+  return savedAssignment
+}
+
+module.exports = { getAssignments, getAssignmentById, createAssignment, updateAssignment }
