@@ -37,4 +37,16 @@ assignmentsRouter.post('/', middleware.userExtractor, async (request, response, 
   }
 })
 
+assignmentsRouter.put('/:id', middleware.userExtractor, async (request, response, next) => {
+  try {
+    const { studentId, correctProblems } = request.body
+    const assignment = await assignmentServices.updateAssignment({
+      studentId, correctProblems
+    })
+    console.log(studentId, correctProblems)
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = assignmentsRouter
