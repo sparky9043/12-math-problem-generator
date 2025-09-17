@@ -22,13 +22,10 @@ mongoose
     logger.error('Error: ', error.message)
   })
 
+app.use(express.static('dist'))
 app.use(express.json())
-
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'))
-} else {
-  app.use(middleware.requestLogger)
-}
+app.use(morgan('dev'))
+app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 
 app.use('/api/login', loginRouter)
