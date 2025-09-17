@@ -28,6 +28,10 @@ app.use(morgan('dev'))
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 
+app.get('/health', async (_request, response) => {
+  return response.status(200).end()
+})
+
 app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/problems', problemsRouter)
