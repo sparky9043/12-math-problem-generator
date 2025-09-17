@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { Problem } from '../types/types'
+import type { CreateProblem, Problem } from '../types/types'
 
 const baseUrl = '/api/problems'
 
@@ -14,7 +14,7 @@ const getProblems = async () => {
   return response.data
 }
 
-const createProblem = async (problem: Problem) => {
+const createProblem = async (problem: CreateProblem) => {
   const config = {
     headers: {
       authorization: token

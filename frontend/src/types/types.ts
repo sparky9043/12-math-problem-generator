@@ -10,6 +10,17 @@ export interface Problem {
   id: string,
 }
 
+export interface CreateProblem {
+  subject: string,
+  branch: string,
+  topic: string,
+  question: string,
+  choices: string[],
+  answer: string,
+  course: string,
+  id: string,
+}
+
 export interface User {
   id: string,
   username: string,
