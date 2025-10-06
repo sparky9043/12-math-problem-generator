@@ -55,7 +55,7 @@ const LoginForm = (props: LoginFormProps) => {
         </label>
       </div>
       <button
-        className="px-2 py-1 rounded bg-emerald-700 text-emerald-100 hover:cursor-pointer disabled:opacity-20"
+        className="px-2 py-1 rounded bg-emerald-600 text-emerald-100 hover:cursor-pointer disabled:opacity-20"
         type="submit"
         disabled={isLoading}
       >login</button>

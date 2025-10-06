@@ -1,13 +1,11 @@
-interface ButtonProps {
-  children: string,
-  onClick: ((event: React.MouseEvent<HTMLButtonElement>) => void)
-    | (() => void),
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: React.ReactNode,
 }
 
-const Button = (props: ButtonProps) => {
+const Button = ({ children, ...rest }: ButtonProps) => {
   return (
-    <button onClick={props.onClick}>
-      {props.children}
+    <button className="" {...rest}>
+      {children}
     </button>
   )
 }
