@@ -1,6 +1,7 @@
 import { useState } from "react"
 import useInput from "../hooks/useInput"
 import { type User } from "../services/login"
+import Button from "./Button"
 
 interface LoginFormProps {
   login: (credentials: User) => void,
@@ -54,11 +55,10 @@ const LoginForm = (props: LoginFormProps) => {
           />
         </label>
       </div>
-      <button
-        className="px-2 py-1 rounded bg-emerald-600 text-emerald-100 hover:cursor-pointer disabled:opacity-20"
+      <Button
         type="submit"
         disabled={isLoading}
-      >login</button>
+      >login</Button>
     </form>
   )
 }
