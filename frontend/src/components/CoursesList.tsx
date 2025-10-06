@@ -5,8 +5,8 @@ import courseServices, { setToken } from '../services/courses'
 import LoadingSpinner from "./LoadingSpinner"
 import useCurrentUser from "../hooks/useCurrentUser"
 import type { Problem } from '../types/types'
-import { NavLink } from 'react-router-dom'
 import toast from 'react-hot-toast'
+import Button from "./Button"
 
 interface Course {
   createdAt: string,
@@ -40,8 +40,6 @@ const CoursesList = () => {
     )
   }
 
-  const buttonStyles = "border-2 rounded border-emerald-800 p-2 text-sm"
-
   if (coursesResults.isLoading) {
     return <LoadingSpinner />
   }
@@ -56,12 +54,12 @@ const CoursesList = () => {
     return (
       <div>
         {coursesByUser.length === 0 && emptyCourseListMessage()}
-        <button
-          className="border-2 px-2 py-1 rounded"
+        <Button
+          variant='primary'
           onClick={() => navigate('/dashboard/create')}
         >
           create course
-        </button>
+        </Button>
       </div>
     )
   }
@@ -97,25 +95,27 @@ const CoursesList = () => {
               Problems Created: {course.problems.length}
             </p>
           </div>
-          <NavLink
-            className={buttonStyles}
-            to={`/dashboard/problemform/${course.id}`}
+          <Button
+            variant='primary'
+            size='sm'
+            onClick={() => navigate(`/dashboard/problemform/${course.id}`)}
           >
             create problem
-          </NavLink>
-          <button
-            className={buttonStyles}
+          </Button>
+          <Button
+            variant="primary"
+            size="sm"
             onClick={() => handleDeleteCourse(String(course.id))}
           >
             delete course
-          </button>
-          {course.problems.length > 0 && <NavLink
-            className={buttonStyles}
-            to={`${course.id}`}
-            // onClick={() => navigate(`${course.id}`)}
+          </Button>
+          {course.problems.length > 0 && <Button
+            variant="primary"
+            size="sm"
+            onClick={() => navigate(`${course.id}`)}
           >
             view problems
-          </NavLink>}
+          </Button>}
         </li>)}
       </ul>
       <div>
