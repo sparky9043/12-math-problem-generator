@@ -7,10 +7,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSizes,
 }
 
-const baseStyles: string = 'rounded-lg tracking-wider'
+const baseStyles: string = 'rounded-lg tracking-wider hover:cursor-pointer hover:opacity-80 hover:shadow-md hover:scale-105 active:scale-102'
 
 const variants: Record<ButtonVariants, string> = {
-  primary: 'bg-emerald-600 text-emerald-50 hover:cursor-pointer disabled:opacity-20',
+  primary: 'bg-emerald-600 text-emerald-50 disabled:opacity-20',
   secondary: 'bg-green-500 text-emerald-50 hover:cursor-pointer disabled:opacity-20',
 }
 
