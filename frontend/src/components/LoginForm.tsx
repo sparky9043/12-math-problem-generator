@@ -57,6 +57,8 @@ const LoginForm = (props: LoginFormProps) => {
       </div>
       <Button
         type="submit"
+        variant="secondary"
+        size='md'
         disabled={isLoading}
       >login</Button>
     </form>
