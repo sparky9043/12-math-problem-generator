@@ -91,17 +91,22 @@ const StudentCourses = () => {
   console.log(enrolledCourses)
 
   return (
-    <div className='p-2'>
+    <div className='p-4'>
       <div>
         <ul className='flex gap-4'>
           {
             enrolledCourses.map(course =>
-              <li key={course.id} className='my-3'>
-                <div className='border-2 p-4'>
+              <li key={course.id}>
+                <div className='bg-emerald-300 rounded-2xl p-4'>
                   <div>
-                    <h2>
+                    <h2 className='uppercase font-bold text-emerald-900 text-xl'>
                       {course?.title}
                     </h2>
+                  </div>
+                  <div>
+                    <p>
+                      Problems: {course.problems.length}
+                    </p>
                   </div>
                   <div>
                     <Button
@@ -117,7 +122,7 @@ const StudentCourses = () => {
           }
         </ul>
       </div>
-      <div>
+      <div className='my-10'>
         <Togglable text='click to add new course'>
           <form
             onSubmit={handleAddCourse}
