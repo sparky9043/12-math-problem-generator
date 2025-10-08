@@ -71,6 +71,8 @@ const StudentCourses = () => {
     setToken(user.token)
     
     try {
+      if (!courseCode) throw new Error('enter a correct course code')
+
       addCourseMutations.mutate({ courseCode })
       setCourseCode('')
       toast.success('course added!')
@@ -117,18 +119,19 @@ const StudentCourses = () => {
               <label htmlFor="course-code">course code</label>
               <input
                 type="text"
-                className='border-2 rounded px-1 py-0.5'
+                className='outline-2 outline-emerald-400 rounded px-1 py-0.5 hover:outline-emerald-500 focus:outline-emerald-700'
                 value={courseCode}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   setCourseCode(event.target.value)
                 }
+                required={true}
               />
             </div>
             <div>
               <Button
                 variant='primary'
                 type='submit'
-                >
+              >
                 add course
               </Button>
             </div>
