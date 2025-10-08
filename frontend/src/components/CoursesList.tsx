@@ -87,7 +87,7 @@ const CoursesList = () => {
     <div className="p-4">
       <h1 className="uppercase text-3xl font-extrabold tracking-wider my-2">Courses List</h1>
       <ul className="flex flex-col gap-2">
-        {coursesByUser.map(course => <li key={course.id} className="flex gap-10 rounded-xl p-4 bg-emerald-300 hover:bg-emerald-200">
+        {coursesByUser.map(course => <li key={course.id} className="flex gap-10 rounded-xl p-6 bg-emerald-300 hover:bg-emerald-200">
           <div className="flex flex-col gap-2">
             <h2 className="uppercase text-2xl text-emerald-900 font-bold">
               {course.title}
@@ -99,7 +99,7 @@ const CoursesList = () => {
               Students: {course.students.length}
             </p>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             <Button
               variant='primary'
               size='sm'
