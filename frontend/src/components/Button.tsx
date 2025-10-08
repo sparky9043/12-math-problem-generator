@@ -11,7 +11,7 @@ const baseStyles: string = 'rounded-lg tracking-wider hover:cursor-pointer hover
 
 const variants: Record<ButtonVariants, string> = {
   primary: 'bg-emerald-600 text-emerald-50 disabled:opacity-20',
-  secondary: 'bg-green-500 text-emerald-50 hover:cursor-pointer disabled:opacity-20',
+  secondary: 'bg-emerald-50 text-emerald-600 hover:cursor-pointer disabled:opacity-20',
 }
 
 const sizes: Record<ButtonSizes, string> = {

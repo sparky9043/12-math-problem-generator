@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Button from "./Button"
 
 interface TogglableProps {
   children: React.ReactNode,
@@ -15,19 +16,19 @@ const Togglable = (props: TogglableProps) => {
   return (
     <div>
       <div style={{ display: showPanel ? 'none' : '' }}>
-        <button
-          className='border-2 px-2 py-1 rounded'
+        <Button
+          variant="secondary"
           onClick={handleShowPanel}
         >
           {props.text}
-        </button>
+        </Button>
       </div>
       <div style={{ display: showPanel ? '' : 'none' }}>
         {props.children}
-        <button
-          className='border-2 px-2 py-1 rounded'
+        <Button
+          variant="secondary"
           onClick={handleShowPanel}
-        >cancel</button>
+        >cancel</Button>
       </div>
     </div>
   )
