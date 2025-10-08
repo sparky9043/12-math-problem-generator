@@ -86,7 +86,7 @@ const CoursesList = () => {
     <div className="p-2">
       <h2>Courses List</h2>
       <ul className="flex flex-col gap-2">
-        {coursesByUser.map(course => <li key={course.id} className="flex gap-10 items-center">
+        {coursesByUser.map(course => <li key={course.id} className="flex gap-10 items-center rounded-xl p-4 bg-emerald-300">
           <div>
             <h3>
               {course.title}
@@ -95,30 +95,32 @@ const CoursesList = () => {
               Problems Created: {course.problems.length}
             </p>
           </div>
-          <Button
-            variant='primary'
-            size='sm'
-            onClick={() => navigate(`/dashboard/problemform/${course.id}`)}
-          >
-            create problem
-          </Button>
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={() => handleDeleteCourse(String(course.id))}
-          >
-            delete course
-          </Button>
-          {course.problems.length > 0 && <Button
-            variant="primary"
-            size="sm"
-            onClick={() => navigate(`${course.id}`)}
-          >
-            view problems
-          </Button>}
+          <div className="flex flex-col gap-2">
+            <Button
+              variant='primary'
+              size='sm'
+              onClick={() => navigate(`/dashboard/problemform/${course.id}`)}
+            >
+              create problem
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => handleDeleteCourse(String(course.id))}
+            >
+              delete course
+            </Button>
+            {course.problems.length > 0 && <Button
+              variant="primary"
+              size="sm"
+              onClick={() => navigate(`${course.id}`)}
+            >
+              view problems
+            </Button>}
+          </div>
         </li>)}
       </ul>
-      <div>
+      <div className="my-2">
         {createCourseLink()}
       </div>
       <Outlet />
