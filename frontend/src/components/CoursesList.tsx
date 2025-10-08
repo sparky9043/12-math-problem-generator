@@ -13,7 +13,8 @@ interface Course {
   id: number,
   title: string,
   user: string,
-  problems: Problem[]
+  problems: Problem[],
+  students: string[]
 }
 
 const CoursesList = () => {
@@ -83,16 +84,19 @@ const CoursesList = () => {
   }
 
   return (
-    <div className="p-2">
-      <h2>Courses List</h2>
+    <div className="p-4">
+      <h1 className="uppercase text-3xl font-extrabold tracking-wider my-2">Courses List</h1>
       <ul className="flex flex-col gap-2">
-        {coursesByUser.map(course => <li key={course.id} className="flex gap-10 items-center rounded-xl p-4 bg-emerald-300">
-          <div>
-            <h3>
+        {coursesByUser.map(course => <li key={course.id} className="flex gap-10 rounded-xl p-4 bg-emerald-300 hover:bg-emerald-200">
+          <div className="flex flex-col gap-2">
+            <h2 className="uppercase text-2xl text-emerald-900 font-bold">
               {course.title}
-            </h3>
+            </h2>
             <p>
-              Problems Created: {course.problems.length}
+              Problems: {course.problems.length}
+            </p>
+            <p>
+              Students: {course.students.length}
             </p>
           </div>
           <div className="flex flex-col gap-2">
