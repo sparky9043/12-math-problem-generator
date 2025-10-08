@@ -88,8 +88,6 @@ const StudentCourses = () => {
     navigate(`${courseId}`)
   }
 
-  console.log(enrolledCourses)
-
   return (
     <div className='p-4'>
       <div>
