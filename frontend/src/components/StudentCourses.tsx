@@ -88,25 +88,33 @@ const StudentCourses = () => {
     navigate(`${courseId}`)
   }
 
+  console.log(enrolledCourses)
+
   return (
     <div className='p-2'>
       <div>
-        <ul>
-          {enrolledCourses.map(course => <li key={course.id} className='my-3 flex flex-col gap-4'>
-            <div>
-              <span>
-                {course?.title}
-              </span>
-            </div>
-            <div>
-              <Button
-                variant='primary'
-                onClick={() => handleViewAssignment(course.id)}
-                >
-                click to view
-              </Button>
-            </div>
-          </li>)}
+        <ul className='flex gap-4'>
+          {
+            enrolledCourses.map(course =>
+              <li key={course.id} className='my-3'>
+                <div className='border-2 p-4'>
+                  <div>
+                    <h2>
+                      {course?.title}
+                    </h2>
+                  </div>
+                  <div>
+                    <Button
+                      variant='primary'
+                      onClick={() => handleViewAssignment(course.id)}
+                      >
+                      click to view
+                    </Button>
+                  </div>
+                </div>
+              </li>
+            )
+          }
         </ul>
       </div>
       <div>
