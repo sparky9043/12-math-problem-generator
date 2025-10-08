@@ -6,6 +6,7 @@ import Togglable from './Togglable'
 import { useState } from 'react'
 import courseServices, { setToken } from '../services/courses'
 import toast from 'react-hot-toast'
+import Button from './Button'
 
 interface Course {
   courseCode: string,
@@ -89,14 +90,20 @@ const StudentCourses = () => {
     <div className='p-2'>
       <div>
         <ul>
-          {enrolledCourses.map(course => <li key={course.id} className='my-3'>
-            {course?.title}
-            <button
-              className='border-2 border-emerald-500'
-              onClick={() => handleViewAssignment(course.id)}
-            >
-              click to view assignments
-            </button>
+          {enrolledCourses.map(course => <li key={course.id} className='my-3 flex flex-col gap-4'>
+            <div>
+              <span>
+                {course?.title}
+              </span>
+            </div>
+            <div>
+              <Button
+                variant='primary'
+                onClick={() => handleViewAssignment(course.id)}
+                >
+                click to view
+              </Button>
+            </div>
           </li>)}
         </ul>
       </div>
@@ -118,12 +125,12 @@ const StudentCourses = () => {
               />
             </div>
             <div>
-              <button
-                className='border-2 px-2 py-1 rounded'
+              <Button
+                variant='primary'
                 type='submit'
                 >
                 add course
-              </button>
+              </Button>
             </div>
           </form>
         </Togglable>
