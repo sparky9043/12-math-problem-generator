@@ -97,7 +97,7 @@ const StudentCourses = () => {
           {
             enrolledCourses.map(course =>
               <li key={course.id}>
-                <div className='bg-emerald-300 rounded-2xl p-4'>
+                <div className='bg-emerald-300 rounded-2xl p-4 flex flex-col gap-4'>
                   <div>
                     <h2 className='uppercase font-bold text-emerald-900 text-xl'>
                       {course?.title}
@@ -106,6 +106,9 @@ const StudentCourses = () => {
                   <div>
                     <p>
                       Problems: {course.problems.length}
+                    </p>
+                    <p>
+                      Students: {course.students.length}
                     </p>
                   </div>
                   <div>
