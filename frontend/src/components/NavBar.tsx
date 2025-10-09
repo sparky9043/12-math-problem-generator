@@ -20,7 +20,7 @@ const NavBar = (props: NavBarProps) => {
   }, [props, isExpired])
 
   return (
-    <nav className="flex justify-between p-8 h-1/8 items-center bg-linear-to-r from-emerald-400 to-emerald-500 text-emerald-50 font-semibold text-shadow-md text-shadow-black tracking-wider">
+    <nav className="flex justify-between p-8 h-1/8 items-center bg-linear-to-r from-emerald-400 to-emerald-500 text-emerald-50 font-semibold text-shadow-xs text-shadow-stone-600 tracking-wider">
       <Toaster />
       <h2>
         <div>
