@@ -19,12 +19,13 @@ const NavBar = (props: NavBarProps) => {
   }, [props, isExpired])
 
   return (
-    <nav className="flex justify-between p-8 bg-emerald-300 h-1/8 items-center">
+    <nav className="flex justify-between p-8 h-1/8 items-center bg-linear-to-r from-emerald-400 to-emerald-500 text-emerald-50 text-shadow-3xl">
       <Toaster />
-      <h2>Logo</h2>
+      <h2>
+        Logo
+      </h2>
       <ul className="flex gap-4 items-center">
         <li>
-          
           {user && <div className="font-semibold">user type: {user.userType}</div>}
         </li>
         <li>

@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer>
+    <footer className="p-2">
       &copy; 2025 sparky dev
     </footer>
   )
