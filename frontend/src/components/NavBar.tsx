@@ -27,7 +27,7 @@ const NavBar = (props: NavBarProps) => {
           <span>
             <Logo />
           </span>
-          <span className="uppercase text-xs">ChalkLit</span>
+          <span className="uppercase text-xs">Chalk-Lit</span>
         </div>
       </h2>
       <ul className="flex gap-4 items-center">
