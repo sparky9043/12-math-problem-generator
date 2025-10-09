@@ -25,7 +25,7 @@ const NavBar = (props: NavBarProps) => {
       <h2>
         <div className="flex flex-col items-center">
           <span>
-            <Logo />
+            <Logo size="12" color="emerald" />
           </span>
           <span className="uppercase text-xs">ChalkLit</span>
         </div>
