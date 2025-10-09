@@ -2,7 +2,7 @@ import Logo from "./Logo"
 
 const HomePage = () => {
   return (
-    <div className="p-6 text-emerald-700 h-2/5 text-shadow-md text-shadow-stone-300">
+    <div className="p-6 text-emerald-800 h-2/5 text-shadow-md text-shadow-stone-300">
       <div className="text-center">
         <h2 className="font-bold text-2xl">
           Setup Your Classroom <br /> with
