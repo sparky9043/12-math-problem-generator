@@ -23,8 +23,11 @@ const NavBar = (props: NavBarProps) => {
     <nav className="flex justify-between p-8 h-1/8 items-center bg-linear-to-r from-emerald-400 to-emerald-500 text-emerald-50 font-semibold text-shadow-xs text-shadow-stone-600 tracking-wider">
       <Toaster />
       <h2>
-        <div>
-          <Logo />
+        <div className="flex flex-col items-center">
+          <span>
+            <Logo />
+          </span>
+          <span className="uppercase text-xs">ChalkLit</span>
         </div>
       </h2>
       <ul className="flex gap-4 items-center">

@@ -1,6 +1,6 @@
 const HomePage = () => {
   return (
-    <div className="p-2">
+    <div className="p-2 text-emerald-950">
       <h2 className="font-bold">
         Setup Your Classroom
       </h2>
