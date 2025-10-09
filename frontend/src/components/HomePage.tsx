@@ -1,6 +1,6 @@
 const HomePage = () => {
   return (
-    <div className="border-2">
+    <div>
       This is the homepage
     </div>
   )
