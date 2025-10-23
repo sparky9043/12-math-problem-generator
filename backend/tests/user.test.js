@@ -32,6 +32,15 @@ describe('GET Request', () => {
 
     assert(usernames.includes(helper.defaultUsers[0].username))
   })
+
+  test('returns one user when requesting user with id', async () => {
+    const response = await api
+      .get(`${baseUrl}/${helper.defaultUsers[0]._id}`)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    assert.strictEqual(response.body.username, helper.defaultUsers[0].username)
+  } )
 })
 
 after(async () => {
