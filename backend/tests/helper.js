@@ -16,3 +16,5 @@ const defaultUsers = [
     userType: 'student',
   }
 ]
+
+module.exports = { defaultUsers }
