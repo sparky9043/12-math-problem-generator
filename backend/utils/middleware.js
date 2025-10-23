@@ -3,12 +3,12 @@ const jwt = require('jsonwebtoken')
 const configs = require('./configs')
 const User = require('../models/user')
 
-const requestLogger = (request, response, next) => {
-  logger.info('Method: ', request.method)
-  logger.info('Path: ', request.path)
+// const requestLogger = (request, response, next) => {
+//   logger.info('Method: ', request.method)
+//   logger.info('Path: ', request.path)
 
-  next()
-}
+//   next()
+// }
 
 const errorHandler = (error, request, response, next) => {
   logger.error(error.message)
@@ -56,4 +56,4 @@ const userExtractor = async (request, response, next) => {
   }
 }
 
-module.exports = { requestLogger, errorHandler, tokenExtractor, userExtractor }
+module.exports = { errorHandler, tokenExtractor, userExtractor }

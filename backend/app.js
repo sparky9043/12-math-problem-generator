@@ -25,7 +25,7 @@ mongoose
 app.use(express.static('dist'))
 app.use(express.json())
 app.use(morgan('dev'))
-app.use(middleware.requestLogger)
+// app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 
 app.get('/health', async (_request, response) => {
