@@ -2,8 +2,6 @@
 
 A full-stack web application that lets math teachers build courses, author multiple-choice problems, group them into assignments, and distribute them to students via join codes. Students complete assignments in the browser and receive automatic grading based on their answers.
 
-**Live version:** [https://learning-tracker-y26o.onrender.com/](https://learning-tracker-y26o.onrender.com/)
-
 **Repository:** [https://github.com/sparky9043/12-math-problem-generator](https://github.com/sparky9043/12-math-problem-generator)
 
 ---
